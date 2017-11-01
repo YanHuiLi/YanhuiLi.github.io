@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="J2SE,this关键字," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java学习笔记整理（6）">
+<meta property="og:url" content="http://yanhuili.github.io/2017/07/11/Java学习笔记整理（6）/index.html">
+<meta property="og:site_name" content="野望的小屋">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707110908_530.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707110920_960.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707110931_302.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707110944_8.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707111041_440.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707111045_139.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707111118_143.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707111403_715.png">
+<meta property="og:updated_time" content="2017-08-08T04:04:51.112Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java学习笔记整理（6）">
+<meta name="twitter:image" content="http://ogtmd8elu.bkt.clouddn.com/201707110908_530.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"hide","offset":0,"offset_float":0,"b2t":true,"scrollpercent":true,"onmobile":"flase"},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yanhuili.github.io/2017/07/11/Java学习笔记整理（6）/"/>
+
+
+
+
+
+  <title>Java学习笔记整理（6） | 野望的小屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">野望的小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">永不言弃。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yanhuili.github.io/2017/07/11/Java学习笔记整理（6）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="野望">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="野望的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Java学习笔记整理（6）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-11T14:39:45+08:00">
+                2017-07-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-08-08T12:04:51+08:00">
+                2017-08-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/J2SE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2SE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/11/Java学习笔记整理（6）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/11/Java学习笔记整理（6）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/11/Java学习笔记整理（6）/" class="leancloud_visitors" data-flag-title="Java学习笔记整理（6）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h3 id="代码格式"><a href="#代码格式" class="headerlink" title="代码格式"></a>代码格式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Object</span> </span>&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	Java约定俗成</div><div class="line">	1,类名接口名  一个单词首字母大写,多个单词每个单词首字母都大写</div><div class="line">	2,方法名和变量名 一个单词全部小写,多个单词从第二个单词首字母大写</div><div class="line">	建议:如果能用英语尽量用英语,实在不行用汉语拼音</div><div class="line">	代码书写格式</div><div class="line">	1,大括号成对写,左大括号在该行代码的最后,右大括号在该行代码的下边,并与该行代码对齐</div><div class="line">	2,左大括号前面有空格</div><div class="line">	3,并排语句中间都需要加空格</div><div class="line">	4,语句块或者方法中间加空行</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">for</span> (; ; ) &#123;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		<span class="keyword">while</span> () &#123;															</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> () &#123;</div><div class="line">		&#125;<span class="keyword">else</span> &#123;</div><div class="line">			System.out.println();&#125;	</div><div class="line">			</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="面向对象思想概述-了解"><a href="#面向对象思想概述-了解" class="headerlink" title="面向对象思想概述(了解)"></a>面向对象思想概述(了解)</h3><ul>
+<li>A:面向过程思想概述<ul>
+<li>第一步</li>
+<li>第二步 </li>
+</ul>
+</li>
+<li>B:面向对象思想概述<ul>
+<li>找对象(第一步,第二步) </li>
+</ul>
+</li>
+<li>C:举例<ul>
+<li>买煎饼果子</li>
+<li>洗衣服 </li>
+</ul>
+</li>
+<li>C:面向对象思想特点<ul>
+<li>a:是一种更符合我们思想习惯的思想</li>
+<li>b:可以将复杂的事情简单化</li>
+<li>c:将我们从执行者变成了指挥者<ul>
+<li>角色发生了转换</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>面向对象的思想更为简洁方便，不用所有行为都需要自己去做（都交给对象对做），同时我也认为这也是高度解耦的一种形式。</p>
+<h3 id="面向对象开发-设计以及特征-了解"><a href="#面向对象开发-设计以及特征-了解" class="headerlink" title="面向对象开发,设计以及特征(了解)"></a>面向对象开发,设计以及特征(了解)</h3><ul>
+<li>A:面向对象开发<ul>
+<li>就是不断的创建对象，使用对象，指挥对象做事情。</li>
+</ul>
+</li>
+<li>B:面向对象设计<ul>
+<li>其实就是在管理和维护对象之间的关系。</li>
+</ul>
+</li>
+<li>C:面向对象特征<ul>
+<li>封装(encapsulation)</li>
+<li>继承(inheritance)</li>
+<li>多态(polymorphism)</li>
+</ul>
+</li>
+</ul>
+<h3 id="类与对象概述"><a href="#类与对象概述" class="headerlink" title="类与对象概述"></a>类与对象概述</h3><ul>
+<li>A:我们学习编程是为了什么<ul>
+<li>为了把我们日常生活中实物用学习语言描述出来</li>
+</ul>
+</li>
+<li>B:我们如何描述现实世界事物<ul>
+<li>属性    就是该事物的描述信息(事物身上的名词)</li>
+<li>行为    就是该事物能够做什么(事物身上的动词)</li>
+</ul>
+</li>
+<li>C:Java中最基本的单位是类,Java中用class描述事物也是如此<ul>
+<li>成员变量    就是事物的属性</li>
+<li>成员方法    就是事物的行为</li>
+</ul>
+</li>
+<li>D:定义类其实就是定义类的成员(成员变量和成员方法)<ul>
+<li>a:成员变量    和以前定义变量是一样的，只不过位置发生了改变。在类中，方法外。</li>
+<li>b:成员方法    和以前定义方法是一样的，只不过把static去掉，后面在详细讲解static的作用。</li>
+</ul>
+</li>
+<li>E:类和对象的概念<ul>
+<li>a:类：是一组相关的属性和行为的集合</li>
+<li>b:对象：是该类事物的具体体现</li>
+<li>c:举例：<ul>
+<li>类     学生</li>
+<li>对象    具体的某个学生就是一个对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="学生类的定义"><a href="#学生类的定义" class="headerlink" title="学生类的定义"></a>学生类的定义</h3><ul>
+<li>A:学生事物</li>
+<li>B:学生类</li>
+<li>C:案例演示<ul>
+<li>属性:姓名,年龄,性别</li>
+<li>行为:学习,睡觉</li>
+</ul>
+</li>
+</ul>
+<h3 id="手机类的定义"><a href="#手机类的定义" class="headerlink" title="手机类的定义"></a>手机类的定义</h3><ul>
+<li>模仿学生类，让学生自己完成<ul>
+<li>属性:品牌(brand)价格(price)</li>
+<li>行为:打电话(call),发信息(sendMessage)玩游戏(playGame)</li>
+</ul>
+</li>
+</ul>
+<h3 id="学生类的使用"><a href="#学生类的使用" class="headerlink" title="学生类的使用"></a>学生类的使用</h3><ul>
+<li>A:文件名问题<ul>
+<li>在一个java文件中写两个类：一个基本的类，一个测试类。</li>
+<li>建议：文件名称和测试类名称一致。</li>
+</ul>
+</li>
+<li>B:如何使用对象?<ul>
+<li>创建对象并使用</li>
+<li>格式：类名 对象名 = new 类名();</li>
+</ul>
+</li>
+<li>D:如何使用成员变量呢?<ul>
+<li>对象名.变量名</li>
+</ul>
+</li>
+<li>E:如何使用成员方法呢?<ul>
+<li>对象名.方法名(…)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo3Student</span> </span>&#123;							<span class="comment">//测试类,包含主函数,测试类的类名要与文件名一致</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">/*</span></div><div class="line">		* 创建对象并使用</div><div class="line">		* 格式：类名 对象名 = new 类名();</div><div class="line">		*/</div><div class="line"></div><div class="line">		Student s = <span class="keyword">new</span> Student();				<span class="comment">//创建对象</span></div><div class="line">		<span class="comment">//String name = s.name;					//获取对象的属性(成员变量)</span></div><div class="line">		<span class="comment">//int age = s.age;</span></div><div class="line">		<span class="comment">//char gender = s.gender;</span></div><div class="line">		s.name = <span class="string">"张三"</span>;</div><div class="line">		s.age = <span class="number">23</span>;</div><div class="line">		s.gender = <span class="string">'男'</span>;</div><div class="line"></div><div class="line">		s.study();								<span class="comment">//获取对象的行为(成员方法)</span></div><div class="line">		s.sleep();</div><div class="line"></div><div class="line">		s.name = <span class="string">"李四"</span>;</div><div class="line">		s.study();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	* 属性:姓名,年龄,性别(成员变量)</div><div class="line">	* 行为:学习,睡觉(成员方法)</div><div class="line">	*/</div><div class="line"></div><div class="line">	String name ;</div><div class="line">	<span class="keyword">int</span> age ;</div><div class="line">	<span class="keyword">char</span> gender ;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(name + <span class="string">"在学习"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(name + <span class="string">"在睡觉"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="手机类的使用"><a href="#手机类的使用" class="headerlink" title="手机类的使用"></a>手机类的使用</h3><ul>
+<li>A:学生自己完成<ul>
+<li>模仿学生类，让学生自己完成</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo4Phone</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Phone p = <span class="keyword">new</span> Phone();						<span class="comment">//创建对象在最后有小括号</span></div><div class="line">		p.brand = <span class="string">"三星"</span>;							<span class="comment">//调用属性的时候后面没有括号</span></div><div class="line">		p.price = <span class="number">14999</span>;</div><div class="line">		p.color = <span class="string">"天空灰"</span>;</div><div class="line"></div><div class="line">		p.call();									<span class="comment">//调用方法的时候后面有括号</span></div><div class="line"></div><div class="line">		System.out.println(<span class="string">"我是一部"</span> + p.brand + <span class="string">"手机,价格是:"</span> + p.price + <span class="string">",颜色是:"</span> + p.color);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> 属性:品牌(brand)价格(price)</div><div class="line">* 行为:打电话(call),发信息(sendMessage)玩游戏(playGame)</div><div class="line">*/</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Phone</span> </span>&#123;</div><div class="line">	String brand;</div><div class="line">	<span class="keyword">int</span> price;</div><div class="line">	String color;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"打电话"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"发信息"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">playGame</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"玩游戏"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="一个对象的内存图"><a href="#一个对象的内存图" class="headerlink" title="一个对象的内存图"></a>一个对象的内存图</h3><ul>
+<li>A:画图演示<ul>
+<li>一个对象<br><img src="http://ogtmd8elu.bkt.clouddn.com/201707110908_530.png" alt=""><br>所有代码进入方法区，换成xxx.class字节码文件，等待调用，同时main方法入栈，开始调用方法区的class字节码文件并写入内存，如果是new出一个对象（所有new出来的对象，都存储在栈上，并有一个地址，通过地址访问），就在栈里面开辟空间并初始化赋值。</li>
+</ul>
+</li>
+</ul>
+<p>输出结束以后，方法进行弹栈，对象会被不定时的回收。</p>
+<h3 id="二个对象的内存图"><a href="#二个对象的内存图" class="headerlink" title="二个对象的内存图"></a>二个对象的内存图</h3><ul>
+<li>A:画图演示<ul>
+<li>二个不同的对象<br><img src="http://ogtmd8elu.bkt.clouddn.com/201707110920_960.png" alt=""><br>运行程序以后，java文件从硬盘上加载到方法区，转换成计算机可执行的字节码（类似一个代码仓库，等待调用），同时main方法入栈，new出来对象存储在栈上，并存储成员变量，并把地址传给person，进行访问。当方法执行完毕以后，进行弹栈。</li>
+</ul>
+</li>
+</ul>
+<p>每new一次就会产生一个新的对象，内存充足的时候，并不会被回收覆盖。</p>
+<h3 id="三个对象的内存图"><a href="#三个对象的内存图" class="headerlink" title="三个对象的内存图"></a>三个对象的内存图</h3><ul>
+<li>A:画图演示<ul>
+<li>三个引用，有两个对象的引用指向同一个地址<br><img src="http://ogtmd8elu.bkt.clouddn.com/201707110931_302.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<h3 id="成员变量和局部变量的区别"><a href="#成员变量和局部变量的区别" class="headerlink" title="成员变量和局部变量的区别"></a>成员变量和局部变量的区别</h3><ul>
+<li>A:在类中的位置不同<ul>
+<li>成员变量：在类中方法外</li>
+<li>局部变量：在方法定义中或者方法声明上</li>
+</ul>
+</li>
+<li>B:在内存中的位置不同<ul>
+<li>成员变量：在堆内存(成员变量属于对象,对象进堆内存)</li>
+<li>局部变量：在栈内存(局部变量属于方法,方法进栈内存)</li>
+</ul>
+</li>
+<li>C:生命周期不同<ul>
+<li>成员变量：随着对象的创建而存在，随着对象的消失而消失</li>
+<li>局部变量：随着方法的调用而存在，随着方法的调用完毕而消失</li>
+</ul>
+</li>
+<li><p>D:初始化值不同</p>
+<ul>
+<li>成员变量：有默认初始化值</li>
+<li>局部变量：没有默认初始化值，必须定义，赋值，然后才能使用。</li>
+</ul>
+</li>
+<li><p>注意事项：</p>
+<ul>
+<li>局部变量名称可以和成员变量名称一样，在方法中使用的时候，采用的是就近原则,自己有就不用其他的了。</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707110944_8.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Person</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Person p = <span class="keyword">new</span> Person();			<span class="comment">//创建对象</span></div><div class="line">		p.name = <span class="string">"张三"</span>;					<span class="comment">//给对象属性赋值</span></div><div class="line">		p.age = <span class="number">23</span>;</div><div class="line"></div><div class="line">		p.speak(<span class="number">20</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</div><div class="line">	String name;							<span class="comment">//定义在类中,方法外,成员变量</span></div><div class="line">	<span class="keyword">int</span> age;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">(<span class="keyword">int</span> y)</span> </span>&#123;				<span class="comment">//定义在方法上,局部变量</span></div><div class="line">		<span class="keyword">int</span> x = <span class="number">10</span>;							<span class="comment">//定义在方法内,局部变量</span></div><div class="line">		<span class="keyword">int</span> age = <span class="number">30</span>;						<span class="comment">//java中有就近原则</span></div><div class="line">		System.out.println(name+ <span class="string">","</span> + age);</div><div class="line"></div><div class="line">		System.out.println(x + <span class="string">","</span> + y);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="方法的形式参数或返回值是类名的时候如何调用"><a href="#方法的形式参数或返回值是类名的时候如何调用" class="headerlink" title="方法的形式参数或返回值是类名的时候如何调用"></a>方法的形式参数或返回值是类名的时候如何调用</h3><ul>
+<li>A:方法的参数是类名public void print(Student s){}//print(new Student());<ul>
+<li>如果你看到了一个方法的形式参数是一个类类型(引用类型)，这里其实需要的是该类的对象。</li>
+</ul>
+</li>
+<li>B:方法的返回值是类名public Student print(){return s}<ul>
+<li>如果你看到了一个方法的返回值是类名,这里其实返回的是该类对象</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo2Student</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Test1 t = <span class="keyword">new</span> Test1();</div><div class="line">		<span class="comment">//Student stu = new Student();				//s = 0x0011</span></div><div class="line">		<span class="comment">//t.run(stu);</span></div><div class="line"></div><div class="line">		Student stu = t.aaa();						<span class="comment">//s = 0x0022</span></div><div class="line">		<span class="keyword">int</span> x = t.xxx();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</div><div class="line">	String name;</div><div class="line">	<span class="keyword">int</span> age;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(name + <span class="string">","</span> +  age);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(Student s)</span> </span>&#123;			<span class="comment">//参数是引用数据类型,调用这个方法时传递的是该类的对象</span></div><div class="line">		System.out.println(<span class="string">"run"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> Student <span class="title">aaa</span><span class="params">()</span> </span>&#123;					<span class="comment">//返回值类型是引用数据类型,返回的就是该类对象</span></div><div class="line">		Student s = <span class="keyword">new</span> Student();			<span class="comment">//s = 0x0022</span></div><div class="line">		<span class="keyword">return</span> s;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">xxx</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> x = <span class="number">10</span>;</div><div class="line">		<span class="keyword">return</span> x;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">bbb</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="string">"aaa"</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="方法的形式参数是类名的调用过程"><a href="#方法的形式参数是类名的调用过程" class="headerlink" title="方法的形式参数是类名的调用过程"></a>方法的形式参数是类名的调用过程</h4><p><img src="http://ogtmd8elu.bkt.clouddn.com/201707111041_440.png" alt=""></p>
+<h4 id="返回值是类名的调用过程"><a href="#返回值是类名的调用过程" class="headerlink" title="返回值是类名的调用过程"></a>返回值是类名的调用过程</h4><p><img src="http://ogtmd8elu.bkt.clouddn.com/201707111045_139.png" alt=""></p>
+<p>本质上是通过分配的地址找到对象，以及访问到其中的数据。</p>
+<h3 id="匿名对象的概述和应用"><a href="#匿名对象的概述和应用" class="headerlink" title="匿名对象的概述和应用"></a>匿名对象的概述和应用</h3><ul>
+<li>A:什么是匿名对象</li>
+<li>B:匿名对象应用场景<ul>
+<li>a:调用方法，仅仅只调用一次的时候。<ul>
+<li>那么，这种匿名调用有什么好处吗?<ul>
+<li>节省代码 </li>
+</ul>
+</li>
+<li>注意：调用多次的时候，不适合。匿名对象调用完毕就是垃圾。可以被垃圾回收器回收。</li>
+</ul>
+</li>
+<li>b:匿名对象可以作为实际参数传递</li>
+</ul>
+</li>
+<li>C:案例演示<ul>
+<li>匿名对象应用场景</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Car</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Car c1 = <span class="keyword">new</span> Car();					<span class="comment">//c1是对象的名字</span></div><div class="line">		<span class="comment">//new Car();							//匿名对象</span></div><div class="line"></div><div class="line">		c1.color = <span class="string">"red"</span>;</div><div class="line">		c1.num = <span class="number">8</span>;</div><div class="line">		c1.run();</div><div class="line"></div><div class="line">		<span class="keyword">new</span> Car().color = <span class="string">"blue"</span>;			<span class="comment">//匿名对象是否可以调用属性?可以但是没有意义</span></div><div class="line">		<span class="keyword">new</span> Car().num = <span class="number">4</span>;</div><div class="line">		<span class="keyword">new</span> Car().run();					<span class="comment">//匿名对象是否可以调用方法?可以</span></div><div class="line"></div><div class="line">		Car c2 = <span class="keyword">new</span> Car();</div><div class="line">		c2.print();</div><div class="line">		c2.print();</div><div class="line">		<span class="keyword">new</span> Car().print();					<span class="comment">//匿名对象调用方法的好处,只是节省了代码</span></div><div class="line">		<span class="keyword">new</span> Car().print();					<span class="comment">//如果对同一个方法多次调用,必须用有名字的对象</span></div><div class="line">		<span class="keyword">new</span> Car().print();					<span class="comment">//因为匿名对象会创建多个对象,浪费空间</span></div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;</div><div class="line">	String color;</div><div class="line">	<span class="keyword">int</span> num;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(color + <span class="string">","</span> + num);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"11111111111111111111111111"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707111118_143.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo2Car</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//Car c1 = new Car();</span></div><div class="line">		<span class="comment">/*c1.color = "black";</span></div><div class="line">		c1.num = 4;</div><div class="line">		c1.run();*/</div><div class="line">		<span class="comment">//method(c1);</span></div><div class="line"></div><div class="line">		method(<span class="keyword">new</span> Car());					<span class="comment">//匿名对象可以当作参数传递</span></div><div class="line"></div><div class="line">		Car c2 = <span class="keyword">new</span> Car();</div><div class="line">		<span class="comment">/*c2.color = "black";</span></div><div class="line">		c2.num = 4;</div><div class="line">		c2.run();*/</div><div class="line">		method(c2);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(Car cc)</span> </span>&#123;		<span class="comment">//Car cc = new Car();</span></div><div class="line">		cc.color = <span class="string">"black"</span>;</div><div class="line">		cc.num = <span class="number">4</span>;</div><div class="line">		cc.run();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;</div><div class="line">	String color;</div><div class="line">	<span class="keyword">int</span> num;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(color + <span class="string">","</span> + num);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="封装的概述"><a href="#封装的概述" class="headerlink" title="封装的概述"></a>封装的概述</h3><ul>
+<li>A:封装概述<ul>
+<li>是指隐藏对象的属性和实现细节，仅对外提供公共访问方式。</li>
+</ul>
+</li>
+<li>B:封装好处<ul>
+<li>隐藏实现细节，提供公共的访问方式</li>
+<li>提高了代码的复用性</li>
+<li>提高安全性。</li>
+</ul>
+</li>
+<li>C:封装原则<ul>
+<li>将不需要对外提供的内容都隐藏起来。</li>
+<li>把属性隐藏，提供公共方法对其访问。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">封装的作用。</div><div class="line"> </div><div class="line">*/</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Person</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Person p = <span class="keyword">new</span> Person();</div><div class="line">		p.name = <span class="string">"dayone"</span>;</div><div class="line">		<span class="comment">//p.age = -17;</span></div><div class="line">		p.setAge(-<span class="number">17</span>);</div><div class="line">		System.out.println(p.getAge());</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</div><div class="line">	String name;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;							<span class="comment">//private私有,只能在本类访问</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(name + <span class="string">","</span> +  age);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/*</span></div><div class="line">	对外提供公共的访问方法,分别是setXxx()和getXxx()</div><div class="line">	可以写if else，对程序进行控制，保证数据的安全性。</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (a &gt; <span class="number">0</span> &amp;&amp; a &lt; <span class="number">200</span>) &#123;</div><div class="line">			age = a;</div><div class="line">		&#125;<span class="keyword">else</span> &#123;</div><div class="line">			System.out.println(<span class="string">"回火星吧"</span>);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> age;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="private关键字的概述和特点"><a href="#private关键字的概述和特点" class="headerlink" title="private关键字的概述和特点"></a>private关键字的概述和特点</h3><ul>
+<li>A:人类赋值年龄的问题</li>
+<li>B:private关键字特点<ul>
+<li>a:是一个权限修饰符</li>
+<li>b:可以修饰成员变量和成员方法</li>
+<li>c:被其修饰的成员只能在本类中被访问</li>
+</ul>
+</li>
+<li>C:案例演示<ul>
+<li>封装和private的应用：</li>
+<li>A:把成员变量用private修饰</li>
+<li>B:提高对应的getXxx()和setXxx()方法</li>
+<li>private仅仅是封装的一种体现形式,不能说封装就是私有</li>
+</ul>
+</li>
+</ul>
+<h3 id="this关键字的概述和应用"><a href="#this关键字的概述和应用" class="headerlink" title="this关键字的概述和应用"></a>this关键字的概述和应用</h3><ul>
+<li>A:this关键字特点</li>
+<li>B:案例演示<ul>
+<li>this的应用场景</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707111403_715.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1This</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Person p = <span class="keyword">new</span> Person();</div><div class="line">		p.setName(<span class="string">"王学兵"</span>);</div><div class="line">		p.setAge(<span class="number">44</span>);</div><div class="line"></div><div class="line">		<span class="comment">//System.out.println(p.getName() + "年龄是:" + p.getAge() + "又进去了");</span></div><div class="line"></div><div class="line">		p.print();</div><div class="line">		System.out.println(p);</div><div class="line"></div><div class="line">		System.out.println(<span class="string">"========================="</span>);</div><div class="line">		Person p2 = <span class="keyword">new</span> Person();</div><div class="line">		p2.print();</div><div class="line">		System.out.println(p2);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> String name;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line"></div><div class="line">	<span class="comment">//变量名要求见名只意</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;	<span class="comment">//name = "王学兵"</span></div><div class="line">		<span class="keyword">this</span>.name = name;				<span class="comment">//this代表当前对象的引用</span></div><div class="line">	&#125;									<span class="comment">//局部变量绝对不能用对象.调用</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> name;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</div><div class="line">		age = a;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> age;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"print方法中的:"</span> + <span class="keyword">this</span>);</div><div class="line">		method();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"method"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	this可以用来区分成员变量和局部变量重名,用this.调用的是成员变量</div><div class="line">	this可以调用成员方法</div><div class="line">	*/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="标准的手机类代码及其测试"><a href="#标准的手机类代码及其测试" class="headerlink" title="标准的手机类代码及其测试"></a>标准的手机类代码及其测试</h3><ul>
+<li>A:学生练习<ul>
+<li>请把手机类写成一个标准类，然后创建对象测试功能。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo2This</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Phone p = <span class="keyword">new</span> Phone();</div><div class="line">		p.setBrand(<span class="string">"锤子"</span>);</div><div class="line">		p.setPrice(<span class="number">2480</span>);</div><div class="line">		p.setColor(<span class="string">"白色"</span>);</div><div class="line"></div><div class="line">		System.out.println(<span class="string">"罗永浩生产了"</span> + p.getBrand() + <span class="string">"手机,价格是:"</span> + p.getPrice() + <span class="string">",颜色是:"</span> + p.getColor());</div><div class="line"></div><div class="line">		p.call();</div><div class="line">		p.sendMessage();</div><div class="line">		p.playGame();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/*</span></div><div class="line">请把手机类写成一个标准类，然后创建对象测试功能。</div><div class="line">*/</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Phone</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> String brand;			<span class="comment">//品牌</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> price;				<span class="comment">//价格</span></div><div class="line">	<span class="keyword">private</span> String color;			<span class="comment">//颜色</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBrand</span><span class="params">(String brand)</span> </span>&#123;		<span class="comment">//setXxx方法,修改值</span></div><div class="line">		<span class="keyword">this</span>.brand = brand;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPrice</span><span class="params">(<span class="keyword">int</span> price)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.price = price;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setColor</span><span class="params">(String color)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.color = color;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getBrand</span><span class="params">()</span> </span>&#123;					<span class="comment">//getXxx方法,获取值</span></div><div class="line">		<span class="keyword">return</span> brand;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPrice</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> price;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getColor</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> color;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"打电话"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"发信息"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">playGame</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"玩游戏"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="野望 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎订阅我的个人微信技术博客。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://ogtmd8elu.bkt.clouddn.com/WechatPay-min.png" alt="野望 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://ogtmd8elu.bkt.clouddn.com/pay-min.jpg" alt="野望 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/J2SE/" rel="tag"># J2SE</a>
+          
+            <a href="/tags/this关键字/" rel="tag"># this关键字</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/11/Java学习笔记整理（4）/" rel="next" title="Java学习笔记整理（4）">
+                <i class="fa fa-chevron-left"></i> Java学习笔记整理（4）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/12/Java学习笔记整理（7）/" rel="prev" title="Java学习笔记整理（7）">
+                Java学习笔记整理（7） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="野望" />
+          <p class="site-author-name" itemprop="name">野望</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuili" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yan-hui-jun" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/5800502ca0bb9f00586674c8" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      掘金
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/6043346/archer" target="_blank" title="StackOverFlow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      StackOverFlow
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/yanhui" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      segmentfault
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.0xaa55.com/" title="技术宅的结界" target="_blank">技术宅的结界</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码格式"><span class="nav-number">1.</span> <span class="nav-text">代码格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象思想概述-了解"><span class="nav-number">2.</span> <span class="nav-text">面向对象思想概述(了解)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象开发-设计以及特征-了解"><span class="nav-number">3.</span> <span class="nav-text">面向对象开发,设计以及特征(了解)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类与对象概述"><span class="nav-number">4.</span> <span class="nav-text">类与对象概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学生类的定义"><span class="nav-number">5.</span> <span class="nav-text">学生类的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手机类的定义"><span class="nav-number">6.</span> <span class="nav-text">手机类的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学生类的使用"><span class="nav-number">7.</span> <span class="nav-text">学生类的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手机类的使用"><span class="nav-number">8.</span> <span class="nav-text">手机类的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个对象的内存图"><span class="nav-number">9.</span> <span class="nav-text">一个对象的内存图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二个对象的内存图"><span class="nav-number">10.</span> <span class="nav-text">二个对象的内存图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三个对象的内存图"><span class="nav-number">11.</span> <span class="nav-text">三个对象的内存图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成员变量和局部变量的区别"><span class="nav-number">12.</span> <span class="nav-text">成员变量和局部变量的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法的形式参数或返回值是类名的时候如何调用"><span class="nav-number">13.</span> <span class="nav-text">方法的形式参数或返回值是类名的时候如何调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法的形式参数是类名的调用过程"><span class="nav-number">13.1.</span> <span class="nav-text">方法的形式参数是类名的调用过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回值是类名的调用过程"><span class="nav-number">13.2.</span> <span class="nav-text">返回值是类名的调用过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名对象的概述和应用"><span class="nav-number">14.</span> <span class="nav-text">匿名对象的概述和应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装的概述"><span class="nav-number">15.</span> <span class="nav-text">封装的概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#private关键字的概述和特点"><span class="nav-number">16.</span> <span class="nav-text">private关键字的概述和特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this关键字的概述和应用"><span class="nav-number">17.</span> <span class="nav-text">this关键字的概述和应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准的手机类代码及其测试"><span class="nav-number">18.</span> <span class="nav-text">标准的手机类代码及其测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">野望</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260855711&web_id=1260855711" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ArcherBlog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yanhuili.github.io/2017/07/11/Java学习笔记整理（6）/';
+          this.page.identifier = '2017/07/11/Java学习笔记整理（6）/';
+          this.page.title = 'Java学习笔记整理（6）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ArcherBlog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kzNRGot5tLJKONL4cUBsHljH-gzGzoHsz", "MbcqFd5NNWtLdqES7fSrWn0y");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

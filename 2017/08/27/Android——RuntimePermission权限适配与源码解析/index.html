@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="RuntimePermission,动态权限适配,源码解析," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="这是一篇我在学习RuntimePermission过程中的总结，详细的剖析了，RuntimePermission的权限适配和源码分析。
+如果有说得不对的地方，希望大家指出，共同提高。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RuntimePermission权限适配与源码解析">
+<meta property="og:url" content="http://yanhuili.github.io/2017/08/27/Android——RuntimePermission权限适配与源码解析/index.html">
+<meta property="og:site_name" content="野望的小屋">
+<meta property="og:description" content="这是一篇我在学习RuntimePermission过程中的总结，详细的剖析了，RuntimePermission的权限适配和源码分析。
+如果有说得不对的地方，希望大家指出，共同提高。">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201708271138_818.gif">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201708271205_222.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201708271506_748.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201708271644_353.PNG">
+<meta property="og:updated_time" content="2017-08-28T09:06:18.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RuntimePermission权限适配与源码解析">
+<meta name="twitter:description" content="这是一篇我在学习RuntimePermission过程中的总结，详细的剖析了，RuntimePermission的权限适配和源码分析。
+如果有说得不对的地方，希望大家指出，共同提高。">
+<meta name="twitter:image" content="http://ogtmd8elu.bkt.clouddn.com/201708271138_818.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"hide","offset":0,"offset_float":0,"b2t":true,"scrollpercent":true,"onmobile":"flase"},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yanhuili.github.io/2017/08/27/Android——RuntimePermission权限适配与源码解析/"/>
+
+
+
+
+
+  <title>RuntimePermission权限适配与源码解析 | 野望的小屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">野望的小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">永不言弃。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yanhuili.github.io/2017/08/27/Android——RuntimePermission权限适配与源码解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="野望">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="野望的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">RuntimePermission权限适配与源码解析</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-27T10:23:40+08:00">
+                2017-08-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-08-28T17:06:18+08:00">
+                2017-08-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AndroidDevelopment/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/27/Android——RuntimePermission权限适配与源码解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/27/Android——RuntimePermission权限适配与源码解析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/27/Android——RuntimePermission权限适配与源码解析/" class="leancloud_visitors" data-flag-title="RuntimePermission权限适配与源码解析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>这是一篇我在学习RuntimePermission过程中的总结，详细的剖析了，RuntimePermission的权限适配和源码分析。</p>
+<p>如果有说得不对的地方，希望大家指出，共同提高。</p>
+<a id="more"></a>
+<h3 id="为什么需要动态权限"><a href="#为什么需要动态权限" class="headerlink" title="为什么需要动态权限"></a>为什么需要动态权限</h3><p>动态权限的加入，更加完善和保护了用户的隐私，当涉及到一些危险权限的时候，需要用户确认才能授权，比如说，拨打电话的权限，就有可能产生资费，如果让一个app能过随意调用此权限，显然是不合理的，因此在Android6.0（API级别23）以后，加入了动态权限的功能，让用户决定是否调用该权限。</p>
+<h3 id="在运行时，请求权限"><a href="#在运行时，请求权限" class="headerlink" title="在运行时，请求权限"></a>在运行时，请求权限</h3><p>从 Android 6.0（API 级别 23）开始，用户开始在应用运行时向其授予权限，而不是在应用安装时授予。此方法可以简化应用安装过程，因为用户在安装或更新应用时不需要授予权限。它还让用户可以对应用的功能进行更多控制；例如，用户可以选择为相机应用提供相机访问权限，而不提供设备位置的访问权限。用户可以随时进入应用的“Settings”屏幕调用权限。权限分为正常权限和危险权限。下面给出了Google的说明，可详细看。因此不贴出了。</p>
+<p><a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_blank" rel="external">正常权限和危险权限</a></p>
+<p>有一点需要指出的是，Android有上百的权限，不可能每个用到的危险权限都要申请，这是不合理的，所以设置了组的概念。</p>
+<ul>
+<li>如果应用请求其清单中列出的危险权限，而应用目前在权限组中没有任何权限，则系统会向用户显示一个对话框，描述应用要访问的权限组。对话框不描述该组内的具体权限。例如，如果应用请求 <code>READ_CONTACTS</code> 权限，系统对话框只说明该应用需要访问设备的联系信息。如果用户批准，系统将向应用授予其请求的权限。</li>
+<li>如果应用请求其清单中列出的危险权限，而应用在同一权限组中已有另一项危险权限，则系统会立即授予该权限，而无需与用户进行任何交互。例如，如果某应用已经请求并且被授予了 <code>READ_CONTACTS</code> 权限，然后它又请求 <code>WRITE_CONTACTS</code>，系统将立即授予该权限。</li>
+</ul>
+<p>关于权限调用需要注意的是一下几点：</p>
+<ul>
+<li>如果设备运行的是 Android 5.1 或更低版本，<strong>或者</strong>应用的目标 SDK 为 22 或更低：如果您在清单中列出了危险权限，则用户必须在安装应用时授予此权限；如果他们不授予此权限，系统根本不会安装应用。</li>
+<li>如果设备运行的是 Android 6.0 或更高版本，<strong>或者</strong>应用的目标 SDK 为 23 或更高：应用必须在清单中列出权限，<em>并且</em>它必须在运行时请求其需要的每项危险权限。用户可以授予或拒绝每项权限，且即使用户拒绝权限请求，应用仍可以继续运行有限的功能。</li>
+</ul>
+<p><strong>注</strong>：从 Android 6.0（API 级别 23）开始，用户可以随时从任意应用调用权限，即使应用面向较低的 API 级别也可以调用。无论您的应用面向哪个 API 级别，您都应对应用进行测试，以验证它在缺少需要的权限时行为是否正常。</p>
+<p>所以只需要考虑App高版本的权限适配即可，低版本的兼容性良好。</p>
+<h3 id="动态获取权限效果图"><a href="#动态获取权限效果图" class="headerlink" title="动态获取权限效果图"></a>动态获取权限效果图</h3><p>相信你已经大体有个权限的概念了，那么就先上个效果图吧。</p>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201708271138_818.gif" alt="动态获取权限效果图"></p>
+<p>我使用的最新的android8.0的模拟器，解释一下，我先申请的是<code>android.permission.CALL_PHONE</code>的权限，如果用户拒绝，则调用了shouldShowRequestPermissionRationale方法，就是应该询问一下到底什么原因，给出一个解释说明。如果用户点击确定按钮，那么重新跳出授权的界面，授权就可以打电话，实现我们的目的了。</p>
+<h3 id="向mainfest-xml中声明权限"><a href="#向mainfest-xml中声明权限" class="headerlink" title="向mainfest.xml中声明权限"></a>向mainfest.xml中声明权限</h3><p>我使用CALL_Phone这个权限作为讲解</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">        <span class="attr">package</span>=<span class="string">"site.yanhui.runtimepermissiontest"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.CALL_PHONE"</span>/&gt;</span></div><div class="line">    </div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">application</span> <span class="attr">...</span>&gt;</span></div><div class="line">        ...</div><div class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="activity-main-xml界面"><a href="#activity-main-xml界面" class="headerlink" title="activity_main.xml界面"></a>activity_main.xml界面</h3><p>我们不需要很花哨的功能，因此放一个button就够了</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/make_call"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"MakeCall"</span>/&gt;</div></pre></td></tr></table></figure>
+<h3 id="设计一个打电话的方法"><a href="#设计一个打电话的方法" class="headerlink" title="设计一个打电话的方法"></a>设计一个打电话的方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">       Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_CALL);<span class="comment">//打电话</span></div><div class="line">       <span class="comment">//因为是调用的危险权限，所以要调用checkSelfPermission()判断是否获得权限</span></div><div class="line">       <span class="comment">//没有获得权限的话，直接return，  startActivity(intent)不会执行</span></div><div class="line">       <span class="comment">//快捷键 ctrl+alt +t</span></div><div class="line">       intent.setData(Uri.parse(<span class="string">"tel:10086"</span>)); <span class="comment">//拨打10086</span></div><div class="line">       <span class="keyword">if</span> (ActivityCompat.checkSelfPermission(<span class="keyword">this</span>, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) &#123;</div><div class="line">           <span class="comment">// <span class="doctag">TODO:</span> Consider calling</span></div><div class="line">           <span class="comment">//    ActivityCompat#requestPermissions</span></div><div class="line">           <span class="comment">// here to request the missing permissions, and then overriding</span></div><div class="line">           <span class="comment">//   public void onRequestPermissionsResult(int requestCode, String[] permissions,</span></div><div class="line">           <span class="comment">//                                          int[] grantResults)</span></div><div class="line">           <span class="comment">// to handle the case where the user grants the permission. See the documentation</span></div><div class="line">           <span class="comment">// for ActivityCompat#requestPermissions for more details.</span></div><div class="line">           <span class="keyword">return</span>;</div><div class="line">       &#125;</div><div class="line">       startActivity(intent);</div><div class="line"></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>我们单独设计一个打电话的方法，你肯定会纳闷到7到16行代码是什么情况，整体的意思就是如果说CALL_PHONE权限没有授予的话，直接返回return，那么就不会调用到startActivity这个方法。这是处于对与安全性的考虑。</p>
+<h3 id="checkSelfPermission-和shouldShowRequestPermissionRationale-方法"><a href="#checkSelfPermission-和shouldShowRequestPermissionRationale-方法" class="headerlink" title="checkSelfPermission() 和shouldShowRequestPermissionRationale()方法"></a>checkSelfPermission() 和shouldShowRequestPermissionRationale()方法</h3><p>接下来就发车了，坐稳。</p>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201708271205_222.png" alt=""></p>
+<p>看此段代码ContextCompat.checkSelfPermission()方法，看名字就知道了，是检查自身有没有call_phone打电话的权限，里面传入两个个参数</p>
+<ul>
+<li>MainActivity.this 上下文的引用</li>
+<li>Manifest.permission.CALL_PHONE 需要判断是否有权限的权限</li>
+</ul>
+<p>执行条件：<code>ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED</code></p>
+<p>最后返回值是一个int数，与PackageManager.PERMISSION_GRANTED的int数字做比较，相等话就说明已经授权，那么直接执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">   call();</div><div class="line">   Toast.makeText(MainActivity.<span class="keyword">this</span>, <span class="string">"已经授权打电话"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">     &#125;</div></pre></td></tr></table></figure>
+<p>不相等的话，进入第二个if语句执行<code>ActivityCompat.shouldShowRequestPermissionRationale()</code>方法，先解释一下这个方法的含义，就是告诉用户，为什么需要这个权限，这个方法的设计还是很人性化的。废话不多说了，传入两个参数：</p>
+<ul>
+<li>MainActivity.this  上下文，运行环境。</li>
+<li>Manifest.permission.CALL_PHONE 需要请求的权限</li>
+</ul>
+<p>返回值如果是得到了一个boolean 类型的正数。那么也就是说，我们开发者希望告诉用户请求次权限的理由是什么。因此我们使用了一个AlertDialog.Builder来实现对用户的友好提醒</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(MainActivity.<span class="keyword">this</span>);</div><div class="line">                       builder.setTitle(<span class="string">"说明"</span>)</div><div class="line">                               .setMessage(<span class="string">"需要使用电话权限，进行电话测试"</span>)</div><div class="line">                               .setPositiveButton(<span class="string">"确定"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</div><div class="line">                                   <span class="meta">@Override</span></div><div class="line">                                   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</div><div class="line">                                       ActivityCompat.requestPermissions(MainActivity.<span class="keyword">this</span>, <span class="keyword">new</span></div><div class="line">                                               String[]&#123;android.Manifest.permission.CALL_PHONE&#125;, CALL_PHONE_REQUEST_CODE);</div><div class="line">                                   &#125;</div><div class="line">                               &#125;)</div><div class="line">                               .setNegativeButton(<span class="string">"取消"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</div><div class="line">                                   <span class="meta">@Override</span></div><div class="line">                                   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</div><div class="line">                                   &#125;</div><div class="line">                               &#125;)</div><div class="line">                               .create()</div><div class="line">                               .show();</div></pre></td></tr></table></figure>
+<p>值得一提的是，我们设置的setPositiveButton里面，设置了onclick方法，里面执行了一条语句：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ActivityCompat.requestPermissions(MainActivity.<span class="keyword">this</span>, <span class="keyword">new</span> String[&#123;android.Manifest.permission.CALL_PHONE&#125;,</div></pre></td></tr></table></figure>
+<p>此行代码就是用来申请权限的，当然敏锐的你一定注意到了，ActivityCompat.shouldShowRequestPermissionRationale()方法if语句中，当条件不满足的时候，我们在else里面，直接调用了此语句。用来申请权限。</p>
+<h3 id="requestPermissions方法"><a href="#requestPermissions方法" class="headerlink" title="requestPermissions方法"></a>requestPermissions方法</h3><p>顾名思义，这是申请权限的方法，里面要求传入三个参数</p>
+<ul>
+<li>Mainactivity.this 上下文</li>
+<li>String[]{android.Manifest.permission.CALL_PHONE}  存有带申请的权限</li>
+<li>CALL_PHONE_REQUEST_CODE 状态回执码，这个数字是我自己封装的int值，我设置成了一个常量值。</li>
+</ul>
+<h3 id="onRequestPermissionsResult方法"><a href="#onRequestPermissionsResult方法" class="headerlink" title="onRequestPermissionsResult方法"></a>onRequestPermissionsResult方法</h3><p>是这样子的，当requestPermissions()方法执行完毕，授权了以后，会回调一个onRequestPermissionsResult()方法如下图所示：</p>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201708271506_748.png" alt=""></p>
+<p>我们对requestCode进行swith语句判断。当case等于我们的回执码（自己定义的唯一值）的时候，进入到下面的if语句，如果封装好权限的int[] grantResults数组的长度大于0并且grantResults[0]==PackageManager.PERMISSION_GRANTED，我们就执行call方法，因为已经授权，否则制作一个土司，告诉用户，你拒绝了权限。</p>
+<p>在这里值得注意的是，不管你是拒绝还是授予权限，requestCode的值都会传递给onRequestPermissionsResult()方法，也就是说只要执行了requestPermissions()方法，onRequestPermissionsResult()就一定会回调回去，区别就在于，你是否重写，做出判断。这一点，我们后面的源码解析就会进一步说明。</p>
+<p>到目前为止，相信你应该有能力应付6.0以上的动态权限处理了。</p>
+<h3 id="谈一谈代码执行顺序"><a href="#谈一谈代码执行顺序" class="headerlink" title="谈一谈代码执行顺序"></a>谈一谈代码执行顺序</h3><p>不管前面说得方法说得再好，也要能够理解代码，最终在app里面的执行顺序，才是最重要的，比如说，当你点击button的时候，跳出来的请求权限的框是哪行代码的实现的呢？我们先要分析清楚这个问题。</p>
+<p>首先，这是一个危险权限，那么它的checkSelfPermission()的返回值就肯定不为0，所以进入到了第二个，肯定也不是一个正数，如果是正数的话，就先执行的shouldShowRequestPermissionRationale()方法，所以checkSelfPermission()的返回值必然是一个非0的负数，所以走到了shouldShowRequestPermissionRationale()方法if语句的else里面去了，我们看到的是requestPermissions()方法，所以跳出了一个系统申请权限的对话框，当你点击<code>确定</code>的时候，两个动作在执行checkSelfPermission()的返回值置为0（权限已授权），requestCode会回传到他的回调函数，onRequestPermissionsResult方法里面，所以当我们匹配上，requestCode和权限的时候，我们的call方法就可以得到调用，目的就达成了。</p>
+<p>当然当你点击拒绝的时候，我相信在底层的操作当中，它就会把shouldShowRequestPermissionRationale()方法的返回值，设置成了正数非0，所以当用户再次点击button的时候，会直接跳出解释理由的第二个对话款，也就是我们自己设置的AlertDialog.Builder。只有你再次点击确定的时候，checkSelfPermission()的返回值就直接设置为0，下次执行的时候，就直接是走到了checkselfPermission方法的if语句的else里面去了，call方法直接得到执行。目标达成。</p>
+<p>我再解释一下，为什么这个值设置成为了0就代表权限已经授权了呢，这是因为<code>PackageManager.PERMISSION_GRANTED</code>的默认int就是一个0；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * Permission check result: this is returned by &#123;<span class="doctag">@link</span> #checkPermission&#125;</div><div class="line">    * if the permission has been granted to the given package.</div><div class="line">    */</div><div class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PERMISSION_GRANTED = <span class="number">0</span>;</div><div class="line"></div><div class="line">   <span class="comment">/**</span></div><div class="line">    * Permission check result: this is returned by &#123;<span class="doctag">@link</span> #checkPermission&#125;</div><div class="line">    * if the permission has not been granted to the given package.</div><div class="line">    */</div><div class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PERMISSION_DENIED = -<span class="number">1</span>;</div></pre></td></tr></table></figure>
+<p>下面我们分析一下源码，看看能有什么结果。</p>
+<h3 id="分析checkSelfPermission-源码"><a href="#分析checkSelfPermission-源码" class="headerlink" title="分析checkSelfPermission()源码"></a>分析checkSelfPermission()源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">按住Ctrl+checkSelfPermission打开源码 </div><div class="line"><span class="comment">/**</span></div><div class="line">     * Determine whether &lt;em&gt;you&lt;/em&gt; have been granted a particular permission.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> permission The name of the permission being checked.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> android.content.pm.PackageManager#PERMISSION_GRANTED&#125; if you have the</div><div class="line">     * permission, or &#123;<span class="doctag">@link</span> android.content.pm.PackageManager#PERMISSION_DENIED&#125; if not.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@see</span> android.content.pm.PackageManager#checkPermission(String, String)</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">checkSelfPermission</span><span class="params">(@NonNull Context context, @NonNull String permission)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (permission == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"permission is null"</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> context.checkPermission(permission, android.os.Process.myPid(), Process.myUid());</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>checkSelfPermission的源码告诉我们，如果我们传递的permission为空，则抛出非法参数异常。继续看return的方法，这里我们注意到了，context的checkPermission方法中，有process，这就表示，这些操作都是底层在帮我们完成，不管了，进去看了再说。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">按住Ctrl+checkSelfPermission打开源码 </div><div class="line"><span class="comment">/**</span></div><div class="line">     * Gatekeeper Service.</div><div class="line">     * <span class="doctag">@hide</span></div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String GATEKEEPER_SERVICE = <span class="string">"android.service.gatekeeper.IGateKeeperService"</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Determine whether the given permission is allowed for a particular</div><div class="line">     * process and user ID running in the system.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> permission The name of the permission being checked.</div><div class="line">     * <span class="doctag">@param</span> pid The process ID being checked against.  Must be &gt; 0.</div><div class="line">     * <span class="doctag">@param</span> uid The user ID being checked against.  A uid of 0 is the root</div><div class="line">     * user, which will pass every permission check.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> PackageManager#PERMISSION_GRANTED&#125; if the given</div><div class="line">     * pid/uid is allowed that permission, or</div><div class="line">     * &#123;<span class="doctag">@link</span> PackageManager#PERMISSION_DENIED&#125; if it is not.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@see</span> PackageManager#checkPermission(String, String)</div><div class="line">     * <span class="doctag">@see</span> #checkCallingPermission</div><div class="line">     */</div><div class="line">    <span class="meta">@CheckResult</span>(suggest=<span class="string">"#enforcePermission(String,int,int,String)"</span>)</div><div class="line">    <span class="meta">@PackageManager</span>.<span class="function">PermissionResult</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">checkPermission</span><span class="params">(@NonNull String permission, <span class="keyword">int</span> pid, <span class="keyword">int</span> uid)</span>;</div><div class="line"></div><div class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></div><div class="line">    <span class="meta">@PackageManager</span>.<span class="function">PermissionResult</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">checkPermission</span><span class="params">(@NonNull String permission, <span class="keyword">int</span> pid, <span class="keyword">int</span> uid,</span></div><div class="line">            IBinder callerToken);</div></pre></td></tr></table></figure>
+<p>根据这个源码，我们可以得出， checkPermission最终的返回值是一个int数并且在相关源码最上方，看到了一个@hide标记，说明这个是系统级别的api，处于安全的考虑，并没有放出来给开发者，而是隐藏起来了。</p>
+<p>退回去，按住Crtrl+PackageManager.PERMISSION_GRANTED我们发现，这也是一个封装好的int值并且值是0，那么也就是说， checkPermission()方法返回的值必然不是等于0的，如果等于0的话，就应该相当于是授权了。比如说在6.0之前的版本里面，在安装的时候就会提示出需要的权限，如果我的推测没有错的话，当用户选择确认安装，就相当于是默认在编译的时候，把， checkPermission()方法设置为了0，所以不需要动态获取权限就可以直接调用一些危险权限的方法。</p>
+<h3 id="分析requestPermissions-源码"><a href="#分析requestPermissions-源码" class="headerlink" title="分析requestPermissions()源码"></a>分析requestPermissions()源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line">ctrl+requestPermissions()进入到源码里面</div><div class="line"><span class="comment">/**</span></div><div class="line"> * Requests permissions to be granted to this application. These permissions</div><div class="line"> * must be requested in your manifest, they should not be granted to your app,</div><div class="line"> * and they should have protection level &#123;<span class="doctag">@link</span> android.content.pm.PermissionInfo</div><div class="line"> * #PROTECTION_DANGEROUS dangerous&#125;, regardless whether they are declared by</div><div class="line"> * the platform or a third-party app.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Normal permissions &#123;<span class="doctag">@link</span> android.content.pm.PermissionInfo#PROTECTION_NORMAL&#125;</div><div class="line"> * are granted at install time if requested in the manifest. Signature permissions</div><div class="line"> * &#123;<span class="doctag">@link</span> android.content.pm.PermissionInfo#PROTECTION_SIGNATURE&#125; are granted at</div><div class="line"> * install time if requested in the manifest and the signature of your app matches</div><div class="line"> * the signature of the app declaring the permissions.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * If your app does not have the requested permissions the user will be presented</div><div class="line"> * with UI for accepting them. After the user has accepted or rejected the</div><div class="line"> * requested permissions you will receive a callback reporting whether the</div><div class="line"> * permissions were granted or not. Your activity has to implement &#123;<span class="doctag">@link</span></div><div class="line"> * android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback&#125;</div><div class="line"> * and the results of permission requests will be delivered to its &#123;<span class="doctag">@link</span></div><div class="line"> * android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback#onRequestPermissionsResult(</div><div class="line"> * int, String[], int[])&#125; method.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Note that requesting a permission does not guarantee it will be granted and</div><div class="line"> * your app should be able to run without having this permission.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * This method may start an activity allowing the user to choose which permissions</div><div class="line"> * to grant and which to reject. Hence, you should be prepared that your activity</div><div class="line"> * may be paused and resumed. Further, granting some permissions may require</div><div class="line"> * a restart of you application. In such a case, the system will recreate the</div><div class="line"> * activity stack before delivering the result to your</div><div class="line"> * &#123;<span class="doctag">@link</span> OnRequestPermissionsResultCallback#onRequestPermissionsResult(int, String[], int[])&#125;.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * When checking whether you have a permission you should use &#123;<span class="doctag">@link</span></div><div class="line"> * #checkSelfPermission(android.content.Context, String)&#125;.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Calling this API for permissions already granted to your app would show UI</div><div class="line"> * to the user to decided whether the app can still hold these permissions. This</div><div class="line"> * can be useful if the way your app uses the data guarded by the permissions</div><div class="line"> * changes significantly.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * You cannot request a permission if your activity sets &#123;<span class="doctag">@link</span></div><div class="line"> * android.R.attr#noHistory noHistory&#125; to &lt;code&gt;true&lt;/code&gt; in the manifest</div><div class="line"> * because in this case the activity would not receive result callbacks including</div><div class="line"> * &#123;<span class="doctag">@link</span> OnRequestPermissionsResultCallback#onRequestPermissionsResult(int, String[], int[])&#125;.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * The &lt;a href="http://developer.android.com/samples/RuntimePermissions/index.html"&gt;</div><div class="line"> * RuntimePermissions&lt;/a&gt; sample app demonstrates how to use this method to</div><div class="line"> * request permissions at run time.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> activity The target activity.</div><div class="line"> * <span class="doctag">@param</span> permissions The requested permissions. Must me non-null and not empty.</div><div class="line"> * <span class="doctag">@param</span> requestCode Application specific request code to match with a result</div><div class="line"> *    reported to &#123;<span class="doctag">@link</span> OnRequestPermissionsResultCallback#onRequestPermissionsResult(int, String[], int[])&#125;.</div><div class="line"> *    Should be &gt;= 0.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@see</span> OnRequestPermissionsResultCallback#onRequestPermissionsResult(int, String[], int[])</div><div class="line"> * <span class="doctag">@see</span> #checkSelfPermission(android.content.Context, String)</div><div class="line"> * <span class="doctag">@see</span> #shouldShowRequestPermissionRationale(android.app.Activity, String)</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">requestPermissions</span><span class="params">(<span class="keyword">final</span> @NonNull Activity activity,</span></span></div><div class="line">        <span class="keyword">final</span> @NonNull String[] permissions, <span class="keyword">final</span> @IntRange(from = <span class="number">0</span>) <span class="keyword">int</span> requestCode) &#123;</div><div class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">23</span>) &#123;</div><div class="line">        ActivityCompatApi23.requestPermissions(activity, permissions, requestCode);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (activity <span class="keyword">instanceof</span> OnRequestPermissionsResultCallback) &#123;</div><div class="line">        Handler handler = <span class="keyword">new</span> Handler(Looper.getMainLooper());</div><div class="line">        handler.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">final</span> <span class="keyword">int</span>[] grantResults = <span class="keyword">new</span> <span class="keyword">int</span>[permissions.length];</div><div class="line"></div><div class="line">                PackageManager packageManager = activity.getPackageManager();</div><div class="line">                String packageName = activity.getPackageName();</div><div class="line"></div><div class="line">                <span class="keyword">final</span> <span class="keyword">int</span> permissionCount = permissions.length;</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; permissionCount; i++) &#123;</div><div class="line">                    grantResults[i] = packageManager.checkPermission(</div><div class="line">                            permissions[i], packageName);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                ((OnRequestPermissionsResultCallback) activity).onRequestPermissionsResult(</div><div class="line">                        requestCode, permissions, grantResults);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后我们看代码的时候，发现当版本大于等于23的时候，调用了ActivityCompatApi23.requestPermissions()，继续跟进</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">requestPermissions</span><span class="params">(Activity activity, String[] permissions,</span></span></div><div class="line">           <span class="keyword">int</span> requestCode) &#123;</div><div class="line">       <span class="keyword">if</span> (activity <span class="keyword">instanceof</span> RequestPermissionsRequestCodeValidator) &#123;</div><div class="line">           ((RequestPermissionsRequestCodeValidator) activity)</div><div class="line">                   .validateRequestPermissionsRequestCode(requestCode);</div><div class="line">       &#125;</div><div class="line">       activity.requestPermissions(permissions, requestCode);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>你会发现，ActivityCompatApi23类中，封装了一些api23以上涉及的新功能，不扯淡了，仅需跟进</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">ctrl+requestPermissions</div><div class="line"><span class="comment">/**</span></div><div class="line"> * Requests permissions to be granted to this application. These permissions</div><div class="line"> * must be requested in your manifest, they should not be granted to your app,</div><div class="line"> * and they should have protection level &#123;<span class="doctag">@link</span> android.content.pm.PermissionInfo</div><div class="line"> * #PROTECTION_DANGEROUS dangerous&#125;, regardless whether they are declared by</div><div class="line"> * the platform or a third-party app.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Normal permissions &#123;<span class="doctag">@link</span> android.content.pm.PermissionInfo#PROTECTION_NORMAL&#125;</div><div class="line"> * are granted at install time if requested in the manifest. Signature permissions</div><div class="line"> * &#123;<span class="doctag">@link</span> android.content.pm.PermissionInfo#PROTECTION_SIGNATURE&#125; are granted at</div><div class="line"> * install time if requested in the manifest and the signature of your app matches</div><div class="line"> * the signature of the app declaring the permissions.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * If your app does not have the requested permissions the user will be presented</div><div class="line"> * with UI for accepting them. After the user has accepted or rejected the</div><div class="line"> * requested permissions you will receive a callback on &#123;<span class="doctag">@link</span></div><div class="line"> * #onRequestPermissionsResult(int, String[], int[])&#125; reporting whether the</div><div class="line"> * permissions were granted or not.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Note that requesting a permission does not guarantee it will be granted and</div><div class="line"> * your app should be able to run without having this permission.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * This method may start an activity allowing the user to choose which permissions</div><div class="line"> * to grant and which to reject. Hence, you should be prepared that your activity</div><div class="line"> * may be paused and resumed. Further, granting some permissions may require</div><div class="line"> * a restart of you application. In such a case, the system will recreate the</div><div class="line"> * activity stack before delivering the result to &#123;<span class="doctag">@link</span></div><div class="line"> * #onRequestPermissionsResult(int, String[], int[])&#125;.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * When checking whether you have a permission you should use &#123;<span class="doctag">@link</span></div><div class="line"> * #checkSelfPermission(String)&#125;.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Calling this API for permissions already granted to your app would show UI</div><div class="line"> * to the user to decide whether the app can still hold these permissions. This</div><div class="line"> * can be useful if the way your app uses data guarded by the permissions</div><div class="line"> * changes significantly.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * You cannot request a permission if your activity sets &#123;<span class="doctag">@link</span></div><div class="line"> * android.R.styleable#AndroidManifestActivity_noHistory noHistory&#125; to</div><div class="line"> * &lt;code&gt;true&lt;/code&gt; because in this case the activity would not receive</div><div class="line"> * result callbacks including &#123;<span class="doctag">@link</span> #onRequestPermissionsResult(int, String[], int[])&#125;.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * The &lt;a href="http://developer.android.com/samples/RuntimePermissions/index.html"&gt;</div><div class="line"> * RuntimePermissions&lt;/a&gt; sample app demonstrates how to use this method to</div><div class="line"> * request permissions at run time.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> permissions The requested permissions. Must me non-null and not empty.</div><div class="line"> * <span class="doctag">@param</span> requestCode Application specific request code to match with a result</div><div class="line"> *    reported to &#123;<span class="doctag">@link</span> #onRequestPermissionsResult(int, String[], int[])&#125;.</div><div class="line"> *    Should be &gt;= 0.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@see</span> #onRequestPermissionsResult(int, String[], int[])</div><div class="line"> * <span class="doctag">@see</span> #checkSelfPermission(String)</div><div class="line"> * <span class="doctag">@see</span> #shouldShowRequestPermissionRationale(String)</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">requestPermissions</span><span class="params">(@NonNull String[] permissions, <span class="keyword">int</span> requestCode)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mHasCurrentPermissionsRequest) &#123;</div><div class="line">        Log.w(TAG, <span class="string">"Can reqeust only one set of permissions at a time"</span>);</div><div class="line">        <span class="comment">// Dispatch the callback with empty arrays which means a cancellation.</span></div><div class="line">        onRequestPermissionsResult(requestCode, <span class="keyword">new</span> String[<span class="number">0</span>], <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>]);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    Intent intent = getPackageManager().buildRequestPermissionsIntent(permissions);</div><div class="line">    startActivityForResult(REQUEST_PERMISSIONS_WHO_PREFIX, intent, requestCode, <span class="keyword">null</span>);</div><div class="line">    mHasCurrentPermissionsRequest = <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>  前面的效果图中，requestPermissions()最终一定是会调用一个类似于我们自己设计的AlertDialog的这么一个对话款，我们先看，留下的唯一的线索就是这个intent，因为到这里.buildRequestPermissionsIntent出现了红字如下图展示，</p>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201708271644_353.PNG" alt=""></p>
+<p>所以我们无法得知.buildRequestPermissionsIntent做了什么，但是我们仍然不死心，去跟进这个startActivityForResult方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@hide</span></div><div class="line"> */</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startActivityForResult</span><span class="params">(</span></span></div><div class="line">        String who, Intent intent, <span class="keyword">int</span> requestCode, @Nullable Bundle options) &#123;</div><div class="line">    Uri referrer = onProvideReferrer();</div><div class="line">    <span class="keyword">if</span> (referrer != <span class="keyword">null</span>) &#123;</div><div class="line">        intent.putExtra(Intent.EXTRA_REFERRER, referrer);</div><div class="line">    &#125;</div><div class="line">    options = transferSpringboardActivityOptions(options);</div><div class="line">    Instrumentation.ActivityResult ar =</div><div class="line">        mInstrumentation.execStartActivity(</div><div class="line">            <span class="keyword">this</span>, mMainThread.getApplicationThread(), mToken, who,</div><div class="line">            intent, requestCode, options);</div><div class="line">    <span class="keyword">if</span> (ar != <span class="keyword">null</span>) &#123;</div><div class="line">        mMainThread.sendActivityResult(</div><div class="line">            mToken, who, requestCode,</div><div class="line">            ar.getResultCode(), ar.getResultData());</div><div class="line">    &#125;</div><div class="line">    cancelInputsAndStartExitTransition(options);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最终我们得到了一个hide的方法，也就是说，设计源码的人，并不希望开发者调用这部分源码，所以给隐藏了，但是距离我们应该要找到的一个关于一个像dialog的东西，还是更近一步了，仔细看看上面的源码，我们发现了activity和Result词语，也就是说大胆的推测，虽然源码出于安全的角度被隐藏了，但是我们还是找到了端倪，正在在代码的执行顺序里面分析的一样，当点击申请权限的确定按钮时，我推测会把checkSelfPermission()的值置为0，则被视为是授予权限。到这，可以分析出，其实第一个弹出的对话款应该不是dialog，而是一个activity，不管用那种方式实现的。并且，有一个数据的传入，传出，这样才能实现设置数据嘛，也算不虚到此一游了。</p>
+<p>返回startActivityForResult的上一层，我们惊喜的发现，有一行代码我们十分眼熟：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (mHasCurrentPermissionsRequest) &#123;</div><div class="line">    Log.w(TAG, <span class="string">"Can reqeust only one set of permissions at a time"</span>);</div><div class="line">    <span class="comment">// Dispatch the callback with empty arrays which means a cancellation.</span></div><div class="line">    onRequestPermissionsResult(requestCode, <span class="keyword">new</span> String[<span class="number">0</span>], <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>]);<span class="comment">//就是它</span></div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在startActivityForResult方法执行以后，把mHasCurrentPermissionsRequest 置为了true;那么if表达式为真，当然要执行下面的逻辑了，跟进跟进。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">ctrl+ onRequestPermissionsResult</div><div class="line"><span class="comment">/**</span></div><div class="line"> * Callback for the result from requesting permissions. This method</div><div class="line"> * is invoked for every call on &#123;<span class="doctag">@link</span> #requestPermissions(String[], int)&#125;.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * &lt;strong&gt;Note:&lt;/strong&gt; It is possible that the permissions request interaction</div><div class="line"> * with the user is interrupted. In this case you will receive empty permissions</div><div class="line"> * and results arrays which should be treated as a cancellation.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> requestCode The request code passed in &#123;<span class="doctag">@link</span> #requestPermissions(String[], int)&#125;.</div><div class="line"> * <span class="doctag">@param</span> permissions The requested permissions. Never null.</div><div class="line"> * <span class="doctag">@param</span> grantResults The grant results for the corresponding permissions</div><div class="line"> *     which is either &#123;<span class="doctag">@link</span> android.content.pm.PackageManager#PERMISSION_GRANTED&#125;</div><div class="line"> *     or &#123;<span class="doctag">@link</span> android.content.pm.PackageManager#PERMISSION_DENIED&#125;. Never null.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@see</span> #requestPermissions(String[], int)</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRequestPermissionsResult</span><span class="params">(<span class="keyword">int</span> requestCode, @NonNull String[] permissions,</span></span></div><div class="line">        @NonNull <span class="keyword">int</span>[] grantResults) &#123;</div><div class="line">    <span class="comment">/* callback - no nothing */</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>啊呀，我的小宝贝，原来你在这啊，所以前面我们提到的，不管了你是拒绝还是确定，onRequestPermissionsResult，只要重写了都会执行，就是这个道理，因为即便你不重写，其实默认也是存在的，只是人家静静的呆在那里do nothing（继承的基本概念）。重写了就有了！不虚此行了！</p>
+<h3 id="分析shouldShowRequestPermissionRationale-源码"><a href="#分析shouldShowRequestPermissionRationale-源码" class="headerlink" title="分析shouldShowRequestPermissionRationale()源码"></a>分析shouldShowRequestPermissionRationale()源码</h3><p>回到我们自己MainActivity里面</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">ctrl+shouldShowRequestPermissionRationale</div><div class="line"><span class="comment">/**</span></div><div class="line"> * Gets whether you should show UI with rationale for requesting a permission.</div><div class="line"> * You should do this only if you do not have the permission and the context in</div><div class="line"> * which the permission is requested does not clearly communicate to the user</div><div class="line"> * what would be the benefit from granting this permission.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * For example, if you write a camera app, requesting the camera permission</div><div class="line"> * would be expected by the user and no rationale for why it is requested is</div><div class="line"> * needed. If however, the app needs location for tagging photos then a non-tech</div><div class="line"> * savvy user may wonder how location is related to taking photos. In this case</div><div class="line"> * you may choose to show UI with rationale of requesting this permission.</div><div class="line"> * &lt;/p&gt;</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> activity The target activity.</div><div class="line"> * <span class="doctag">@param</span> permission A permission your app wants to request.</div><div class="line"> * <span class="doctag">@return</span> Whether you can show permission rationale UI.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@see</span> #checkSelfPermission(android.content.Context, String)</div><div class="line"> * <span class="doctag">@see</span> #requestPermissions(android.app.Activity, String[], int)</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">shouldShowRequestPermissionRationale</span><span class="params">(@NonNull Activity activity,</span></span></div><div class="line">        @NonNull String permission) &#123;</div><div class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">23</span>) &#123;</div><div class="line">        <span class="keyword">return</span> ActivityCompatApi23.shouldShowRequestPermissionRationale(activity, permission);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果版本大于等于23 <code>return ActivityCompatApi23.shouldShowRequestPermissionRationale(activity, permission);</code></p>
+<p>否则<code>return false</code> 因为在低版本中，就没有设置这个新功能，所以直接false跳过。</p>
+<p>继续跟踪</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">shouldShowRequestPermissionRationale</span><span class="params">(Activity activity,</span></span></div><div class="line">        String permission) &#123;</div><div class="line">    <span class="keyword">return</span> activity.shouldShowRequestPermissionRationale(permission);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个静态方法，都是存放在ActivityCompatApi23类中，是版本大于等于23的新特性。继续更进</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * Gets whether you should show UI with rationale for requesting a permission.</div><div class="line">     * You should do this only if you do not have the permission and the context in</div><div class="line">     * which the permission is requested does not clearly communicate to the user</div><div class="line">     * what would be the benefit from granting this permission.</div><div class="line">     * &lt;p&gt;</div><div class="line">     * For example, if you write a camera app, requesting the camera permission</div><div class="line">     * would be expected by the user and no rationale for why it is requested is</div><div class="line">     * needed. If however, the app needs location for tagging photos then a non-tech</div><div class="line">     * savvy user may wonder how location is related to taking photos. In this case</div><div class="line">     * you may choose to show UI with rationale of requesting this permission.</div><div class="line">     * &lt;/p&gt;</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> permission A permission your app wants to request.</div><div class="line">     * <span class="doctag">@return</span> Whether you can show permission rationale UI.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@see</span> #checkSelfPermission(String)</div><div class="line">     * <span class="doctag">@see</span> #requestPermissions(String[], int)</div><div class="line">     * <span class="doctag">@see</span> #onRequestPermissionsResult(int, String[], int[])</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldShowRequestPermissionRationale</span><span class="params">(@NonNull String permission)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> getPackageManager().shouldShowRequestPermissionRationale(permission);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>shouldShowRequestPermissionRationale方法又红了，至少我们知道了通过这个方法，应该是得到了一布尔类型的返回值，而这个返回值与requestPermissions()方法的返回值密切相关，因为只有当用户拒绝了权限的时候，requestPermissions()会存在一个返回值（数据），这个数据决定了shouldShowRequestPermissionRationale的返回值为真，所以才会显示出我们所builder的AlertDialog。</p>
+<h3 id="源码为什么会报错"><a href="#源码为什么会报错" class="headerlink" title="源码为什么会报错"></a>源码为什么会报错</h3><p>这是因为这些方法或者类是被 Android SDK 隐藏的，出于安全或者某些原因，这些 API 不能暴露给应用层的开发者，所以编译完成的 android.jar 包里会把这些 API 隐藏掉，而我们的 Android 项目是依赖 android.jar 的，查看源码的时候，IDE 会自动去 android.jar 找对应的 API，自然会找不到。当然，这些 API 在 ROM 中是实际存在的，有些开发者发现了一些可以修改系统行为的隐藏 API，在应用层通过反射的方式强行调用这些 API 执行系统功能，这种手段也是一种 HACK。</p>
+<h3 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h3><p>纸上得来终觉浅，绝知此事要躬行。</p>
+<p>如果有任何疑问欢迎和我讨论，觉得不错就顺手点个star吧。</p>
+<p>也算是一种鼓励和鞭策。</p>
+<p><a href="https://github.com/YanHuiLi/AndroidOpenSourceFrameworkTest/tree/master/RuntimePermission/RuntimePermissionTest" target="_blank" rel="external">RuntimePermissionTest</a></p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<li>第一行代码 2th  郭霖</li>
+<li><a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_blank" rel="external">Google开发文档</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="野望 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎订阅我的个人微信技术博客。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://ogtmd8elu.bkt.clouddn.com/WechatPay-min.png" alt="野望 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://ogtmd8elu.bkt.clouddn.com/pay-min.jpg" alt="野望 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RuntimePermission/" rel="tag"># RuntimePermission</a>
+          
+            <a href="/tags/动态权限适配/" rel="tag"># 动态权限适配</a>
+          
+            <a href="/tags/源码解析/" rel="tag"># 源码解析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/18/Java学习笔记整理（25）/" rel="next" title="Java学习笔记整理（25）">
+                <i class="fa fa-chevron-left"></i> Java学习笔记整理（25）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/27/Java基础笔记整理（1）/" rel="prev" title="Java基础笔记整理（1）">
+                Java基础笔记整理（1） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="野望" />
+          <p class="site-author-name" itemprop="name">野望</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuili" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yan-hui-jun" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/5800502ca0bb9f00586674c8" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      掘金
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/6043346/archer" target="_blank" title="StackOverFlow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      StackOverFlow
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/yanhui" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      segmentfault
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.0xaa55.com/" title="技术宅的结界" target="_blank">技术宅的结界</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要动态权限"><span class="nav-number">1.</span> <span class="nav-text">为什么需要动态权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在运行时，请求权限"><span class="nav-number">2.</span> <span class="nav-text">在运行时，请求权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态获取权限效果图"><span class="nav-number">3.</span> <span class="nav-text">动态获取权限效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向mainfest-xml中声明权限"><span class="nav-number">4.</span> <span class="nav-text">向mainfest.xml中声明权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#activity-main-xml界面"><span class="nav-number">5.</span> <span class="nav-text">activity_main.xml界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计一个打电话的方法"><span class="nav-number">6.</span> <span class="nav-text">设计一个打电话的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checkSelfPermission-和shouldShowRequestPermissionRationale-方法"><span class="nav-number">7.</span> <span class="nav-text">checkSelfPermission() 和shouldShowRequestPermissionRationale()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requestPermissions方法"><span class="nav-number">8.</span> <span class="nav-text">requestPermissions方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onRequestPermissionsResult方法"><span class="nav-number">9.</span> <span class="nav-text">onRequestPermissionsResult方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谈一谈代码执行顺序"><span class="nav-number">10.</span> <span class="nav-text">谈一谈代码执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析checkSelfPermission-源码"><span class="nav-number">11.</span> <span class="nav-text">分析checkSelfPermission()源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析requestPermissions-源码"><span class="nav-number">12.</span> <span class="nav-text">分析requestPermissions()源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析shouldShowRequestPermissionRationale-源码"><span class="nav-number">13.</span> <span class="nav-text">分析shouldShowRequestPermissionRationale()源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码为什么会报错"><span class="nav-number">14.</span> <span class="nav-text">源码为什么会报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码下载"><span class="nav-number">15.</span> <span class="nav-text">源码下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">16.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">野望</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260855711&web_id=1260855711" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ArcherBlog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yanhuili.github.io/2017/08/27/Android——RuntimePermission权限适配与源码解析/';
+          this.page.identifier = '2017/08/27/Android——RuntimePermission权限适配与源码解析/';
+          this.page.title = 'RuntimePermission权限适配与源码解析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ArcherBlog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kzNRGot5tLJKONL4cUBsHljH-gzGzoHsz", "MbcqFd5NNWtLdqES7fSrWn0y");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

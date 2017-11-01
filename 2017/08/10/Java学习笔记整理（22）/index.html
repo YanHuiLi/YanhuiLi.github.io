@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="J2SE,IO流," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="序列流
+
+内存输入输出流
+
+对象输出输入流
+
+打印流
+
+标准输入输出流
+
+两种键盘录入
+
+随机访问流
+
+Properties">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java学习笔记整理（22）">
+<meta property="og:url" content="http://yanhuili.github.io/2017/08/10/Java学习笔记整理（22）/index.html">
+<meta property="og:site_name" content="野望的小屋">
+<meta property="og:description" content="序列流
+
+内存输入输出流
+
+对象输出输入流
+
+打印流
+
+标准输入输出流
+
+两种键盘录入
+
+随机访问流
+
+Properties">
+<meta property="og:updated_time" content="2017-08-15T23:10:31.355Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java学习笔记整理（22）">
+<meta name="twitter:description" content="序列流
+
+内存输入输出流
+
+对象输出输入流
+
+打印流
+
+标准输入输出流
+
+两种键盘录入
+
+随机访问流
+
+Properties">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"hide","offset":0,"offset_float":0,"b2t":true,"scrollpercent":true,"onmobile":"flase"},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yanhuili.github.io/2017/08/10/Java学习笔记整理（22）/"/>
+
+
+
+
+
+  <title>Java学习笔记整理（22） | 野望的小屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">野望的小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">永不言弃。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yanhuili.github.io/2017/08/10/Java学习笔记整理（22）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="野望">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="野望的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Java学习笔记整理（22）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-10T08:30:11+08:00">
+                2017-08-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-08-16T07:10:31+08:00">
+                2017-08-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/J2SE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2SE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/10/Java学习笔记整理（22）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/10/Java学习笔记整理（22）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/10/Java学习笔记整理（22）/" class="leancloud_visitors" data-flag-title="Java学习笔记整理（22）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<ol>
+<li><p>序列流</p>
+</li>
+<li><p><strong>内存输入输出流</strong></p>
+</li>
+<li><p>对象输出输入流</p>
+</li>
+<li><p><strong>打印流</strong></p>
+</li>
+<li><p>标准输入输出流</p>
+</li>
+<li><p><strong>两种键盘录入</strong></p>
+</li>
+<li><p>随机访问流</p>
+</li>
+<li><p>Properties</p>
+</li>
+</ol>
+<a id="more"></a>
+<h3 id="IO流-序列流"><a href="#IO流-序列流" class="headerlink" title="IO流(序列流)"></a>IO流(序列流)</h3><ul>
+<li>1.什么是序列流<ul>
+<li>序列流可以把多个字节输入流整合成一个, 从序列流中读取数据时, 将从被整合的第一个流开始读, 读完一个之后继续读第二个, 以此类推.</li>
+</ul>
+</li>
+<li>2.使用方式<ul>
+<li>整合两个: SequenceInputStream(InputStream, InputStream)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">  FileInputStream fis1 = <span class="keyword">new</span> FileInputStream(<span class="string">"a.txt"</span>);			<span class="comment">//创建输入流对象,关联a.txt</span></div><div class="line">FileInputStream fis2 = <span class="keyword">new</span> FileInputStream(<span class="string">"b.txt"</span>);			<span class="comment">//创建输入流对象,关联b.txt</span></div><div class="line">SequenceInputStream sis = <span class="keyword">new</span> SequenceInputStream(fis1, fis2);	<span class="comment">//将两个流整合成一个流</span></div><div class="line">FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"c.txt"</span>);			<span class="comment">//创建输出流对象,关联c.txt</span></div><div class="line"></div><div class="line"><span class="keyword">int</span> b;</div><div class="line"><span class="keyword">while</span>((b = sis.read()) != -<span class="number">1</span>) &#123;									<span class="comment">//用整合后的读</span></div><div class="line">	fos.write(b);												<span class="comment">//写到指定文件上</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">sis.close();</div><div class="line">fos.close();</div></pre></td></tr></table></figure>
+<h3 id="IO流（序列流整合多个）"><a href="#IO流（序列流整合多个）" class="headerlink" title="IO流（序列流整合多个）"></a>IO流（序列流整合多个）</h3><ul>
+<li>整合多个: SequenceInputStream(Enumeration)<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">FileInputStream fis1 = <span class="keyword">new</span> FileInputStream(<span class="string">"a.txt"</span>);	<span class="comment">//创建输入流对象,关联a.txt</span></div><div class="line">FileInputStream fis2 = <span class="keyword">new</span> FileInputStream(<span class="string">"b.txt"</span>);	<span class="comment">//创建输入流对象,关联b.txt</span></div><div class="line">FileInputStream fis3 = <span class="keyword">new</span> FileInputStream(<span class="string">"c.txt"</span>);	<span class="comment">//创建输入流对象,关联c.txt</span></div><div class="line">Vector&lt;InputStream&gt; v = <span class="keyword">new</span> Vector&lt;&gt;();					<span class="comment">//创建vector集合对象</span></div><div class="line">v.add(fis1);											<span class="comment">//将流对象添加</span></div><div class="line">v.add(fis2);</div><div class="line">v.add(fis3);</div><div class="line">Enumeration&lt;InputStream&gt; en = v.elements();				<span class="comment">//获取枚举引用</span></div><div class="line">SequenceInputStream sis = <span class="keyword">new</span> SequenceInputStream(en);	<span class="comment">//传递给SequenceInputStream构造</span></div><div class="line">FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"d.txt"</span>);</div><div class="line"><span class="keyword">int</span> b;</div><div class="line"><span class="keyword">while</span>((b = sis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">	fos.write(b);</div><div class="line">&#125;</div><div class="line"></div><div class="line">sis.close();</div><div class="line">fos.close();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="IO流（内存输出流）"><a href="#IO流（内存输出流）" class="headerlink" title="IO流（内存输出流）"></a>IO流（内存输出流）</h3><ul>
+<li>1.什么是内存输出流<ul>
+<li>该输出流可以向内存中写数据, 把内存当作一个缓冲区, 写出之后可以一次性获取出所有数据</li>
+</ul>
+</li>
+<li>2.使用方式<ul>
+<li>创建对象: new ByteArrayOutputStream()</li>
+<li>写出数据: write(int), write(byte[])</li>
+<li>获取数据: toByteArray()</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"a.txt"</span>); <span class="comment">//a: 你好，你好</span></div><div class="line">ByteArrayOutputStream baos = <span class="keyword">new</span> ByteArrayOutputStream();</div><div class="line"><span class="keyword">int</span> b;</div><div class="line"><span class="keyword">while</span>((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">	baos.write(b);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//byte[] newArr = baos.toByteArray();				//将内存缓冲区中所有的字节存储在newArr中</span></div><div class="line"><span class="comment">//System.out.println(new String(newArr));</span></div><div class="line">System.out.println(baos);</div><div class="line">fis.close();</div></pre></td></tr></table></figure>
+<h3 id="IO流（内存输出流之黑马面试题）"><a href="#IO流（内存输出流之黑马面试题）" class="headerlink" title="IO流（内存输出流之黑马面试题）"></a>IO流（内存输出流之黑马面试题）</h3><ul>
+<li>定义一个文件输入流,调用read(byte[] b)方法,将a.txt文件中的内容打印出来(byte数组大小限制为5)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> site.yanhui.otherio;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo2_ByteArrayOutputStream</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> args</div><div class="line">     * 字节流在读中文会出现半个中文,乱码</div><div class="line">     * 解决</div><div class="line">     * 1,字符流</div><div class="line">     * 2,ByteArrayOutputStream</div><div class="line">     * <span class="doctag">@throws</span> IOException</div><div class="line">     */</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line"></div><div class="line"><span class="comment">//        demo01();</span></div><div class="line"></div><div class="line">        FileInputStream fis= <span class="keyword">new</span> FileInputStream(<span class="string">"e.txt"</span>);</div><div class="line"> </div><div class="line">        ByteArrayOutputStream bos =<span class="keyword">new</span> ByteArrayOutputStream(); <span class="comment">//底层实现了一个可以增长的字节数组，所以不会造成乱码的情况</span></div><div class="line"></div><div class="line">        <span class="keyword">int</span> len;</div><div class="line">        <span class="keyword">byte</span>[] arr =<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">5</span>];<span class="comment">//每次读五个字节</span></div><div class="line"></div><div class="line">        <span class="keyword">while</span> ((len=fis.read(arr))!=-<span class="number">1</span>)&#123;</div><div class="line"></div><div class="line">            bos.write(arr,<span class="number">0</span>,len); <span class="comment">//每次五个字节，一次又一次的写入bos底层的字节数组里面</span></div><div class="line">        &#125;</div><div class="line">        System.out.println(bos);<span class="comment">//统一输出，避免了乱码问题</span></div><div class="line"></div><div class="line">        fis.close();</div><div class="line">        bos.close();</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo01</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        FileInputStream fis= <span class="keyword">new</span> FileInputStream(<span class="string">"e.txt"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">byte</span>[] arr= <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">3</span>];<span class="comment">//一个中文占了两个字节，一个符号占了1个字节</span></div><div class="line"></div><div class="line">        <span class="keyword">int</span> len;</div><div class="line"></div><div class="line">        <span class="keyword">while</span> ((len=fis.read(arr))!=-<span class="number">1</span>) &#123; <span class="comment">//用arr 3个字节数组来装输入流，容易造成乱码</span></div><div class="line">            System.out.println(<span class="keyword">new</span> String(arr,<span class="number">0</span>,len));<span class="comment">// 输出这个字节流</span></div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        fis.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流（对象操作流ObjecOutputStream）"><a href="#IO流（对象操作流ObjecOutputStream）" class="headerlink" title="IO流（对象操作流ObjecOutputStream）"></a>IO流（对象操作流ObjecOutputStream）</h3><ul>
+<li>1.什么是对象操作流<ul>
+<li>该流可以将一个对象写出, 或者读取一个对象到程序中. 也就是执行了序列化和反序列化的操作.</li>
+</ul>
+</li>
+<li>2.使用方式<ul>
+<li>写出: new ObjectOutputStream(OutputStream), writeObject()</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo3_ObjectOutputStream</span> </span>&#123;</div><div class="line"></div><div class="line">       <span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * 将对象写出,序列化</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		Person p1 = <span class="keyword">new</span> Person(<span class="string">"张三"</span>, <span class="number">23</span>);</div><div class="line">		Person p2 = <span class="keyword">new</span> Person(<span class="string">"李四"</span>, <span class="number">24</span>);</div><div class="line"><span class="comment">//		FileOutputStream fos = new FileOutputStream("e.txt");</span></div><div class="line"><span class="comment">//		fos.write(p1);</span></div><div class="line"><span class="comment">//		FileWriter fw = new FileWriter("e.txt");</span></div><div class="line"><span class="comment">//		fw.write(p1);</span></div><div class="line">		<span class="comment">//无论是字节输出流,还是字符输出流都不能直接写出对象</span></div><div class="line">		ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"e.txt"</span>));<span class="comment">//创建对象输出流</span></div><div class="line">		oos.writeObject(p1);</div><div class="line">		oos.writeObject(p2);</div><div class="line">		oos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流-对象操作流ObjectInputStream"><a href="#IO流-对象操作流ObjectInputStream" class="headerlink" title="IO流(对象操作流ObjectInputStream)"></a>IO流(对象操作流ObjectInputStream)</h3><ul>
+<li>读取: new ObjectInputStream(InputStream), readObject()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo3_ObjectInputStream</span> </span>&#123;</div><div class="line"></div><div class="line">		<span class="comment">/**</span></div><div class="line">		 * <span class="doctag">@param</span> args</div><div class="line">		 * <span class="doctag">@throws</span> IOException </div><div class="line">		 * <span class="doctag">@throws</span> ClassNotFoundException </div><div class="line">		 * <span class="doctag">@throws</span> FileNotFoundException </div><div class="line">		 * 读取对象,反序列化</div><div class="line">		 */</div><div class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</div><div class="line">			ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"e.txt"</span>));</div><div class="line">			Person p1 = (Person) ois.readObject();</div><div class="line">			Person p2 = (Person) ois.readObject();</div><div class="line">			System.out.println(p1);</div><div class="line">			System.out.println(p2);</div><div class="line">			ois.close();</div><div class="line">		&#125;</div><div class="line">	</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流-对象操作流优化"><a href="#IO流-对象操作流优化" class="headerlink" title="IO流(对象操作流优化)"></a>IO流(对象操作流优化)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.otherio;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileWriter;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.itcast.bean.Person;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo03_ObjectOutputStream</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * 序列化,将对象写到文件上(存档)</div><div class="line">	 * ArrayList集合实现了序列化接口，所以能够序列化</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		<span class="comment">//demo2();</span></div><div class="line">		Person p1 = <span class="keyword">new</span> Person(<span class="string">"张三"</span>, <span class="number">23</span>);</div><div class="line">		Person p2 = <span class="keyword">new</span> Person(<span class="string">"李四"</span>, <span class="number">24</span>);</div><div class="line">		Person p3 = <span class="keyword">new</span> Person(<span class="string">"马哥"</span>, <span class="number">18</span>);</div><div class="line">		Person p4 = <span class="keyword">new</span> Person(<span class="string">"辉哥"</span>, <span class="number">20</span>);</div><div class="line">		</div><div class="line">		ArrayList&lt;Person&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">		list.add(p1);</div><div class="line">		list.add(p2);</div><div class="line">		list.add(p3);</div><div class="line">		list.add(p4);</div><div class="line">		</div><div class="line">		ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"f.txt"</span>));</div><div class="line">		oos.writeObject(list);									<span class="comment">//写出集合对象</span></div><div class="line">		</div><div class="line">		oos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> <span class="keyword">throws</span> IOException, FileNotFoundException </span>&#123;</div><div class="line">		Person p1 = <span class="keyword">new</span> Person(<span class="string">"张三"</span>, <span class="number">23</span>);</div><div class="line">		Person p2 = <span class="keyword">new</span> Person(<span class="string">"李四"</span>, <span class="number">24</span>);</div><div class="line">		ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"e.txt"</span>));</div><div class="line">		oos.writeObject(p1);</div><div class="line">		oos.writeObject(p2);</div><div class="line">		oos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">		Person p1 = <span class="keyword">new</span> Person(<span class="string">"张三"</span>, <span class="number">23</span>);</div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"e.txt"</span>);</div><div class="line">		<span class="comment">//fos.write(p1);										//字节输出流不可以写出对象</span></div><div class="line">		FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"e.txt"</span>);</div><div class="line">		<span class="comment">//fw.write(p1);											//字符输出流不可以写出对象</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.otherio;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.itcast.bean.Person;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo04_ObjectInputStream</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">/**</span></div><div class="line">    * <span class="doctag">@param</span> args</div><div class="line">    * <span class="doctag">@throws</span> IOException </div><div class="line">    * <span class="doctag">@throws</span> ClassNotFoundException </div><div class="line">    * <span class="doctag">@throws</span> FileNotFoundException </div><div class="line">    * 反序列化,将文件上的对象读出来(读档)</div><div class="line">    * 如果写出两个对象,读三个对象会抛出EOFException</div><div class="line">    * EOF end of File 文件到末尾异常</div><div class="line">    */</div><div class="line">   <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</div><div class="line">      <span class="comment">//demo1();</span></div><div class="line">      ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"f.txt"</span>));</div><div class="line">      ArrayList&lt;Person&gt; list = (ArrayList&lt;Person&gt;)ois.readObject();  <span class="comment">//泛型在运行期会被擦除,索引运行期相当于没有泛型</span></div><div class="line">                                                      <span class="comment">//想去掉黄色可以加注解@SuppressWarnings("unchecked")</span></div><div class="line">      <span class="keyword">for</span> (Person person : list) &#123;</div><div class="line">         System.out.println(person);</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      ois.close();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> IOException, FileNotFoundException,</span></div><div class="line">         ClassNotFoundException &#123;</div><div class="line">      ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"e.txt"</span>));</div><div class="line">      Person p1 = (Person)ois.readObject();           <span class="comment">//读一个对象</span></div><div class="line">      Person p2 = (Person)ois.readObject();</div><div class="line">      <span class="comment">//Person p3 = (Person)ois.readObject();</span></div><div class="line">      </div><div class="line">      System.out.println(p1);</div><div class="line">      System.out.println(p2);</div><div class="line">      <span class="comment">//System.out.println(p3);</span></div><div class="line">      ois.close();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流-加上id号"><a href="#IO流-加上id号" class="headerlink" title="IO流(加上id号)"></a>IO流(加上id号)</h3><ul>
+<li>注意<ul>
+<li>要写出的对象必须实现Serializable接口才能被序列化</li>
+<li>不用必须加id号（序列化就是一个读档存档的过程）</li>
+<li>加上ID号的话更加直观，否则就是系统随机给的随机值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> site.yanhui.bean;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.Serializable;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person1</span>  <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">//存档的问题</span></div><div class="line"><span class="comment">//    private static final long serialVersionUID = 4L;		//对版本升级</span></div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span>  <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> String gender;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person1</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Person1&#123;"</span> +</div><div class="line">                <span class="string">"name='"</span> + name + <span class="string">'\''</span> +</div><div class="line">                <span class="string">", age="</span> + age +</div><div class="line">                <span class="string">'&#125;'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流-打印流的概述和特点"><a href="#IO流-打印流的概述和特点" class="headerlink" title="IO流(打印流的概述和特点)"></a>IO流(打印流的概述和特点)</h3><ul>
+<li>1.什么是打印流<ul>
+<li>该流可以很方便的将对象的toString()结果输出, 并且自动加上换行, 而且可以使用自动刷出的模式</li>
+<li>System.out就是一个PrintStream, 其默认向控制台输出信息</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.otherio;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.PrintStream;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.itcast.bean.Person;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05_PrintStream</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * PrintStream是打印流所以他只操作的是数据目的</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		PrintStream ps = <span class="keyword">new</span> PrintStream(<span class="string">"e.txt"</span>);</div><div class="line">		ps.write(<span class="number">97</span>);</div><div class="line">		ps.println(<span class="number">97</span>);</div><div class="line">		</div><div class="line">		ps.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> </span>&#123;</div><div class="line">		Person p = <span class="keyword">new</span> Person(<span class="string">"张三"</span>, <span class="number">23</span>);</div><div class="line">		PrintStream ps = System.out;</div><div class="line">		ps.println(p);</div><div class="line">		ps.println(<span class="number">97</span>);					<span class="comment">//底层通过Integer.toString(97)将97转换成字符串</span></div><div class="line">		ps.write(<span class="number">97</span>);					<span class="comment">//不会将其转换成对应的字符串,写入a</span></div><div class="line">		</div><div class="line">		ps.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流-标准输入输出流概述和输出语句"><a href="#IO流-标准输入输出流概述和输出语句" class="headerlink" title="IO流(标准输入输出流概述和输出语句)"></a>IO流(标准输入输出流概述和输出语句)</h3><ul>
+<li>1.什么是标准输入输出流<ul>
+<li>System.in是InputStream, 标准输入流, 默认可以从键盘输入读取字节数据</li>
+<li>System.out是PrintStream, 标准输出流, 默认可以向Console中输出字符和字节数据</li>
+</ul>
+</li>
+<li>2.修改标准输入输出流<ul>
+<li>修改输入流: System.setIn(InputStream)</li>
+<li>修改输出流: System.setOut(PrintStream)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.otherio;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.io.PrintStream;</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo07_SetInOut</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		<span class="comment">//Scanner sc = new Scanner(System.in);</span></div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		<span class="comment">//demo2();</span></div><div class="line">		System.setIn(<span class="keyword">new</span> FileInputStream(<span class="string">"a.txt"</span>));				<span class="comment">//改变标准输入流</span></div><div class="line">		System.setOut(<span class="keyword">new</span> PrintStream(<span class="string">"h.txt"</span>));				<span class="comment">//改变标准输出流</span></div><div class="line">		</div><div class="line">		InputStream is = System.in;								<span class="comment">//标准键盘输入流已经被改变,到a.txt读取文件</span></div><div class="line">		PrintStream ps = System.out;							<span class="comment">//标准键盘输出流已经被改变,写到h.txt上</span></div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = is.read()) != -<span class="number">1</span>) &#123;</div><div class="line">			ps.write(b);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		is.close();</div><div class="line">		ps.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="number">97</span>); 								<span class="comment">//标准的输出流,默认指向控制</span></div><div class="line">		System.out.close();										<span class="comment">//不用关闭</span></div><div class="line">		System.out.println(<span class="number">97</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		InputStream is = System.in;							<span class="comment">//标准的输入流,默认指向键盘</span></div><div class="line">		<span class="keyword">int</span> x = is.read();</div><div class="line">		</div><div class="line">		<span class="keyword">int</span> y = is.read();</div><div class="line">		System.out.println(x);</div><div class="line">		System.out.println(y);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流-修改标准输入输出流拷贝图片"><a href="#IO流-修改标准输入输出流拷贝图片" class="headerlink" title="IO流(修改标准输入输出流拷贝图片)"></a>IO流(修改标准输入输出流拷贝图片)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.io.PrintStream;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * 修改标准输入输出流拷贝图片</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		System.setIn(<span class="keyword">new</span> FileInputStream(<span class="string">"IO图片.png"</span>));		<span class="comment">//改变标准输入流</span></div><div class="line">		System.setOut(<span class="keyword">new</span> PrintStream(<span class="string">"copy.png"</span>)); 		<span class="comment">//改变标准输出流</span></div><div class="line">		</div><div class="line">		InputStream is = System.in;							<span class="comment">//获取标准输入流</span></div><div class="line">		PrintStream ps = System.out;						<span class="comment">//获取标准输出流</span></div><div class="line">		</div><div class="line">		<span class="keyword">int</span> len;</div><div class="line">		<span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span> * <span class="number">8</span>];</div><div class="line">		</div><div class="line">		<span class="keyword">while</span>((len = is.read(arr)) != -<span class="number">1</span>) &#123;</div><div class="line">			ps.write(arr, <span class="number">0</span>, len);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		is.close();</div><div class="line">		ps.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流-两种方式实现键盘录入"><a href="#IO流-两种方式实现键盘录入" class="headerlink" title="IO流(两种方式实现键盘录入)"></a>IO流(两种方式实现键盘录入)</h3><ul>
+<li>A:BufferedReader的readLine方法。<ul>
+<li>BufferedReader br = new BufferedReader(new InputStreamReader(System.in));</li>
+</ul>
+</li>
+<li>B:Scanner</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.otherio;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.BufferedReader;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStreamReader;</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo08_System_in</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">/**</span></div><div class="line">    * <span class="doctag">@param</span> args</div><div class="line">    * 键盘录入都是用Scanner</div><div class="line">    * <span class="doctag">@throws</span> IOException </div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">      Scanner sc = <span class="keyword">new</span> Scanner(System.in);                  <span class="comment">//对标准输入流封装</span></div><div class="line">      System.out.println(<span class="string">"请输入第一个字符串"</span>);</div><div class="line">      String line = sc.nextLine();                        <span class="comment">//获取键盘录入的字符串</span></div><div class="line">      System.out.println(line);                          <span class="comment">//打印字符串</span></div><div class="line">      </div><div class="line">      </div><div class="line">      BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));<span class="comment">//通过转换流将标准的键盘输入流转换为BufferReader</span></div><div class="line">      System.out.println(<span class="string">"请输入第二个字符串"</span>);</div><div class="line">      String line2 = br.readLine();                       <span class="comment">//键盘录入一行输入</span></div><div class="line">      System.out.println(line2);</div><div class="line">      </div><div class="line">      </div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流-随机访问流概述和写出数据"><a href="#IO流-随机访问流概述和写出数据" class="headerlink" title="IO流(随机访问流概述和写出数据)"></a>IO流(随机访问流概述和写出数据)</h3><ul>
+<li>A:随机访问流概述<ul>
+<li>RandomAccessFile概述</li>
+<li>RandomAccessFile类不属于流，是Object类的子类。但它融合了InputStream和OutputStream的功能。</li>
+<li>支持对随机访问文件的读取和写入。</li>
+</ul>
+</li>
+<li>B:read(),write(),seek()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.otherio;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.RandomAccessFile;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo09_RandomAccessFile</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">/**</span></div><div class="line">    * <span class="doctag">@param</span> args</div><div class="line">    * <span class="doctag">@throws</span> IOException </div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">      RandomAccessFile raf = <span class="keyword">new</span> RandomAccessFile(<span class="string">"h.txt"</span>, <span class="string">"rw"</span>);</div><div class="line">      <span class="comment">//int x = raf.read(); //每次只读一个字节。</span></div><div class="line">      <span class="comment">//System.out.println(x);</span></div><div class="line">      raf.seek(<span class="number">10</span>);  <span class="comment">//设置指针的位置为10</span></div><div class="line">      raf.write(<span class="number">102</span>);  <span class="comment">//在第11个的时候放入数据</span></div><div class="line">      </div><div class="line">      raf.close();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流-数据输入输出流"><a href="#IO流-数据输入输出流" class="headerlink" title="IO流(数据输入输出流)"></a>IO流(数据输入输出流)</h3><ul>
+<li>1.什么是数据输入输出流<ul>
+<li>DataInputStream, DataOutputStream可以按照基本数据类型大小读写数据</li>
+<li>例如按Long大小写出一个数字, 写出时该数据占8字节. 读取的时候也可以按照Long类型读取, 一次读取8个字节.</li>
+</ul>
+</li>
+<li>2.使用方式</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.otherio;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.DataOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo10_DataOutputStream</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * 00000000 00000000 00000011 11100101 997</div><div class="line">	 * 00000000 00000000 00000000 11100101</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		DataOutputStream dos = <span class="keyword">new</span> DataOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"h.txt"</span>));</div><div class="line">		dos.writeInt(<span class="number">997</span>);</div><div class="line">		dos.writeInt(<span class="number">998</span>);</div><div class="line">		dos.writeInt(<span class="number">999</span>);</div><div class="line">	</div><div class="line">		dos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"h.txt"</span>);<span class="comment">//写入数据</span></div><div class="line">		fos.write(<span class="number">997</span>);</div><div class="line">		fos.write(<span class="number">998</span>);</div><div class="line">		fos.write(<span class="number">999</span>);</div><div class="line">		</div><div class="line">		fos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.otherio;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.DataInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo11_DataInputStream</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">/**</span></div><div class="line">    * <span class="doctag">@param</span> args</div><div class="line">    * <span class="doctag">@throws</span> IOException </div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">      <span class="comment">//demo1();</span></div><div class="line">      DataInputStream dis = <span class="keyword">new</span> DataInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"h.txt"</span>));</div><div class="line">      <span class="keyword">int</span> x = dis.readInt();</div><div class="line">      <span class="keyword">int</span> y = dis.readInt();</div><div class="line">      <span class="keyword">int</span> z = dis.readInt();</div><div class="line">      System.out.println(x);</div><div class="line">      System.out.println(y);</div><div class="line">      System.out.println(z);</div><div class="line">      </div><div class="line">      dis.close();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">      FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"h.txt"</span>);</div><div class="line">      <span class="keyword">int</span> x = fis.read();</div><div class="line">      <span class="keyword">int</span> y = fis.read();</div><div class="line">      <span class="keyword">int</span> z = fis.read();</div><div class="line">      </div><div class="line">      System.out.println(x);</div><div class="line">      System.out.println(y);</div><div class="line">      System.out.println(z);</div><div class="line">      </div><div class="line">      fis.close();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="IO流-Properties的概述和作为Map集合的使用"><a href="#IO流-Properties的概述和作为Map集合的使用" class="headerlink" title="IO流(Properties的概述和作为Map集合的使用)"></a>IO流(Properties的概述和作为Map集合的使用)</h3><ul>
+<li>A:Properties的概述<ul>
+<li>Properties 类表示了一个持久的属性集。</li>
+<li>Properties 可保存在流中或从流中加载。</li>
+<li>属性列表中每个键及其对应值都是一个字符串。 </li>
+</ul>
+</li>
+<li>B:案例演示<ul>
+<li>Properties作为Map集合的使用</li>
+</ul>
+</li>
+</ul>
+<h3 id="IO流-Properties的特殊功能使用"><a href="#IO流-Properties的特殊功能使用" class="headerlink" title="IO流(Properties的特殊功能使用)"></a>IO流(Properties的特殊功能使用)</h3><ul>
+<li>A:Properties的特殊功能<ul>
+<li>public Object setProperty(String key,String value)</li>
+<li>public String getProperty(String key)</li>
+<li>public Enumeration<string> stringPropertyNames()</string></li>
+</ul>
+</li>
+<li>B:案例演示<ul>
+<li>Properties的特殊功能</li>
+</ul>
+</li>
+</ul>
+<h3 id="IO流-Properties的load-和store-功能"><a href="#IO流-Properties的load-和store-功能" class="headerlink" title="IO流(Properties的load()和store()功能)"></a>IO流(Properties的load()和store()功能)</h3><ul>
+<li>A:Properties的load()和list()功能</li>
+<li>B:案例演示<ul>
+<li>Properties的load()和list()功能</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.otherio;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.PrintStream;</div><div class="line"><span class="keyword">import</span> java.util.Enumeration;</div><div class="line"><span class="keyword">import</span> java.util.Properties;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo12_Properties</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">/**</span></div><div class="line">    * <span class="doctag">@param</span> args</div><div class="line">    * <span class="doctag">@throws</span> IOException </div><div class="line">    * <span class="doctag">@throws</span> FileNotFoundException </div><div class="line">    */</div><div class="line">   <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">      <span class="comment">//demo1();</span></div><div class="line">      <span class="comment">//demo2();</span></div><div class="line">      Properties prop = <span class="keyword">new</span> Properties();</div><div class="line">      prop.load(<span class="keyword">new</span> FileInputStream(<span class="string">"config.properties"</span>));      <span class="comment">//获取文件上的数据</span></div><div class="line">      prop.setProperty(<span class="string">"username"</span>, <span class="string">"lisi"</span>);</div><div class="line">      prop.list(<span class="keyword">new</span> PrintStream(<span class="string">"config.properties"</span>));         <span class="comment">//将数据写到文件上</span></div><div class="line">      System.out.println(prop);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> </span>&#123;</div><div class="line">      Properties prop = <span class="keyword">new</span> Properties();</div><div class="line">      prop.setProperty(<span class="string">"username"</span>, <span class="string">"zhangsan"</span>);</div><div class="line">      prop.setProperty(<span class="string">"password"</span>, <span class="string">"123456"</span>);</div><div class="line">      prop.setProperty(<span class="string">"qq"</span>, <span class="string">"654321"</span>);</div><div class="line">      prop.setProperty(<span class="string">"tel"</span>, <span class="string">"18987654321"</span>);</div><div class="line">      </div><div class="line">      Enumeration&lt;String&gt; en = (Enumeration&lt;String&gt;) prop.propertyNames();</div><div class="line">      <span class="keyword">while</span>(en.hasMoreElements()) &#123;</div><div class="line">         String key = en.nextElement();</div><div class="line">         String value = prop.getProperty(key);</div><div class="line">         System.out.println(key + <span class="string">"="</span> + value);</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> </span>&#123;</div><div class="line">      Properties prop = <span class="keyword">new</span> Properties();</div><div class="line">      prop.setProperty(<span class="string">"username"</span>, <span class="string">"zhangsan"</span>);</div><div class="line">      prop.setProperty(<span class="string">"password"</span>, <span class="string">"123456"</span>);</div><div class="line">      prop.setProperty(<span class="string">"qq"</span>, <span class="string">"654321"</span>);</div><div class="line">      prop.setProperty(<span class="string">"tel"</span>, <span class="string">"18987654321"</span>);</div><div class="line">      </div><div class="line">      String value = prop.getProperty(<span class="string">"username"</span>);</div><div class="line">      System.out.println(value);</div><div class="line">      System.out.println(prop);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="练习（算法）"><a href="#练习（算法）" class="headerlink" title="练习（算法）"></a>练习（算法）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.otherio;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo13</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">/**</span></div><div class="line">    * <span class="doctag">@param</span> args</div><div class="line">    * 算法题</div><div class="line">    * 1,有x个人,分配房间,每个房间住6个人,问x个人住几个房间</div><div class="line">    * (x + 5) / 6</div><div class="line">    * 2,在控制台无限打印0-9</div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">      <span class="comment">/*int x = -1;</span></div><div class="line">      while(true) &#123;</div><div class="line">         x = ++x % 10;</div><div class="line">         System.out.println(x);</div><div class="line">      &#125;*/</div><div class="line">      </div><div class="line">      <span class="keyword">int</span> x = <span class="number">0</span>;</div><div class="line">      <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</div><div class="line">         <span class="keyword">if</span>(x == <span class="number">1000</span>) &#123;</div><div class="line">            x = <span class="number">0</span>;</div><div class="line">         &#125;</div><div class="line">         System.out.println(x++ % <span class="number">10</span>);</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="拷贝文件夹内容"><a href="#拷贝文件夹内容" class="headerlink" title="拷贝文件夹内容"></a>拷贝文件夹内容</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> site.yanhui.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 	 * 5,从键盘接收两个文件夹路径,把其中一个文件夹中(包含内容)拷贝到另一个文件夹中</div><div class="line"></div><div class="line">     * <span class="doctag">@param</span> args</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">        File src = getDir();</div><div class="line">       File dest =getDir();</div><div class="line"></div><div class="line">       <span class="keyword">if</span> (src.equals(dest))&#123;</div><div class="line"></div><div class="line">           System.out.println(<span class="string">"输入有误"</span>);</div><div class="line"></div><div class="line">       &#125;<span class="keyword">else</span>&#123;</div><div class="line"></div><div class="line">           CopyFiles(src,dest);</div><div class="line">       &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 控制台输入</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> File <span class="title">getDir</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">        Scanner scanner= <span class="keyword">new</span> Scanner(System.in);</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"请输出一个文件夹路径："</span>);</div><div class="line"></div><div class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">            String line = scanner.nextLine();</div><div class="line">             File dir = <span class="keyword">new</span> File(line);</div><div class="line"></div><div class="line">             <span class="keyword">if</span> (dir.isFile())&#123;</div><div class="line">                 System.out.println(<span class="string">"输入有误，请重新输入"</span>);</div><div class="line">             &#125;<span class="keyword">else</span> <span class="keyword">if</span> (!dir.exists())&#123;</div><div class="line">                 System.out.println(<span class="string">"输入有误重新输入"</span>);</div><div class="line">             &#125;<span class="keyword">else</span>&#123;</div><div class="line">                 <span class="keyword">return</span> dir;</div><div class="line">             &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">   <span class="comment">/*</span></div><div class="line">     * 拷贝带内容的文件夹</div><div class="line">	 * 1,返回值类型void</div><div class="line">	 * 2,参数列表File src,File dest</div><div class="line">	 */</div><div class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">static</span>  <span class="keyword">void</span>  <span class="title">CopyFiles</span><span class="params">(File src,File dest)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line"></div><div class="line">        File newDir= <span class="keyword">new</span> File(dest,src.getName()); <span class="comment">//指定dest目的的根目录+文件夹的名字</span></div><div class="line"></div><div class="line">      </div><div class="line">        newDir.mkdir(); <span class="comment">//创建该文件夹</span></div><div class="line"></div><div class="line">        File[] files = src.listFiles();</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (File subFile : files) &#123;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (subFile.isFile())&#123;</div><div class="line"></div><div class="line">                FileInputStream fis= <span class="keyword">new</span> FileInputStream(subFile);<span class="comment">//从src源文件夹read</span></div><div class="line">                FileOutputStream fos= <span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(newDir,subFile.getName()));<span class="comment">//写到新的文件夹下的文件里面，</span></div><div class="line">                                                                             <span class="comment">//名字就是subfile里面的名字，拷贝嘛</span></div><div class="line">                <span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">8192</span>];<span class="comment">//自己弄一个字节数组拷贝，一次8k</span></div><div class="line">                <span class="keyword">int</span> len;</div><div class="line">                <span class="keyword">while</span> ((len= fis.read(arr))!=-<span class="number">1</span>)&#123;</div><div class="line"></div><div class="line">                    fos.write(arr,<span class="number">0</span>,len);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                fis.close();</div><div class="line">                fos.close();</div><div class="line"></div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                CopyFiles(subFile, newDir); <span class="comment">//如果遇到文件夹就一直递归下去。</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="野望 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎订阅我的个人微信技术博客。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://ogtmd8elu.bkt.clouddn.com/WechatPay-min.png" alt="野望 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://ogtmd8elu.bkt.clouddn.com/pay-min.jpg" alt="野望 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/J2SE/" rel="tag"># J2SE</a>
+          
+            <a href="/tags/IO流/" rel="tag"># IO流</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/08/Java学习笔记整理（21）/" rel="next" title="Java学习笔记整理（21）">
+                <i class="fa fa-chevron-left"></i> Java学习笔记整理（21）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/16/Java学习笔记整理（23）/" rel="prev" title="Java学习笔记整理（23）">
+                Java学习笔记整理（23） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="野望" />
+          <p class="site-author-name" itemprop="name">野望</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuili" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yan-hui-jun" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/5800502ca0bb9f00586674c8" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      掘金
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/6043346/archer" target="_blank" title="StackOverFlow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      StackOverFlow
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/yanhui" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      segmentfault
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.0xaa55.com/" title="技术宅的结界" target="_blank">技术宅的结界</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-序列流"><span class="nav-number">1.</span> <span class="nav-text">IO流(序列流)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流（序列流整合多个）"><span class="nav-number">2.</span> <span class="nav-text">IO流（序列流整合多个）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流（内存输出流）"><span class="nav-number">3.</span> <span class="nav-text">IO流（内存输出流）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流（内存输出流之黑马面试题）"><span class="nav-number">4.</span> <span class="nav-text">IO流（内存输出流之黑马面试题）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流（对象操作流ObjecOutputStream）"><span class="nav-number">5.</span> <span class="nav-text">IO流（对象操作流ObjecOutputStream）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-对象操作流ObjectInputStream"><span class="nav-number">6.</span> <span class="nav-text">IO流(对象操作流ObjectInputStream)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-对象操作流优化"><span class="nav-number">7.</span> <span class="nav-text">IO流(对象操作流优化)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-加上id号"><span class="nav-number">8.</span> <span class="nav-text">IO流(加上id号)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-打印流的概述和特点"><span class="nav-number">9.</span> <span class="nav-text">IO流(打印流的概述和特点)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-标准输入输出流概述和输出语句"><span class="nav-number">10.</span> <span class="nav-text">IO流(标准输入输出流概述和输出语句)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-修改标准输入输出流拷贝图片"><span class="nav-number">11.</span> <span class="nav-text">IO流(修改标准输入输出流拷贝图片)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-两种方式实现键盘录入"><span class="nav-number">12.</span> <span class="nav-text">IO流(两种方式实现键盘录入)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-随机访问流概述和写出数据"><span class="nav-number">13.</span> <span class="nav-text">IO流(随机访问流概述和写出数据)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-数据输入输出流"><span class="nav-number">14.</span> <span class="nav-text">IO流(数据输入输出流)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-Properties的概述和作为Map集合的使用"><span class="nav-number">15.</span> <span class="nav-text">IO流(Properties的概述和作为Map集合的使用)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-Properties的特殊功能使用"><span class="nav-number">16.</span> <span class="nav-text">IO流(Properties的特殊功能使用)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流-Properties的load-和store-功能"><span class="nav-number">17.</span> <span class="nav-text">IO流(Properties的load()和store()功能)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习（算法）"><span class="nav-number">18.</span> <span class="nav-text">练习（算法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝文件夹内容"><span class="nav-number">19.</span> <span class="nav-text">拷贝文件夹内容</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">野望</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260855711&web_id=1260855711" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ArcherBlog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yanhuili.github.io/2017/08/10/Java学习笔记整理（22）/';
+          this.page.identifier = '2017/08/10/Java学习笔记整理（22）/';
+          this.page.title = 'Java学习笔记整理（22）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ArcherBlog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kzNRGot5tLJKONL4cUBsHljH-gzGzoHsz", "MbcqFd5NNWtLdqES7fSrWn0y");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

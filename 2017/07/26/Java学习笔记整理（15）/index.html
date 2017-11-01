@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="J2SE,集合框架,Collection,List," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="集合框架使用
+Collection是最顶层的接口。分为（List和set）
+List接口
+迭代器（Iterator的使用）
+ListIterator
+并发修改异常（面试题）。
+ArrayList，LinkedList，Vector优缺点（面试）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java学习笔记整理（15）">
+<meta property="og:url" content="http://yanhuili.github.io/2017/07/26/Java学习笔记整理（15）/index.html">
+<meta property="og:site_name" content="野望的小屋">
+<meta property="og:description" content="集合框架使用
+Collection是最顶层的接口。分为（List和set）
+List接口
+迭代器（Iterator的使用）
+ListIterator
+并发修改异常（面试题）。
+ArrayList，LinkedList，Vector优缺点（面试）">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707260706_714.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707260707_669.png">
+<meta property="og:updated_time" content="2017-08-08T04:22:04.577Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java学习笔记整理（15）">
+<meta name="twitter:description" content="集合框架使用
+Collection是最顶层的接口。分为（List和set）
+List接口
+迭代器（Iterator的使用）
+ListIterator
+并发修改异常（面试题）。
+ArrayList，LinkedList，Vector优缺点（面试）">
+<meta name="twitter:image" content="http://ogtmd8elu.bkt.clouddn.com/201707260706_714.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"hide","offset":0,"offset_float":0,"b2t":true,"scrollpercent":true,"onmobile":"flase"},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yanhuili.github.io/2017/07/26/Java学习笔记整理（15）/"/>
+
+
+
+
+
+  <title>Java学习笔记整理（15） | 野望的小屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">野望的小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">永不言弃。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yanhuili.github.io/2017/07/26/Java学习笔记整理（15）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="野望">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="野望的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Java学习笔记整理（15）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T06:26:40+08:00">
+                2017-07-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-08-08T12:22:04+08:00">
+                2017-08-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/J2SE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2SE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/26/Java学习笔记整理（15）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/26/Java学习笔记整理（15）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/26/Java学习笔记整理（15）/" class="leancloud_visitors" data-flag-title="Java学习笔记整理（15）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li>集合框架使用</li>
+<li>Collection是最顶层的接口。分为（List和set）</li>
+<li>List接口</li>
+<li>迭代器（Iterator的使用）</li>
+<li>ListIterator</li>
+<li>并发修改异常（面试题）。</li>
+<li>ArrayList，LinkedList，Vector优缺点（面试）</li>
+</ol>
+<a id="more"></a>
+<h3 id="对象数组的概述和使用"><a href="#对象数组的概述和使用" class="headerlink" title="对象数组的概述和使用"></a>对象数组的概述和使用</h3><ul>
+<li><p>案例演示</p>
+<ul>
+<li><p>需求：我有5个学生，请把这个5个学生的信息存储到数组中，并遍历数组，获取得到每一个学生信息。</p>
+<ul>
+<li>Student[] arr = new Student[5];            //存储学生对象</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">arr[<span class="number">0</span>] = <span class="keyword">new</span> Student(<span class="string">"张三"</span>, <span class="number">23</span>);</div><div class="line">arr[<span class="number">1</span>] = <span class="keyword">new</span> Student(<span class="string">"李四"</span>, <span class="number">24</span>);</div><div class="line">arr[<span class="number">2</span>] = <span class="keyword">new</span> Student(<span class="string">"王五"</span>, <span class="number">25</span>);</div><div class="line">arr[<span class="number">3</span>] = <span class="keyword">new</span> Student(<span class="string">"赵六"</span>, <span class="number">26</span>);</div><div class="line">arr[<span class="number">4</span>] = <span class="keyword">new</span> Student(<span class="string">"马哥"</span>, <span class="number">20</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</div><div class="line">    System.out.println(arr[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//学生bean</span></div><div class="line"></div><div class="line"><span class="keyword">package</span> Yanhui.bean;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Student bean</div><div class="line"> * Created by Archer on 2017/7/26.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">private</span> String name;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.age = age;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> name;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> age;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.age = age;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"Student&#123;"</span> +</div><div class="line">        <span class="string">"name='"</span> + name + <span class="string">'\''</span> +</div><div class="line">        <span class="string">", age="</span> + age +</div><div class="line">        <span class="string">'&#125;'</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> Yanhui.collection;</div><div class="line"></div><div class="line"><span class="keyword">import</span> Yanhui.bean.Student;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo1_Array</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 *  A:案例演示</div><div class="line">	* 需求：我有5个学生，请把这个5个学生的信息存储到数组中，并遍历数组，获取得到每一个学生信息。</div><div class="line">	* 通过这个案例:</div><div class="line">	* 		数组既可以存储基本数据类型,又可以存储引用数据类型</div><div class="line">	* 		数组长度是固定的,不能自动增长</div><div class="line">	* </div><div class="line">	* 数组和集合的区别</div><div class="line">	* 		1:数组既可以存储基本数据类型,又可以存储引用数据类型</div><div class="line">	* 		  集合只能存储引用数据类型(对象)</div><div class="line">	* 		2:数组长度是固定的,不能自动增长</div><div class="line">	* 		集合的长度的是可变的,可以根据元素的增加而增长</div><div class="line">	* </div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Student[] arr = <span class="keyword">new</span> Student[<span class="number">5</span>];					<span class="comment">//存储学生对象</span></div><div class="line">		arr[<span class="number">0</span>] = <span class="keyword">new</span> Student(<span class="string">"张三"</span>, <span class="number">23</span>);</div><div class="line">		arr[<span class="number">1</span>] = <span class="keyword">new</span> Student(<span class="string">"李四"</span>, <span class="number">24</span>);</div><div class="line">		arr[<span class="number">2</span>] = <span class="keyword">new</span> Student(<span class="string">"王五"</span>, <span class="number">25</span>);</div><div class="line">		arr[<span class="number">3</span>] = <span class="keyword">new</span> Student(<span class="string">"赵六"</span>, <span class="number">26</span>);</div><div class="line">		arr[<span class="number">4</span>] = <span class="keyword">new</span> Student(<span class="string">"马哥"</span>, <span class="number">20</span>);</div><div class="line">		</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</div><div class="line">			System.out.println(arr[i]);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="对象数组的内存图解"><a href="#对象数组的内存图解" class="headerlink" title="对象数组的内存图解"></a>对象数组的内存图解</h3><ul>
+<li>A:画图演示<ul>
+<li>把学生数组的案例画图讲解</li>
+<li>数组和集合存储引用数据类型,存的都是地址值</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707260706_714.png" alt=""></p>
+<p>集合也是一样的。</p>
+<h3 id="集合的由来及集合继承体系图"><a href="#集合的由来及集合继承体系图" class="headerlink" title="集合的由来及集合继承体系图"></a>集合的由来及集合继承体系图</h3><ul>
+<li>A:集合的由来<ul>
+<li>数组长度是固定,当需要增加和减少元素时需要对数组重新定义,太麻烦,java内部给我们提供了集合类,能存储任意对象,长度是可以改变的,随着元素的增加而增加,随着元素的减少而减少 </li>
+</ul>
+</li>
+<li>B:数组和集合的区别<ul>
+<li>区别1 : <ul>
+<li>数组既可以存储基本数据类型,又可以存储引用数据类型</li>
+<li>集合只能存储引用数据类型(对象)</li>
+</ul>
+</li>
+<li>区别2:<ul>
+<li>数组长度是固定的,不能自动增长</li>
+<li>集合的长度的是可变的,可以根据元素的增加而增长</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数组和集合什么时候用<ul>
+<li>1,如果元素个数是固定的推荐用数组</li>
+<li>2,如果元素个数不是固定的推荐用集合</li>
+</ul>
+</li>
+<li>C:集合继承体系图</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707260707_669.png" alt=""></p>
+<h3 id="Collection集合的基本功能测试"><a href="#Collection集合的基本功能测试" class="headerlink" title="Collection集合的基本功能测试"></a>Collection集合的基本功能测试</h3><ul>
+<li><p>A:案例演示    </p>
+<ul>
+<li>基本功能演示</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span></div><div class="line"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></div><div class="line"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></div><div class="line"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span></div><div class="line"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></div><div class="line"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>B:注意:</p>
+</li>
+<li><p>collectionXxx.java使用了未经检查或不安全的操作.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">注意:要了解详细信息,请使用 -Xlint:unchecked重新编译.</div><div class="line">java编译器认为该程序存在安全隐患</div><div class="line">温馨提示:这不是编译失败,所以先不用理会,等学了泛型你就知道了</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 集合的遍历之集合转数组遍历</div><div class="line"></div><div class="line">- A:集合的遍历</div><div class="line"></div><div class="line">  - 其实就是依次获取集合中的每一个元素。</div><div class="line"></div><div class="line">- B:案例演示</div><div class="line"></div><div class="line">  - 把集合转成数组，可以实现集合的遍历</div><div class="line"></div><div class="line">  - toArray()*</div><div class="line"></div><div class="line">    ```java</div><div class="line">      Collection coll = new ArrayList();</div><div class="line">      coll.add(new Student(&quot;张三&quot;,23));     //Object obj = new Student(&quot;张三&quot;,23);</div><div class="line">      coll.add(new Student(&quot;李四&quot;,24));</div><div class="line">      coll.add(new Student(&quot;王五&quot;,25));</div><div class="line">      coll.add(new Student(&quot;赵六&quot;,26));</div><div class="line">      </div><div class="line">      Object[] arr = coll.toArray();              //将集合转换成数组</div><div class="line">      for (int i = 0; i &lt; arr.length; i++) &#123;</div><div class="line">          Student s = (Student)arr[i];            //强转成Student</div><div class="line">          System.out.println(s.getName() + &quot;,&quot; + s.getAge());</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.collection;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.Collection;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.itcast.bean.Student;</div><div class="line"></div><div class="line"><span class="meta">@SuppressWarnings</span>(&#123; <span class="string">"rawtypes"</span>, <span class="string">"unchecked"</span> &#125;)	<span class="comment">//去除黄色提示</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo2_Collection</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * 定义集合对象,添加学生对象</div><div class="line">	 * 将集合转换成数组</div><div class="line">	 * 遍历数组打印每个学生的姓名和年龄</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		<span class="comment">//demo2();</span></div><div class="line">		<span class="comment">//demo3();</span></div><div class="line">		<span class="comment">//demo4();</span></div><div class="line">		<span class="comment">//demo5();</span></div><div class="line">		<span class="comment">//demo6();</span></div><div class="line">		<span class="comment">//demo7();</span></div><div class="line">		Collection coll = <span class="keyword">new</span> ArrayList();</div><div class="line">		coll.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">23</span>));				<span class="comment">//Object obj = new Student("张三",23)</span></div><div class="line">		coll.add(<span class="keyword">new</span> Student(<span class="string">"李四"</span>,<span class="number">24</span>));</div><div class="line">		coll.add(<span class="keyword">new</span> Student(<span class="string">"王五"</span>,<span class="number">25</span>));</div><div class="line">		coll.add(<span class="keyword">new</span> Student(<span class="string">"赵六"</span>,<span class="number">26</span>));</div><div class="line">		</div><div class="line">		Object[] arr = coll.toArray();				<span class="comment">//将集合转换成数组</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</div><div class="line">			Student s = (Student)arr[i];			<span class="comment">//强转成Student</span></div><div class="line">			System.out.println(s.getName() + <span class="string">","</span> + s.getAge());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo7</span><span class="params">()</span> </span>&#123;</div><div class="line">		Collection coll = <span class="keyword">new</span> ArrayList();</div><div class="line">		coll.add(<span class="string">"a"</span>);</div><div class="line">		coll.add(<span class="string">"b"</span>);</div><div class="line">		coll.add(<span class="string">"c"</span>);</div><div class="line">		coll.add(<span class="string">"d"</span>);</div><div class="line">		</div><div class="line">		Object[] arr = coll.toArray();			<span class="comment">//集合转化成数组</span></div><div class="line">		</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</div><div class="line">			System.out.println(arr[i]);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo6</span><span class="params">()</span> </span>&#123;</div><div class="line">		Collection coll = <span class="keyword">new</span> ArrayList();</div><div class="line">		coll.add(<span class="string">"a"</span>);</div><div class="line">		coll.add(<span class="string">"b"</span>);</div><div class="line">		coll.add(<span class="string">"c"</span>);</div><div class="line">		coll.add(<span class="string">"d"</span>);</div><div class="line">		</div><div class="line">		System.out.println(coll.size()); 		<span class="comment">//返回集合中元素个数</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo5</span><span class="params">()</span> </span>&#123;</div><div class="line">		Collection coll = <span class="keyword">new</span> ArrayList();</div><div class="line">		coll.add(<span class="string">"a"</span>);</div><div class="line">		coll.add(<span class="string">"b"</span>);</div><div class="line">		coll.add(<span class="string">"c"</span>);</div><div class="line">		coll.add(<span class="string">"d"</span>);</div><div class="line">		</div><div class="line">		<span class="keyword">boolean</span> b1 = coll.remove(<span class="string">"b"</span>);			<span class="comment">//删除成功返回true</span></div><div class="line">		<span class="keyword">boolean</span> b2 = coll.remove(<span class="string">"z"</span>);</div><div class="line">		</div><div class="line">		System.out.println(b1);</div><div class="line">		System.out.println(b2);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo4</span><span class="params">()</span> </span>&#123;</div><div class="line">		Collection coll = <span class="keyword">new</span> ArrayList();</div><div class="line">		<span class="keyword">boolean</span> b1 = coll.isEmpty();			<span class="comment">//判断集合是否为空,为空返回true</span></div><div class="line">		System.out.println(b1);</div><div class="line">		</div><div class="line">		coll.add(<span class="string">"a"</span>);</div><div class="line">		<span class="keyword">boolean</span> b2 = coll.isEmpty();</div><div class="line">		System.out.println(b2);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo3</span><span class="params">()</span> </span>&#123;</div><div class="line">		Collection coll1 = <span class="keyword">new</span> ArrayList();</div><div class="line">		coll1.add(<span class="string">"a"</span>);</div><div class="line">		coll1.add(<span class="string">"b"</span>);</div><div class="line">		coll1.add(<span class="string">"c"</span>);</div><div class="line">		coll1.add(<span class="string">"d"</span>);</div><div class="line">		</div><div class="line">		<span class="comment">//boolean b1 = coll.equals("abcd");		//equals不是集合和元素之间的比较</span></div><div class="line">		<span class="comment">//System.out.println(b1);</span></div><div class="line">		</div><div class="line">		Collection coll2 = <span class="keyword">new</span> ArrayList();</div><div class="line">		coll2.add(<span class="string">"a"</span>);</div><div class="line">		coll2.add(<span class="string">"b"</span>);</div><div class="line">		coll2.add(<span class="string">"c"</span>);</div><div class="line">		</div><div class="line">		<span class="keyword">boolean</span> b2 = coll1.equals(coll2);		<span class="comment">//集合和集合之间的比较,元素一样,顺序一致返回true</span></div><div class="line">		System.out.println(b2);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> </span>&#123;</div><div class="line">		Collection coll = <span class="keyword">new</span> ArrayList();</div><div class="line">		coll.add(<span class="string">"a"</span>);</div><div class="line">		coll.add(<span class="string">"b"</span>);</div><div class="line">		coll.add(<span class="string">"c"</span>);</div><div class="line">		coll.add(<span class="string">"d"</span>);</div><div class="line">		<span class="comment">//coll.clear();							//清空集合</span></div><div class="line">		<span class="keyword">boolean</span> b1 = coll.contains(<span class="string">"a"</span>);		<span class="comment">//判断是否包含传入的元素,包含返回true</span></div><div class="line">		<span class="keyword">boolean</span> b2 = coll.contains(<span class="string">"e"</span>);</div><div class="line">		System.out.println(b1);</div><div class="line">		System.out.println(b2);</div><div class="line">		System.out.println(coll);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> </span>&#123;</div><div class="line">		Collection coll = <span class="keyword">new</span> ArrayList();</div><div class="line">		<span class="keyword">boolean</span> b1 = coll.add(<span class="number">1</span>);				<span class="comment">//new Integer(1);自动装箱</span></div><div class="line">		<span class="keyword">boolean</span> b4 = coll.add(<span class="number">1</span>);				<span class="comment">//new Integer(1);自动装箱</span></div><div class="line">		<span class="keyword">boolean</span> b2 = coll.add(<span class="string">"abc"</span>);</div><div class="line">		<span class="keyword">boolean</span> b3 = coll.add(<span class="keyword">new</span> Student(<span class="string">"马哥"</span>, <span class="number">18</span>));</div><div class="line">		</div><div class="line">		System.out.println(b1);</div><div class="line">		System.out.println(b2);</div><div class="line">		System.out.println(b3);</div><div class="line">		System.out.println(b4);</div><div class="line">		</div><div class="line">		System.out.println(coll);				<span class="comment">//ArrayList的间接父类重写了toString方法</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Collection集合的高级功能测试"><a href="#Collection集合的高级功能测试" class="headerlink" title="Collection集合的高级功能测试"></a>Collection集合的高级功能测试</h3><ul>
+<li><p>A:案例演示</p>
+<ul>
+<li>带All的功能演示</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">boolean addAll(Collection c)</div><div class="line">boolean removeAll(Collection c)</div><div class="line">boolean containsAll(Collection c)</div><div class="line">boolean retainAll(Collection c)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">​```java</div><div class="line">package cn.itcast.collection;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.Collection;</div><div class="line">@SuppressWarnings(&quot;ALL&quot;)  //去除黄色提示</div><div class="line">public class Demo3_CollectionAll &#123;</div><div class="line"></div><div class="line">	/**</div><div class="line">	 * @param args</div><div class="line">	 */</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//demo1();</div><div class="line">		//demo2();</div><div class="line">		//demo3();</div><div class="line">		Collection coll1 = new ArrayList();</div><div class="line">		coll1.add(&quot;a&quot;);</div><div class="line">		coll1.add(&quot;b&quot;);</div><div class="line">		coll1.add(&quot;c&quot;);</div><div class="line">		coll1.add(&quot;d&quot;);</div><div class="line">		</div><div class="line">		Collection coll2 = new ArrayList();</div><div class="line">		coll2.add(&quot;x&quot;);</div><div class="line">		coll2.add(&quot;y&quot;);</div><div class="line">		coll2.add(&quot;z&quot;);</div><div class="line">		</div><div class="line">		boolean b1 = coll1.retainAll(coll2);		//取交集,看调用的集合是否改变,如果没有改变返回false,如果改变返回true</div><div class="line">		System.out.println(b1);</div><div class="line">		System.out.println(coll1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void demo3() &#123;</div><div class="line">		Collection coll1 = new ArrayList();</div><div class="line">		coll1.add(&quot;a&quot;);</div><div class="line">		coll1.add(&quot;b&quot;);</div><div class="line">		coll1.add(&quot;c&quot;);</div><div class="line">		coll1.add(&quot;d&quot;);</div><div class="line">		</div><div class="line">		Collection coll2 = new ArrayList();</div><div class="line">		coll2.add(&quot;a&quot;);</div><div class="line">		coll2.add(&quot;b&quot;);</div><div class="line">		coll2.add(&quot;z&quot;);</div><div class="line">		</div><div class="line">		boolean b1 = coll1.removeAll(coll2);			//删除的是交集,两个集合有交集返回true,并删除交集部分</div><div class="line">		System.out.println(b1);</div><div class="line">		System.out.println(coll1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void demo2() &#123;</div><div class="line">		Collection coll1 = new ArrayList();</div><div class="line">		coll1.add(&quot;a&quot;);</div><div class="line">		coll1.add(&quot;b&quot;);</div><div class="line">		coll1.add(&quot;c&quot;);</div><div class="line">		coll1.add(&quot;d&quot;);</div><div class="line">		</div><div class="line">		Collection coll2 = new ArrayList();</div><div class="line">		coll2.add(&quot;a&quot;);</div><div class="line">		coll2.add(&quot;b&quot;);</div><div class="line">		coll2.add(&quot;c&quot;);</div><div class="line">		coll2.add(&quot;z&quot;);</div><div class="line">		</div><div class="line">		boolean b1 = coll1.containsAll(coll2);			//判断调用的集合是否包含传入的集合</div><div class="line">		System.out.println(b1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void demo1() &#123;</div><div class="line">		Collection coll1 = new ArrayList();</div><div class="line">		coll1.add(&quot;a&quot;);</div><div class="line">		coll1.add(&quot;b&quot;);</div><div class="line">		coll1.add(&quot;c&quot;);</div><div class="line">		coll1.add(&quot;d&quot;);</div><div class="line">		</div><div class="line">		Collection coll2 = new ArrayList();</div><div class="line">		coll2.add(&quot;e&quot;);</div><div class="line">		coll2.add(&quot;f&quot;);</div><div class="line">		coll2.add(&quot;g&quot;);</div><div class="line">		coll2.add(&quot;h&quot;);</div><div class="line">		//[a, b, c, d, e, f, g, h]</div><div class="line">		coll1.addAll(coll2);				//将集合对象中的每个对象遍历添加到调用集合对象中</div><div class="line">		//coll1.add(coll2);					//将整个集合对象当作一个对象,添加到调用的集合中</div><div class="line">		</div><div class="line">		System.out.println(coll1);</div><div class="line">		System.out.println(coll1.size());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="集合的遍历之迭代器遍历"><a href="#集合的遍历之迭代器遍历" class="headerlink" title="集合的遍历之迭代器遍历"></a>集合的遍历之迭代器遍历</h3><ul>
+<li><p>A:迭代器概述</p>
+<ul>
+<li>集合是用来存储元素,存储的元素需要查看,那么就需要迭代(遍历) </li>
+</ul>
+</li>
+<li><p>B:案例演示</p>
+<ul>
+<li><p>迭代器的使用</p>
+<p>Collection c = new ArrayList();</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">c.add(<span class="string">"a"</span>);</div><div class="line">c.add(<span class="string">"b"</span>);</div><div class="line">c.add(<span class="string">"c"</span>);</div><div class="line">c.add(<span class="string">"d"</span>);</div><div class="line"></div><div class="line">Iterator it = c.iterator();                     <span class="comment">//获取迭代器的引用</span></div><div class="line"><span class="keyword">while</span>(it.hasNext()) &#123;                           <span class="comment">//集合中的迭代方法(遍历)</span></div><div class="line">    System.out.println(it.next());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Collection存储自定义对象并遍历"><a href="#Collection存储自定义对象并遍历" class="headerlink" title="Collection存储自定义对象并遍历"></a>Collection存储自定义对象并遍历</h3><ul>
+<li><p>A:案例演示</p>
+<ul>
+<li><p>Collection存储自定义对象并用迭代器遍历</p>
+<ul>
+<li>Collection c = new ArrayList();</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">c.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">23</span>));</div><div class="line">c.add(<span class="keyword">new</span> Student(<span class="string">"李四"</span>,<span class="number">24</span>));</div><div class="line">c.add(<span class="keyword">new</span> Student(<span class="string">"王五"</span>,<span class="number">25</span>));</div><div class="line">c.add(<span class="keyword">new</span> Student(<span class="string">"赵六"</span>,<span class="number">26</span>));</div><div class="line">c.add(<span class="keyword">new</span> Student(<span class="string">"赵六"</span>,<span class="number">26</span>));</div><div class="line"></div><div class="line"><span class="keyword">for</span>(Iterator it = c.iterator();it.hasNext();) &#123;</div><div class="line">    Student s = (Student)it.next();                     <span class="comment">//向下转型</span></div><div class="line">    System.out.println(s.getName() + <span class="string">","</span> + s.getAge()); <span class="comment">//获取对象中的姓名和年龄</span></div><div class="line">&#125;</div><div class="line">System.out.println(<span class="string">"------------------------------"</span>);</div><div class="line">Iterator it = c.iterator();                             <span class="comment">//获取迭代器</span></div><div class="line"><span class="keyword">while</span>(it.hasNext()) &#123;                                   <span class="comment">//判断集合中是否有元素</span></div><div class="line">    <span class="comment">//System.out.println(((Student)(it.next())).getName() + "," + ((Student)(it.next())).getAge());</span></div><div class="line">    Student s = (Student)it.next();                     <span class="comment">//向下转型</span></div><div class="line">    System.out.println(s.getName() + <span class="string">","</span> + s.getAge()); <span class="comment">//获取对象中的姓名和年龄</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.collection;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.Collection;</div><div class="line"><span class="keyword">import</span> java.util.Iterator;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.itcast.bean.Student;</div><div class="line"></div><div class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"ALL"</span>)  <span class="comment">//去除黄色提示</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo4_Iterator</span> </span>&#123;</div><div class="line"></div><div class="line"> <span class="comment">/**</span></div><div class="line">  * <span class="doctag">@param</span> args</div><div class="line">  * </div><div class="line">  */</div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">  demo1();</div><div class="line">  <span class="comment">//demo2();</span></div><div class="line">  Collection c = <span class="keyword">new</span> ArrayList();</div><div class="line">  </div><div class="line">  c.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">23</span>));</div><div class="line">  c.add(<span class="keyword">new</span> Student(<span class="string">"李四"</span>,<span class="number">24</span>));</div><div class="line">  c.add(<span class="keyword">new</span> Student(<span class="string">"王五"</span>,<span class="number">25</span>));</div><div class="line">  c.add(<span class="keyword">new</span> Student(<span class="string">"赵六"</span>,<span class="number">26</span>));</div><div class="line">  c.add(<span class="keyword">new</span> Student(<span class="string">"赵六"</span>,<span class="number">26</span>));</div><div class="line">  </div><div class="line">  <span class="keyword">for</span>(Iterator it = c.iterator();it.hasNext();) &#123; <span class="comment">//for语句更节省内存.迭代器it用完就被释放了.</span></div><div class="line">   Student s = (Student)it.next();       <span class="comment">//向下转型</span></div><div class="line">   System.out.println(s.getName() + <span class="string">","</span> + s.getAge());  <span class="comment">//获取对象中的姓名和年龄</span></div><div class="line">  &#125;</div><div class="line">  System.out.println(<span class="string">"------------------------------"</span>);</div><div class="line">  Iterator it = c.iterator();         <span class="comment">//获取迭代器</span></div><div class="line">  <span class="keyword">while</span>(it.hasNext()) &#123;          <span class="comment">//判断集合中是否有元素</span></div><div class="line">   <span class="comment">//System.out.println(((Student)(it.next())).getName() + "," + ((Student)(it.next())).getAge());</span></div><div class="line">   Student s = (Student)it.next();       <span class="comment">//向下转型</span></div><div class="line">   System.out.println(s.getName() + <span class="string">","</span> + s.getAge());  <span class="comment">//获取对象中的姓名和年龄</span></div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  </div><div class="line">  </div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> </span>&#123;</div><div class="line">  Collection c = <span class="keyword">new</span> ArrayList();</div><div class="line">  c.add(<span class="string">"a"</span>);</div><div class="line">  c.add(<span class="string">"b"</span>);</div><div class="line">  c.add(<span class="string">"c"</span>);</div><div class="line">  c.add(<span class="string">"d"</span>);</div><div class="line">  </div><div class="line">  Iterator it = c.iterator();       <span class="comment">//获取迭代器的引用</span></div><div class="line">  <span class="keyword">while</span>(it.hasNext()) &#123;        <span class="comment">//集合中的迭代方法(遍历)</span></div><div class="line">   System.out.println(it.next());</div><div class="line">  &#125;</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> </span>&#123;</div><div class="line">  Collection c = <span class="keyword">new</span> ArrayList();</div><div class="line">  c.add(<span class="string">"a"</span>);</div><div class="line">  c.add(<span class="string">"b"</span>);</div><div class="line">  <span class="comment">//c.add("c");</span></div><div class="line">  <span class="comment">//c.add("d");</span></div><div class="line">  </div><div class="line">  Iterator it = c.iterator();</div><div class="line">  <span class="keyword">boolean</span> b1 = it.hasNext();</div><div class="line">  Object obj1 = it.next();</div><div class="line">  System.out.println(b1);</div><div class="line">  System.out.println(obj1);</div><div class="line">  </div><div class="line">  <span class="keyword">boolean</span> b2 = it.hasNext();   <span class="comment">//alt + shift + r 改名</span></div><div class="line">  Object obj2 = it.next();</div><div class="line">  System.out.println(b2);</div><div class="line">  System.out.println(obj2);</div><div class="line">  </div><div class="line">  <span class="keyword">boolean</span> b3 = it.hasNext();</div><div class="line">  Object obj3 = it.next();   <span class="comment">//NoSuchElementException找不到元素异常</span></div><div class="line">  System.out.println(b3);</div><div class="line">  System.out.println(obj3);</div><div class="line"> &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="迭代器的原理及源码解析"><a href="#迭代器的原理及源码解析" class="headerlink" title="迭代器的原理及源码解析"></a>迭代器的原理及源码解析</h3><ul>
+<li>A:迭代器原理<ul>
+<li>迭代器原理:迭代器是对集合进行遍历,而每一个集合内部的存储结构都是不同的,所以每一个集合存和取都是不一样,那么就需要在每一个类中定义hasNext()和next()方法,这样做是可以的,但是会让整个集合体系过于臃肿,迭代器是将这样的方法向上抽取出接口,然后在每个类的内部,定义自己迭代方式,这样做的好处有二,第一规定了整个集合体系的遍历方式都是hasNext()和next()方法,第二,代码有底层内部实现,使用者不用管怎么实现的,会用即可 </li>
+</ul>
+</li>
+<li>B:迭代器源码解析<ul>
+<li>1,在eclipse中ctrl + shift + t找到ArrayList类</li>
+<li>2,ctrl+o查找iterator()方法</li>
+<li>3,查看返回值类型是new Itr(),说明Itr这个类实现Iterator接口</li>
+<li>4,查找Itr这个内部类,发现重写了Iterator中的所有抽象方法 </li>
+</ul>
+</li>
+</ul>
+<h3 id="List集合的特有功能概述和测试"><a href="#List集合的特有功能概述和测试" class="headerlink" title="List集合的特有功能概述和测试"></a>List集合的特有功能概述和测试</h3><ul>
+<li>A:List集合的特有功能概述<ul>
+<li>void add(int index,E element)</li>
+<li>E remove(int index)</li>
+<li>E get(int index)</li>
+<li>E set(int index,E element)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> Yanhui.list;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * List继承自collection,有了index的特性.</div><div class="line"> * Created by Archer on 2017/7/26.</div><div class="line"> */</div><div class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"ALL"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01_List</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line"><span class="comment">//    demo1();</span></div><div class="line"><span class="comment">//    demo2();</span></div><div class="line"></div><div class="line"><span class="comment">//    demo3();</span></div><div class="line"></div><div class="line"></div><div class="line">    List list=<span class="keyword">new</span> ArrayList();</div><div class="line"></div><div class="line">    list.add(<span class="string">"a"</span>);</div><div class="line">    list.add(<span class="string">"b"</span>);</div><div class="line">    list.add(<span class="string">"b"</span>);</div><div class="line">    list.add(<span class="string">"c"</span>);</div><div class="line">    list.add(<span class="string">"d"</span>);</div><div class="line"></div><div class="line"><span class="comment">//    list.set(1,"z");</span></div><div class="line"><span class="comment">//    System.out.println(list); //[a, z, b, c, d]</span></div><div class="line"></div><div class="line">    List list1 = list.subList(<span class="number">2</span>, <span class="number">4</span>); <span class="comment">//同样是包含头不包含尾</span></div><div class="line">    System.out.println(list);</div><div class="line">    System.out.println(list1);</div><div class="line"></div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo3</span><span class="params">()</span> </span>&#123;</div><div class="line">    List list=<span class="keyword">new</span> ArrayList();</div><div class="line"></div><div class="line">    list.add(<span class="string">"a"</span>);</div><div class="line">    list.add(<span class="string">"b"</span>);</div><div class="line">    list.add(<span class="string">"b"</span>);</div><div class="line">    list.add(<span class="string">"c"</span>);</div><div class="line">    list.add(<span class="string">"d"</span>);</div><div class="line"></div><div class="line">    List list1=<span class="keyword">new</span> ArrayList();</div><div class="line"></div><div class="line">    list1.add(<span class="string">"b"</span>);</div><div class="line">    list1.add(<span class="string">"b"</span>);</div><div class="line">    list1.add(<span class="string">"z"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">boolean</span> b1 = list.removeAll(list1);<span class="comment">//在list中删掉list和list1共有的部分,并重新赋值给list</span></div><div class="line"></div><div class="line"><span class="comment">//    Object remove = list1.remove(1);</span></div><div class="line"><span class="comment">//    System.out.println(remove);</span></div><div class="line"></div><div class="line"><span class="comment">//    boolean b = list1.remove("b");</span></div><div class="line"></div><div class="line">    System.out.println(b1);</div><div class="line">    System.out.println(list);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> </span>&#123;</div><div class="line">    List list=<span class="keyword">new</span> ArrayList();</div><div class="line"></div><div class="line">    list.add(<span class="string">"a"</span>);</div><div class="line">    list.add(<span class="string">"b"</span>);</div><div class="line">    list.add(<span class="string">"b"</span>);</div><div class="line">    list.add(<span class="string">"c"</span>);</div><div class="line">    list.add(<span class="string">"d"</span>);</div><div class="line">    Object o = list.get(<span class="number">0</span>);<span class="comment">//必须获取存在的对象,索引不存在就IndexOutOfBoundsException异常</span></div><div class="line">    <span class="keyword">int</span> b = list.indexOf(<span class="string">"b"</span>);<span class="comment">//反向获取索引</span></div><div class="line"></div><div class="line">    <span class="keyword">int</span> b1 = list.lastIndexOf(<span class="string">"b"</span>);<span class="comment">//从后向前遍历获取对象的索引</span></div><div class="line">    System.out.println(b1);</div><div class="line">    System.out.println(b);</div><div class="line">    System.out.println(o);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> </span>&#123;</div><div class="line">    List list=<span class="keyword">new</span> ArrayList();</div><div class="line"></div><div class="line">    list.add(<span class="string">"a"</span>);</div><div class="line">    list.add(<span class="string">"b"</span>);</div><div class="line">    list.add(<span class="string">"c"</span>);</div><div class="line">    list.add(<span class="string">"d"</span>);</div><div class="line"></div><div class="line">    List list11=<span class="keyword">new</span> ArrayList();</div><div class="line"></div><div class="line">    list11.add(<span class="string">"e"</span>);</div><div class="line">    list11.add(<span class="string">"f"</span>);</div><div class="line">    list11.add(<span class="string">"g"</span>);</div><div class="line">    list11.add(<span class="string">"h"</span>);</div><div class="line"></div><div class="line"><span class="comment">//     list.addAll(0,list11);//向指定位置添加list,不指定下标就是往后面添加</span></div><div class="line"><span class="comment">//    list11.add(1,"z");//[a, z, b, c, d]</span></div><div class="line"><span class="comment">//    list11.add(4,"z");//z&lt;=list11.lenth();相当于在末尾添加一个数据,但是不能隔空,隔空报错,新特性</span></div><div class="line"></div><div class="line">    System.out.println(list);</div><div class="line">  &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="List集合的特有遍历功能"><a href="#List集合的特有遍历功能" class="headerlink" title="List集合的特有遍历功能"></a>List集合的特有遍历功能</h3><ul>
+<li><p>A:案例演示</p>
+<ul>
+<li><p>通过size()和get()方法结合使用遍历。</p>
+<p>List list = new ArrayList();</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">list.add(&quot;a&quot;);</div><div class="line">list.add(&quot;b&quot;);</div><div class="line">list.add(&quot;c&quot;);</div><div class="line">list.add(&quot;d&quot;);</div><div class="line">list.add(&quot;e&quot;);</div><div class="line"></div><div class="line">//这种遍历只支持list集合,set集合不可以,因为set集合无索引</div><div class="line">for(int i = 0; i &lt; list.size(); i++) &#123;          </div><div class="line">    System.out.println(list.get(i));                //根据索引获取值</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">```java</div><div class="line">package Yanhui.test;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.Iterator;</div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by Archer on 2017/7/26.</div><div class="line"> */</div><div class="line"></div><div class="line">@SuppressWarnings(&quot;ALL&quot;)</div><div class="line"></div><div class="line">public class Test03_list &#123;</div><div class="line"></div><div class="line">  public static void main(String[] args) &#123;</div><div class="line"></div><div class="line">    List list = new ArrayList();</div><div class="line">    list.add(&quot;a&quot;);</div><div class="line">    list.add(&quot;ab&quot;);</div><div class="line">    list.add(&quot;ac&quot;);</div><div class="line">    list.add(&quot;ad&quot;);</div><div class="line"></div><div class="line">    //只有list里面可以使用get(i)的做法,set里面没有index</div><div class="line">    for (int i = 0; i &lt; list.size(); i++) &#123;</div><div class="line">      System.out.println(list.get(i));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //最优化的写法 节省内存.</div><div class="line">    for (Iterator iterator=list.iterator();iterator.hasNext();)&#123;</div><div class="line">      System.out.println(iterator.next());</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="List集合存储学生对象并遍历"><a href="#List集合存储学生对象并遍历" class="headerlink" title="List集合存储学生对象并遍历"></a>List集合存储学生对象并遍历</h3><ul>
+<li><p>A:案例演示</p>
+<ul>
+<li><p>List集合存储学生对象并遍历。</p>
+</li>
+<li><p>通过size()和get()方法结合使用遍历。</p>
+<p>List list = new ArrayList();</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">list.add(new Student(&quot;马哥&quot;, 18));</div><div class="line">list.add(new Student(&quot;马粉1&quot;, 18));</div><div class="line">list.add(new Student(&quot;马粉2&quot;, 18));</div><div class="line">list.add(new Student(&quot;马粉3&quot;, 18));</div><div class="line">list.add(new Student(&quot;马粉4&quot;, 18));</div><div class="line"></div><div class="line">for(int i = 0; i &lt; list.size(); i++) &#123;</div><div class="line">    Student s = (Student)list.get(i);</div><div class="line">    System.out.println(s.getName() + &quot;,&quot; + s.getAge());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">```java</div><div class="line">package Yanhui.test;</div><div class="line"></div><div class="line">import Yanhui.bean.Student;</div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by Archer on 2017/7/26.</div><div class="line"> * list遍历引用类型</div><div class="line"> *</div><div class="line"> */</div><div class="line"></div><div class="line">@SuppressWarnings(&quot;ALL&quot;)</div><div class="line"></div><div class="line">public class Test04_List &#123;</div><div class="line"></div><div class="line">  public static void main(String[] args) &#123;</div><div class="line"></div><div class="line">    List list= new ArrayList( );</div><div class="line"></div><div class="line">    list.add(new Student(&quot;张三&quot;,23));</div><div class="line">    list.add(new Student(&quot;张三1&quot;,24));</div><div class="line">    list.add(new Student(&quot;张三2&quot;,25));</div><div class="line">    list.add(new Student(&quot;张三3&quot;,26));</div><div class="line"></div><div class="line">    for (int i = 0; i &lt; list.size(); i++) &#123;</div><div class="line"></div><div class="line">      Student o = (Student) list.get(i);</div><div class="line"></div><div class="line">      System.out.println(o.getAge()+&quot; ,&quot;+o.getName());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="ListIterator的特有功能"><a href="#ListIterator的特有功能" class="headerlink" title="ListIterator的特有功能"></a>ListIterator的特有功能</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> Yanhui.list;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.Iterator;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> java.util.ListIterator;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by Archer on 2017/7/26.</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"ALL"</span>)</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo2_ListIterator</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    List list = <span class="keyword">new</span> ArrayList();</div><div class="line">    list.add(<span class="string">"a"</span>);</div><div class="line">    list.add(<span class="string">"ab"</span>);</div><div class="line">    list.add(<span class="string">"ac"</span>);</div><div class="line"></div><div class="line">     ListIterator listIterator=list.listIterator();</div><div class="line">    <span class="keyword">while</span> (listIterator.hasNext())&#123;</div><div class="line">      System.out.println(listIterator.next());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    System.out.println(<span class="string">"========================================"</span>);<span class="comment">// 必须先要正着移到最后,才能倒着移动回去.否则没显示</span></div><div class="line">    <span class="keyword">for</span>( listIterator.hasPrevious();listIterator.hasPrevious();)&#123;</div><div class="line">      System.out.println(listIterator.previous());</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="并发修改异常产生的原因及解决方案"><a href="#并发修改异常产生的原因及解决方案" class="headerlink" title="并发修改异常产生的原因及解决方案"></a>并发修改异常产生的原因及解决方案</h3><ul>
+<li><p>A:案例演示</p>
+<ul>
+<li><p>需求：我有一个集合，请问，我想判断里面有没有”world”这个元素，如果有，我就添加一个”javaee”元素，请写代码实现。</p>
+<p>List list = new ArrayList();</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">list.add(&quot;a&quot;);</div><div class="line">list.add(&quot;b&quot;);</div><div class="line">list.add(&quot;world&quot;);</div><div class="line">list.add(&quot;d&quot;);</div><div class="line">list.add(&quot;e&quot;);</div><div class="line"></div><div class="line">/*Iterator it = list.iterator();</div><div class="line">while(it.hasNext()) &#123;</div><div class="line">    String str = (String)it.next();</div><div class="line">    if(str.equals(&quot;world&quot;)) &#123;</div><div class="line">        list.add(&quot;javaee&quot;);         //这里会抛出ConcurrentModificationException并发修改异常</div><div class="line">    &#125;</div><div class="line">&#125;*/</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>B:ConcurrentModificationException出现</p>
+<ul>
+<li>迭代器遍历，集合修改集合</li>
+</ul>
+</li>
+<li><p>C:解决方案</p>
+<ul>
+<li><p>a:迭代器迭代元素，迭代器修改元素(ListIterator的特有功能add)</p>
+</li>
+<li><p>b:集合遍历元素，集合修改元素</p>
+<p>ListIterator lit = list.listIterator();        //如果想在遍历的过程中添加元素,可以用ListIterator中的add方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">while(lit.hasNext()) &#123;</div><div class="line">    String str = (String)lit.next();</div><div class="line">    if(str.equals(&quot;world&quot;)) &#123;</div><div class="line">        lit.add(&quot;javaee&quot;);  </div><div class="line">        //list.add(&quot;javaee&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.list;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.Iterator;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> java.util.ListIterator;</div><div class="line"></div><div class="line"><span class="meta">@SuppressWarnings</span>(&#123; <span class="string">"rawtypes"</span>, <span class="string">"unchecked"</span> &#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo2_ListIterator</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * A:案例演示</div><div class="line">	 * 需求：我有一个集合，请问，我想判断里面有没有"world"这个元素，如果有，我就添加一个"javaee"元素，请写代码实现。</div><div class="line">	 * B:ConcurrentModificationException出现</div><div class="line">		* 迭代器遍历，集合修改集合</div><div class="line">	 * C:解决方案</div><div class="line">	    * a:迭代器迭代元素，迭代器修改元素(ListIterator的特有功能add)</div><div class="line">	    * b:集合遍历元素，集合修改元素</div><div class="line"></div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		List list = <span class="keyword">new</span> ArrayList();</div><div class="line">		list.add(<span class="string">"a"</span>);</div><div class="line">		list.add(<span class="string">"b"</span>);</div><div class="line">		list.add(<span class="string">"world"</span>);</div><div class="line">		list.add(<span class="string">"d"</span>);</div><div class="line">		list.add(<span class="string">"e"</span>);</div><div class="line">		</div><div class="line">		<span class="comment">/*Iterator it = list.iterator();</span></div><div class="line">		while(it.hasNext()) &#123;</div><div class="line">			String str = (String)it.next();</div><div class="line">			if(str.equals("world")) &#123;</div><div class="line">				list.add("javaee");			//这里会抛出ConcurrentModificationException并发修改异常</div><div class="line">			&#125;</div><div class="line">		&#125;*/</div><div class="line">		</div><div class="line">		ListIterator lit = list.listIterator();		<span class="comment">//如果想在遍历的过程中添加元素,可以用ListIterator中的add方法</span></div><div class="line">		<span class="keyword">while</span>(lit.hasNext()) &#123;</div><div class="line">			String str = (String)lit.next();</div><div class="line">			<span class="keyword">if</span>(str.equals(<span class="string">"world"</span>)) &#123;</div><div class="line">				lit.add(<span class="string">"javaee"</span>);	</div><div class="line">				<span class="comment">//list.add("javaee");</span></div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println(list);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> </span>&#123;</div><div class="line">		List list = <span class="keyword">new</span> ArrayList();</div><div class="line">		list.add(<span class="string">"a"</span>);</div><div class="line">		list.add(<span class="string">"b"</span>);</div><div class="line">		list.add(<span class="string">"c"</span>);</div><div class="line">		list.add(<span class="string">"d"</span>);</div><div class="line">		list.add(<span class="string">"e"</span>);</div><div class="line">		</div><div class="line">		ListIterator lit = list.listIterator();</div><div class="line">		<span class="comment">/*while(lit.hasNext()) &#123;</span></div><div class="line">			System.out.println(lit.next());</div><div class="line">		&#125;*/</div><div class="line">		</div><div class="line">		System.out.println(<span class="string">"----------------------"</span>);</div><div class="line">		<span class="keyword">while</span>(lit.hasPrevious()) &#123;						<span class="comment">//倒着遍历</span></div><div class="line">			System.out.println(lit.previous());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="ListIterator"><a href="#ListIterator" class="headerlink" title="ListIterator"></a>ListIterator</h3><ul>
+<li>boolean hasNext()是否有下一个</li>
+<li>boolean hasPrevious()是否有前一个</li>
+<li>Object next()返回下一个元素</li>
+<li>Object previous();返回上一个元素</li>
+</ul>
+<h3 id="Vector的特有功能"><a href="#Vector的特有功能" class="headerlink" title="Vector的特有功能"></a>Vector的特有功能</h3><ul>
+<li><p>A:Vector类概述</p>
+</li>
+<li><p>B:Vector类特有功能</p>
+<ul>
+<li><p>public void addElement(E obj)</p>
+</li>
+<li><p>public E elementAt(int index)</p>
+</li>
+<li><p>public Enumeration elements()</p>
+</li>
+<li><p>C:案例演示</p>
+</li>
+<li><p>Vector的迭代</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Vector v = <span class="keyword">new</span> Vector();				<span class="comment">//创建集合对象,List的子类</span></div><div class="line"></div><div class="line">   </div><div class="line">  v.addElement(<span class="string">"a"</span>);</div><div class="line">  v.addElement(<span class="string">"b"</span>);</div><div class="line">  v.addElement(<span class="string">"c"</span>);</div><div class="line">  v.addElement(<span class="string">"d"</span>);</div><div class="line">  </div><div class="line">  <span class="comment">//Vector迭代</span></div><div class="line">  Enumeration en = v.elements();          <span class="comment">//获取枚举</span></div><div class="line">  <span class="keyword">while</span>(en.hasMoreElements()) &#123;           <span class="comment">//判断集合中是否有元素</span></div><div class="line">      System.out.println(en.nextElement());<span class="comment">//获取集合中的元素</span></div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="数据结构之数组和链表"><a href="#数据结构之数组和链表" class="headerlink" title="数据结构之数组和链表"></a>数据结构之数组和链表</h3><ul>
+<li>A:数组<ul>
+<li>查询快，修改也快</li>
+<li>增删慢</li>
+</ul>
+</li>
+<li>B:链表<ul>
+<li>查询慢,修改也慢</li>
+<li>增删快</li>
+</ul>
+</li>
+</ul>
+<h3 id="数据结构之栈和队列"><a href="#数据结构之栈和队列" class="headerlink" title="数据结构之栈和队列"></a>数据结构之栈和队列</h3><ul>
+<li>A： 先进后出</li>
+<li>B： 先进先出</li>
+</ul>
+<h3 id="List的三个子类的特点"><a href="#List的三个子类的特点" class="headerlink" title="List的三个子类的特点"></a>List的三个子类的特点</h3><ul>
+<li><p>A:List的三个子类的特点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ArrayList:</div><div class="line">    底层数据结构是数组，查询快，增删慢。</div><div class="line">    线程不安全，效率高。</div><div class="line">Vector:</div><div class="line">    底层数据结构是数组，查询快，增删慢。</div><div class="line">    线程安全，效率低。</div><div class="line">Vector相对ArrayList查询慢(线程安全的)</div><div class="line">Vector相对LinkedList增删慢(数组结构)</div><div class="line">LinkedList:</div><div class="line">    底层数据结构是链表，查询慢，增删快。</div><div class="line">    线程不安全，效率高。</div><div class="line"></div><div class="line">Vector和ArrayList的区别</div><div class="line">    Vector是线程安全的,效率低</div><div class="line">    ArrayList是线程不安全的,效率高</div><div class="line">ArrayList和LinkedList的区别</div><div class="line">    ArrayList底层是数组结果,查询和修改快</div><div class="line">    LinkedList底层是链表结构的,增和删比较快,查询和修改比较慢</div></pre></td></tr></table></figure>
+</li>
+<li><p>B:List有三个儿子，我们到底使用谁呢?查询多用ArrayList</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">增删多用LinkedList</div><div class="line">如果都多ArrayList</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="野望 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎订阅我的个人微信技术博客。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://ogtmd8elu.bkt.clouddn.com/WechatPay-min.png" alt="野望 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://ogtmd8elu.bkt.clouddn.com/pay-min.jpg" alt="野望 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/J2SE/" rel="tag"># J2SE</a>
+          
+            <a href="/tags/集合框架/" rel="tag"># 集合框架</a>
+          
+            <a href="/tags/Collection/" rel="tag"># Collection</a>
+          
+            <a href="/tags/List/" rel="tag"># List</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/24/Java学习笔记整理（14）/" rel="next" title="Java学习笔记整理（14）">
+                <i class="fa fa-chevron-left"></i> Java学习笔记整理（14）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/27/Java学习笔记整理（16）/" rel="prev" title="Java学习笔记整理（16）">
+                Java学习笔记整理（16） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="野望" />
+          <p class="site-author-name" itemprop="name">野望</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuili" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yan-hui-jun" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/5800502ca0bb9f00586674c8" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      掘金
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/6043346/archer" target="_blank" title="StackOverFlow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      StackOverFlow
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/yanhui" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      segmentfault
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.0xaa55.com/" title="技术宅的结界" target="_blank">技术宅的结界</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象数组的概述和使用"><span class="nav-number">1.</span> <span class="nav-text">对象数组的概述和使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象数组的内存图解"><span class="nav-number">2.</span> <span class="nav-text">对象数组的内存图解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合的由来及集合继承体系图"><span class="nav-number">3.</span> <span class="nav-text">集合的由来及集合继承体系图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection集合的基本功能测试"><span class="nav-number">4.</span> <span class="nav-text">Collection集合的基本功能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection集合的高级功能测试"><span class="nav-number">5.</span> <span class="nav-text">Collection集合的高级功能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合的遍历之迭代器遍历"><span class="nav-number">6.</span> <span class="nav-text">集合的遍历之迭代器遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection存储自定义对象并遍历"><span class="nav-number">7.</span> <span class="nav-text">Collection存储自定义对象并遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器的原理及源码解析"><span class="nav-number">8.</span> <span class="nav-text">迭代器的原理及源码解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List集合的特有功能概述和测试"><span class="nav-number">9.</span> <span class="nav-text">List集合的特有功能概述和测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List集合的特有遍历功能"><span class="nav-number">10.</span> <span class="nav-text">List集合的特有遍历功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List集合存储学生对象并遍历"><span class="nav-number">11.</span> <span class="nav-text">List集合存储学生对象并遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ListIterator的特有功能"><span class="nav-number">12.</span> <span class="nav-text">ListIterator的特有功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发修改异常产生的原因及解决方案"><span class="nav-number">13.</span> <span class="nav-text">并发修改异常产生的原因及解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ListIterator"><span class="nav-number">14.</span> <span class="nav-text">ListIterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vector的特有功能"><span class="nav-number">15.</span> <span class="nav-text">Vector的特有功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构之数组和链表"><span class="nav-number">16.</span> <span class="nav-text">数据结构之数组和链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构之栈和队列"><span class="nav-number">17.</span> <span class="nav-text">数据结构之栈和队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List的三个子类的特点"><span class="nav-number">18.</span> <span class="nav-text">List的三个子类的特点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">野望</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260855711&web_id=1260855711" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ArcherBlog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yanhuili.github.io/2017/07/26/Java学习笔记整理（15）/';
+          this.page.identifier = '2017/07/26/Java学习笔记整理（15）/';
+          this.page.title = 'Java学习笔记整理（15）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ArcherBlog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kzNRGot5tLJKONL4cUBsHljH-gzGzoHsz", "MbcqFd5NNWtLdqES7fSrWn0y");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

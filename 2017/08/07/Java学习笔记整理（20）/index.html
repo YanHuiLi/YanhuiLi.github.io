@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="J2SE," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="IO流的顶层四个基类.
+InputStream,outputStream(字节流抽象父类)
+Reader,Writer(字符流抽象父类)
+导包-》异常处理-》释放资源
+
+
+四种拷贝的方法
+单个字节拷贝，效率太低
+大数组拷贝，内存溢出
+小数组（1024*8）（推荐）
+装饰着模式的BufferedInputStream和BufferOutputStream缓冲流（推荐）
+
+
+BufferedInp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java学习笔记整理（20）">
+<meta property="og:url" content="http://yanhuili.github.io/2017/08/07/Java学习笔记整理（20）/index.html">
+<meta property="og:site_name" content="野望的小屋">
+<meta property="og:description" content="IO流的顶层四个基类.
+InputStream,outputStream(字节流抽象父类)
+Reader,Writer(字符流抽象父类)
+导包-》异常处理-》释放资源
+
+
+四种拷贝的方法
+单个字节拷贝，效率太低
+大数组拷贝，内存溢出
+小数组（1024*8）（推荐）
+装饰着模式的BufferedInputStream和BufferOutputStream缓冲流（推荐）
+
+
+BufferedInp">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201708071550_387.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201708071529_372.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201708071605_530.png">
+<meta property="og:updated_time" content="2017-08-08T22:19:17.780Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java学习笔记整理（20）">
+<meta name="twitter:description" content="IO流的顶层四个基类.
+InputStream,outputStream(字节流抽象父类)
+Reader,Writer(字符流抽象父类)
+导包-》异常处理-》释放资源
+
+
+四种拷贝的方法
+单个字节拷贝，效率太低
+大数组拷贝，内存溢出
+小数组（1024*8）（推荐）
+装饰着模式的BufferedInputStream和BufferOutputStream缓冲流（推荐）
+
+
+BufferedInp">
+<meta name="twitter:image" content="http://ogtmd8elu.bkt.clouddn.com/201708071550_387.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"hide","offset":0,"offset_float":0,"b2t":true,"scrollpercent":true,"onmobile":"flase"},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yanhuili.github.io/2017/08/07/Java学习笔记整理（20）/"/>
+
+
+
+
+
+  <title>Java学习笔记整理（20） | 野望的小屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">野望的小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">永不言弃。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yanhuili.github.io/2017/08/07/Java学习笔记整理（20）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="野望">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="野望的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Java学习笔记整理（20）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-07T09:01:42+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-08-09T06:19:17+08:00">
+                2017-08-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/J2SE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2SE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/07/Java学习笔记整理（20）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/07/Java学习笔记整理（20）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/07/Java学习笔记整理（20）/" class="leancloud_visitors" data-flag-title="Java学习笔记整理（20）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<ol>
+<li>IO流的顶层四个基类.<ul>
+<li>InputStream,outputStream(字节流抽象父类)</li>
+<li>Reader,Writer(字符流抽象父类)</li>
+<li>导包-》异常处理-》释放资源</li>
+</ul>
+</li>
+<li>四种拷贝的方法<ul>
+<li>单个字节拷贝，效率太低</li>
+<li>大数组拷贝，内存溢出</li>
+<li>小数组（1024*8）（推荐）</li>
+<li>装饰着模式的BufferedInputStream和BufferOutputStream缓冲流（推荐）</li>
+</ul>
+</li>
+<li>BufferedInputStream和BufferOutputStream缓冲流原理</li>
+<li>flush方法和close方法的区别</li>
+<li>字节流读中文的问题</li>
+<li>1.6和1.7的标准的异常处理方式</li>
+</ol>
+<a id="more"></a>
+<h3 id="IO流概述及其分类"><a href="#IO流概述及其分类" class="headerlink" title="IO流概述及其分类"></a>IO流概述及其分类</h3><ul>
+<li>1.概念<ul>
+<li>IO流用来处理设备之间的数据传输</li>
+<li>Java对数据的操作是通过流的方式</li>
+<li>Java用于操作流的类都在IO包中</li>
+<li>流按流向分为两种：输入流，输出流。</li>
+<li>流按操作类型分为两种：<ul>
+<li>字节流 : 字节流可以操作任何数据,因为在计算机中任何数据都是以字节的形式存储的</li>
+<li>字符流 : 字符流只能操作纯字符数据，比较方便。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2.IO流常用父类<ul>
+<li>字节流的抽象父类：<ul>
+<li>InputStream </li>
+<li>OutputStream</li>
+</ul>
+</li>
+<li>字符流的抽象父类：<ul>
+<li>Reader <ul>
+<li>Writer</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3.IO程序书写<ul>
+<li>使用前，导入IO包中的类</li>
+<li>使用时，进行IO异常处理</li>
+<li>使用后，释放资源</li>
+</ul>
+</li>
+</ul>
+<h3 id="FileInputStream"><a href="#FileInputStream" class="headerlink" title="FileInputStream"></a>FileInputStream</h3><ul>
+<li>read()一次读取一个字节</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.io;</div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo1_FileInputStream</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * read()方法每读一次返回的是一个字节,为什么不用byte接收,而用int接收呢?</div><div class="line">	 * 因为字节输入流可以操作任意类型的文件,比如图片音频等,这些文件底层都是以二进制形式的存储的,如果每次读取都返回byte,有可能在读到中间的时候遇到111111111</div><div class="line">	 * 那么这11111111是byte类型的-1,我们的程序是遇到-1就会停止不读了,后面的数据就读不到了,所以在读取的时候用int类型接收,如果11111111会在其前面补上</div><div class="line">	 * 24个0凑足4个字节,那么byte类型的-1就变成int类型的255了这样可以保证整个数据读完,而结束标记的-1就是int类型</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"aaa.txt"</span>);	<span class="comment">//创建一个文件输入流对象,并关联aaa.txt</span></div><div class="line">		<span class="keyword">int</span> b;													<span class="comment">//定义变量,记录每次读到的字节</span></div><div class="line">		<span class="keyword">while</span>((b = fis.read()) != -<span class="number">1</span>) &#123;							<span class="comment">//将每次读到的字节赋值给b并判断是否是-1</span></div><div class="line">			System.out.println(b);								<span class="comment">//打印每一个字节</span></div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		fis.close();											<span class="comment">//关闭流释放资源</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"aaa.txt"</span>);	<span class="comment">//创建一个文件输入流对象,并关联aaa.txt</span></div><div class="line">		<span class="keyword">int</span> x = fis.read();										<span class="comment">//每读取一次就向后移动一次</span></div><div class="line">		System.out.println(x);</div><div class="line">		<span class="keyword">int</span> y = fis.read();</div><div class="line">		System.out.println(y);</div><div class="line">		<span class="keyword">int</span> z = fis.read();</div><div class="line">		System.out.println(z);</div><div class="line">		<span class="keyword">int</span> a = fis.read();</div><div class="line">		System.out.println(a);</div><div class="line">		<span class="keyword">int</span> b = fis.read();</div><div class="line">		System.out.println(b);</div><div class="line">		fis.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="FileInputStream返回值为什么是int"><a href="#FileInputStream返回值为什么是int" class="headerlink" title="FileInputStream返回值为什么是int"></a>FileInputStream返回值为什么是int</h3><ul>
+<li>read()方法读取的是一个字节,为什么返回是int,而不是byte</li>
+<li>因为字节输入流可以操作任意类型的文件,比如图片音频等,这些文件底层都是以二进制形式的存储的,如果每次读取都返回byte,有可能在读到中间的时候遇到111111111</li>
+<li>那么这11111111是byte类型的-1,我们的程序是遇到-1就会停止不读了,后面的数据就读不到了,所以在读取的时候用int类型接收,如果11111111会在其前面补上24个0凑足4个字节,那么byte类型的-1就变成int类型的255了这样可以保证整个数据读完,而结束标记的-1就是int类型。</li>
+</ul>
+<h3 id="FileOutputStream"><a href="#FileOutputStream" class="headerlink" title="FileOutputStream"></a>FileOutputStream</h3><ul>
+<li>write()一次写出一个字</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.io;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo2_FileOutputStream</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * FileOutputStream fos = new FileOutputStream("bbb.txt");	</div><div class="line">	 * 如果没有bbb.txt,会创建一个新bbb.txt</div><div class="line">	 * 如果有bbb.txt,会将bbb.txt清空</div><div class="line">	 * </div><div class="line">	 * FileOutputStream fos = new FileOutputStream("bbb.txt",true);</div><div class="line">	 * 不会将bbb.txt清空,如果再次写入会续写</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"bbb.txt"</span>,<span class="keyword">true</span>);	<span class="comment">//如果没有bbb.txt,会创建出一个</span></div><div class="line">		fos.write(<span class="number">97</span>);						<span class="comment">//虽然写出的是一个int数,但是在写出的时候会将前面的24个0去掉,所以写出的一个byte</span></div><div class="line">		fos.write(<span class="number">98</span>);</div><div class="line">		fos.write(<span class="number">99</span>);</div><div class="line">		fos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="FileOutputStream追加"><a href="#FileOutputStream追加" class="headerlink" title="FileOutputStream追加"></a>FileOutputStream追加</h3><ul>
+<li>A:案例演示<ul>
+<li>FileOutputStream的构造方法写出数据如何实现数据的追加写入<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"bbb.txt"</span>,<span class="keyword">true</span>);<span class="comment">//如果没有bbb.txt,会创建出一个</span></div><div class="line"></div><div class="line">    <span class="comment">//fos.write(97);						//虽然写出的是一个int数,但是在写出的时候会将前面的24个0去掉,所以写出的一个byte</span></div><div class="line">    fos.write(<span class="number">98</span>);</div><div class="line">    fos.write(<span class="number">99</span>);</div><div class="line">    fos.close();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="拷贝图片"><a href="#拷贝图片" class="headerlink" title="拷贝图片"></a>拷贝图片</h3><ul>
+<li><p>FileInputStream读取</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.io;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo3_Copy</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * 逐个字节的拷贝</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"致青春.mp3"</span>);	<span class="comment">//创建输入流对象,关联a.jpg</span></div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"copy.mp3"</span>);<span class="comment">//创建输出流对象,关联b.jpg</span></div><div class="line">		</div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">			fos.write(b);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		fis.close();</div><div class="line">		fos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"a.jpg"</span>);	<span class="comment">//创建输入流对象,关联a.jpg</span></div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"b.jpg"</span>);<span class="comment">//创建输出流对象,关联b.jpg</span></div><div class="line">		</div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">			fos.write(b);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		fis.close();</div><div class="line">		fos.close();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="拷贝音频文件画原理图"><a href="#拷贝音频文件画原理图" class="headerlink" title="拷贝音频文件画原理图"></a>拷贝音频文件画原理图</h3><ul>
+<li>A:案例演示<ul>
+<li>字节流一次读写一个字节复制音频</li>
+</ul>
+</li>
+<li>弊端:效率太低</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.io;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo3_Copy</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args 数组</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * 逐个字节的拷贝</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line"><span class="comment">//		demo1();</span></div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"致青春.mp3"</span>);	<span class="comment">//创建输入流对象,关联a.jpg</span></div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"copy.mp3"</span>);<span class="comment">//创建输出流对象,关联b.jpg</span></div><div class="line">		</div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">			fos.write(b);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		fis.close();</div><div class="line">		fos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"a.jpg"</span>);	<span class="comment">//创建输入流对象,关联a.jpg</span></div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"b.jpg"</span>);<span class="comment">//创建输出流对象,关联b.jpg</span></div><div class="line">		</div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">			fos.write(b);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		fis.close();</div><div class="line">		fos.close();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="字节数组拷贝之available-方法"><a href="#字节数组拷贝之available-方法" class="headerlink" title="字节数组拷贝之available()方法"></a>字节数组拷贝之available()方法</h3><ul>
+<li>A:案例演示<ul>
+<li>int read(byte[] b):一次读取一个字节数组</li>
+<li>write(byte[] b):一次写出一个字节数组</li>
+<li>available()获取读的文件所有的字节个数</li>
+</ul>
+</li>
+<li>弊端:有可能会内存溢出 </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"致青春.mp3"</span>);</div><div class="line">FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"copy.mp3"</span>);</div><div class="line"><span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[fis.available()];					<span class="comment">//根据文件大小做一个字节数组</span></div><div class="line">fis.read(arr);											<span class="comment">//将文件上的所有字节读取到数组中</span></div><div class="line">fos.write(arr);											<span class="comment">//将数组中的所有字节一次写到了文件上</span></div><div class="line">fis.close();</div><div class="line">fos.close();</div></pre></td></tr></table></figure>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201708071550_387.png" alt="" title="大数组拷贝"></p>
+<h3 id="定义小数组"><a href="#定义小数组" class="headerlink" title="定义小数组"></a>定义小数组</h3><ul>
+<li>write(byte[] b)</li>
+<li>write(byte[] b, int off, int len)写出有效的字节个数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		demo1();</div><div class="line">		<span class="comment">//demo2();</span></div><div class="line"><span class="comment">//        demo3();</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"aaa.txt"</span>);</div><div class="line">		<span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span>];</div><div class="line">		<span class="keyword">int</span> x = fis.read(arr);							<span class="comment">//将文件上的字节数据读取到字节数组中</span></div><div class="line">														<span class="comment">//返回读取有效的字节个数</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">byte</span> b : arr) &#123;</div><div class="line">			System.out.println(b);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		System.out.println(x);</div><div class="line">		</div><div class="line">		System.out.println(<span class="string">"-----------------------"</span>);</div><div class="line">		</div><div class="line">		<span class="keyword">int</span> y = fis.read(arr);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">byte</span> b : arr) &#123;</div><div class="line">			System.out.println(b);</div><div class="line">		&#125;</div><div class="line">		System.out.println(y);</div><div class="line">		</div><div class="line">		System.out.println(<span class="string">"-----------------------"</span>);</div><div class="line">		<span class="keyword">int</span> z = fis.read(arr);						<span class="comment">//如果文件上有数据读取的是字节数据,如果没有读取的-1</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">byte</span> b : arr) &#123;</div><div class="line">			System.out.println(b);</div><div class="line">		&#125;</div><div class="line">		System.out.println(z);</div><div class="line">		fis.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line"><span class="comment">//输出：</span></div><div class="line"><span class="number">97</span></div><div class="line"><span class="number">98</span></div><div class="line"><span class="number">2</span></div><div class="line">-----------------------</div><div class="line"><span class="number">99</span>            <span class="comment">//第二次是从下标0的位置开始覆盖，所以99覆盖了97 ，有效个数是1</span></div><div class="line"><span class="number">98</span></div><div class="line"><span class="number">1</span></div><div class="line">-----------------------</div><div class="line"><span class="number">99</span>           <span class="comment">// 没有可以覆盖的数据了//读到了-1结束</span></div><div class="line"><span class="number">98</span></div><div class="line">-<span class="number">1</span></div></pre></td></tr></table></figure>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201708071529_372.png" alt="定义小数组" title="定义小数组"></p>
+<h3 id="定义小数组的标准格式"><a href="#定义小数组的标准格式" class="headerlink" title="定义小数组的标准格式"></a>定义小数组的标准格式</h3><ul>
+<li>A:案例演示<ul>
+<li>字节流一次读写一个字节数组复制图片和视频</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"致青春.mp3"</span>);</div><div class="line">FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"copy.mp3"</span>);</div><div class="line"><span class="keyword">int</span> len;</div><div class="line"><span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span> * <span class="number">8</span>];					<span class="comment">//自定义字节数组</span></div><div class="line"><span class="keyword">while</span>((len = fis.read(arr)) != -<span class="number">1</span>) &#123;</div><div class="line">    <span class="comment">//fos.write(arr);</span></div><div class="line">    fos.write(arr, <span class="number">0</span>, len);							<span class="comment">//写出字节数组写出有效个字节个数</span></div><div class="line">&#125;</div><div class="line">fis.close();</div><div class="line">fos.close();</div></pre></td></tr></table></figure>
+<h3 id="BufferedInputStream和BufferOutputStream拷贝"><a href="#BufferedInputStream和BufferOutputStream拷贝" class="headerlink" title="BufferedInputStream和BufferOutputStream拷贝"></a>BufferedInputStream和BufferOutputStream拷贝</h3><ul>
+<li>A:缓冲思想<ul>
+<li>字节流一次读写一个数组的速度明显比一次读写一个字节的速度快很多，</li>
+<li>这是加入了数组这样的缓冲区效果，java本身在设计的时候，</li>
+<li>也考虑到了这样的设计思想(装饰设计模式后面讲解)，所以提供了字节缓冲区流</li>
+</ul>
+</li>
+<li>B.BufferedInputStream<ul>
+<li>BufferedInputStream内置了一个缓冲区(数组)</li>
+<li>从BufferedInputStream中读取一个字节时</li>
+<li>BufferedInputStream会一次性从文件中读取8192个, 存在缓冲区中, 返回给程序一个</li>
+<li>程序再次读取时, 就不用找文件了, 直接从缓冲区中获取</li>
+<li>直到缓冲区中所有的都被使用过, 才重新从文件中读取8192个</li>
+</ul>
+</li>
+<li>C.BufferedOutputStream<ul>
+<li>BufferedOutputStream也内置了一个缓冲区(数组)</li>
+<li>程序向流中写出字节时, 不会直接写到文件, 先写到缓冲区中</li>
+<li>直到缓冲区写满, BufferedOutputStream才会把缓冲区中的数据一次性写到文件里</li>
+</ul>
+</li>
+<li>D.拷贝的代码<br>​        <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建文件输入流对象,关联致青春.mp3</span></div><div class="line">FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"致青春.mp3"</span>);	</div><div class="line">BufferedInputStream bis = <span class="keyword">new</span> BufferedInputStream(fis);			<span class="comment">//创建缓冲区对fis装饰</span></div><div class="line">FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"copy.mp3"</span>);		<span class="comment">//创建输出流对象,关联copy.mp3</span></div><div class="line">BufferedOutputStream bos = <span class="keyword">new</span> BufferedOutputStream(fos);		<span class="comment">//创建缓冲区对fos装饰</span></div><div class="line"></div><div class="line"><span class="keyword">int</span> b;</div><div class="line"><span class="keyword">while</span>((b = bis.read()) != -<span class="number">1</span>) &#123;		</div><div class="line">	bos.write(b);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bis.close();						<span class="comment">//只关装饰后的对象即可</span></div><div class="line">bos.close();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201708071605_530.png" alt="" title="Buffered缓存原理"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.io;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</div><div class="line"><span class="keyword">import</span> java.io.BufferedOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo6_BufferedCopy</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * 如果文件足够大,read()方法执行一次,就会将文件上字节数据一次读取8192个字节存储在,BufferedInputStream的缓冲区中</div><div class="line">	 * 从缓冲区中返给一个字节一个字节返给b</div><div class="line">	 * 如果write一次,先将缓冲区装满,然后一股脑的写到文件上去</div><div class="line">	 * 这么做减少了到硬盘上读和写的操作</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"致青春.mp3"</span>);			<span class="comment">//创建文件输入流对象,关联致青春.mp3</span></div><div class="line">		BufferedInputStream bis = <span class="keyword">new</span> BufferedInputStream(fis);			<span class="comment">//创建缓冲区对fis装饰</span></div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"copy.mp3"</span>);		<span class="comment">//创建输出流对象,关联copy.mp3</span></div><div class="line">		BufferedOutputStream bos = <span class="keyword">new</span> BufferedOutputStream(fos);		<span class="comment">//创建缓冲区对fos装饰</span></div><div class="line">		</div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = bis.read()) != -<span class="number">1</span>) &#123;		</div><div class="line">			bos.write(b);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		bis.close();						<span class="comment">//只关装饰后的对象即可</span></div><div class="line">		bos.close();</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="小数组的读写和带Buffered的读取哪个更快"><a href="#小数组的读写和带Buffered的读取哪个更快" class="headerlink" title="小数组的读写和带Buffered的读取哪个更快"></a>小数组的读写和带Buffered的读取哪个更快</h3><ul>
+<li>定义小数组如果是8192个字节大小和Buffered比较的话</li>
+<li>定义小数组会略胜一筹,因为读和写操作的是同一个数组</li>
+<li>而Buffered操作的是两个数组</li>
+</ul>
+<h3 id="flush和close方法的区别"><a href="#flush和close方法的区别" class="headerlink" title="flush和close方法的区别"></a>flush和close方法的区别</h3><ul>
+<li>flush()方法<ul>
+<li>用来刷新缓冲区的,刷新后可以再次写出 </li>
+</ul>
+</li>
+<li>close()方法<ul>
+<li>用来关闭流释放资源的的,如果是带缓冲区的流对象的close()方法,不但会关闭流,还会再关闭流之前刷新缓冲区,关闭后不能再写出 </li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.io;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</div><div class="line"><span class="keyword">import</span> java.io.BufferedOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo7_Flush</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * flush和close的区别</div><div class="line">	 * flush刷新之后还可以继续写</div><div class="line">	 * close在关闭之前会刷新一次,把缓冲区剩余的字节刷到文件上去,但是调用之后不能再写</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"致青春.mp3"</span>);</div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"copy.mp3"</span>);</div><div class="line">		</div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">			fos.write(b);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		fis.close();</div><div class="line">		fos.close();<span class="comment">//释放资源</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">		BufferedInputStream bis = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"致青春.mp3"</span>));</div><div class="line">		BufferedOutputStream bos = <span class="keyword">new</span> BufferedOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"copy.mp3"</span>));</div><div class="line">		</div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = bis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">			bos.write(b);</div><div class="line">			<span class="comment">//bos.flush();		//需要随时刷新缓冲区内容的时候,用flush</span></div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		bis.close();</div><div class="line">		bos.close(); <span class="comment">//释放缓冲区和资源</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="字节流读写中文"><a href="#字节流读写中文" class="headerlink" title="字节流读写中文"></a>字节流读写中文</h3><ul>
+<li>字节流读取中文的问题<ul>
+<li>字节流在读中文的时候有可能会读到半个中文,造成乱码 </li>
+</ul>
+</li>
+<li>字节流写出中文的问题<ul>
+<li>字节流直接操作的字节,所以写出中文必须将字符串转换成字节数组 </li>
+<li>写出回车换行 write(“\r\n”.getBytes());</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.io;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo8_Chinese</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 * 字节流只读中文是有弊端的,有可能会读到半个中文</div><div class="line">	 * 解决方法有2</div><div class="line">	 * 1,用字符流读(编码表+字节流)</div><div class="line">	 * 2,将文件上的所有字节一次读到内存中,在内存中将所有字节转换成对应的字符串</div><div class="line">	 * ByteArrayOutputStream</div><div class="line">	 * </div><div class="line">	 * 字节流写中文</div><div class="line">	 * 在只写中文的时候必须转换成字节数组写出去</div><div class="line">	 * </div><div class="line">	 * 字节流可以拷贝任意类型的数据,因为所有的数据都是一字节的形式存在的</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		demo2();</div><div class="line">		<span class="comment">//demo3();</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo3</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"aaa.txt"</span>);</div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"bbb.txt"</span>);</div><div class="line">		</div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">			fos.write(b);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		fis.close();</div><div class="line">		fos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"bbb.txt"</span>);</div><div class="line">		fos.write(<span class="string">"你好"</span>.getBytes());								<span class="comment">//字节流写出中文的时候要转换成字节数组</span></div><div class="line">		fos.write(<span class="string">"\r\n"</span>.getBytes());							<span class="comment">//写出回车换行</span></div><div class="line">		fos.write(<span class="string">"你好"</span>.getBytes());			</div><div class="line">		fos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"bbb.txt"</span>);	<span class="comment">//创建文件输入流,关联bbb.txt</span></div><div class="line">		<span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">3</span>];								<span class="comment">//创建字节数组</span></div><div class="line">		<span class="keyword">int</span> len;</div><div class="line">		<span class="keyword">while</span>((len = fis.read(arr)) != -<span class="number">1</span>) &#123;					<span class="comment">//先将字节读到数组中</span></div><div class="line">			System.out.println(<span class="keyword">new</span> String(arr,<span class="number">0</span>,len));			<span class="comment">//转换成字符串打印在控制台,转换的时候有可能乱码</span></div><div class="line">		&#125;</div><div class="line">		fis.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="流的标准处理异常代码1-6版本及其以前"><a href="#流的标准处理异常代码1-6版本及其以前" class="headerlink" title="流的标准处理异常代码1.6版本及其以前"></a>流的标准处理异常代码1.6版本及其以前</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//try finally嵌套</span></div><div class="line"></div><div class="line">FileInputStream fis = <span class="keyword">null</span>;</div><div class="line">FileOutputStream fos = <span class="keyword">null</span>;</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">	fis = <span class="keyword">new</span> FileInputStream(<span class="string">"aaa.txt"</span>);</div><div class="line">	fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"bbb.txt"</span>);</div><div class="line">	<span class="keyword">int</span> b;</div><div class="line">	<span class="keyword">while</span>((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">		fos.write(b);</div><div class="line">	&#125;</div><div class="line">&#125; <span class="keyword">finally</span> &#123;</div><div class="line">	<span class="keyword">try</span> &#123;</div><div class="line">		<span class="keyword">if</span>(fis != <span class="keyword">null</span>)</div><div class="line">			fis.close();</div><div class="line">	&#125;<span class="keyword">finally</span> &#123;</div><div class="line">		<span class="keyword">if</span>(fos != <span class="keyword">null</span>)</div><div class="line">			fos.close();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="流的标准处理异常代码1-7版本"><a href="#流的标准处理异常代码1-7版本" class="headerlink" title="流的标准处理异常代码1.7版本"></a>流的标准处理异常代码1.7版本</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.io;</div><div class="line"></div><div class="line">        <span class="keyword">import</span> java.io.FileInputStream;</div><div class="line">        <span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line">        <span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line">        <span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo9_IOException</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> args</div><div class="line">     * <span class="doctag">@throws</span> IOException 在try()中创建的流对象必须实现了AutoCloseable这个接口,如果实现了,在try后面的&#123;&#125;(读写代码)执行后就会自动调用</div><div class="line">     *                     流对象的close方法将流关掉</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="comment">//demo1();</span></div><div class="line">      </div><div class="line">      <span class="comment">//java1.7以后，封装了流的close方法，try过以后，就会自动关闭</span></div><div class="line">        <span class="keyword">try</span> (</div><div class="line">                FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"aaa.txt"</span>);</div><div class="line">                FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"bbb.txt"</span>);</div><div class="line">                MyClose mc = <span class="keyword">new</span> MyClose();</div><div class="line">        ) &#123;</div><div class="line">            <span class="keyword">int</span> b;</div><div class="line">            <span class="keyword">while</span> ((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">                fos.write(b);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">        <span class="comment">//标准的异常处理代码 1.6以前</span></div><div class="line">        FileInputStream fis = <span class="keyword">null</span>;</div><div class="line">        FileOutputStream fos = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            fis = <span class="keyword">new</span> FileInputStream(<span class="string">"aaa.txt"</span>);</div><div class="line">            fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"bbb.txt"</span>);</div><div class="line">            <span class="keyword">int</span> b;</div><div class="line">            <span class="keyword">while</span> ((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">                fos.write(b);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span> (fis != <span class="keyword">null</span>)</div><div class="line">                    fis.close();</div><div class="line">            &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                <span class="keyword">if</span> (fos != <span class="keyword">null</span>)</div><div class="line">                    fos.close();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClose</span> <span class="keyword">implements</span> <span class="title">AutoCloseable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"我关了"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>原理<ul>
+<li>在try()中创建的流对象必须实现了AutoCloseable这个接口,如果实现了,在try后面的{}(读写代码)执行后就会自动调用,流对象的close方法将流关掉 </li>
+</ul>
+</li>
+</ul>
+<h3 id="图片加密"><a href="#图片加密" class="headerlink" title="图片加密"></a>图片加密</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</div><div class="line"><span class="keyword">import</span> java.io.BufferedOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * 给图片加密</div><div class="line">	 * <span class="doctag">@throws</span> IOException </div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		BufferedInputStream bis = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"a.jpg"</span>));</div><div class="line">		BufferedOutputStream bos = <span class="keyword">new</span> BufferedOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"b.jpg"</span>));</div><div class="line">		</div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = bis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">			bos.write(b ^ <span class="number">123</span>);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		bis.close();</div><div class="line">		bos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</div><div class="line">		FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"b.jpg"</span>);</div><div class="line">		FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"c.jpg"</span>);</div><div class="line">		</div><div class="line">		<span class="keyword">int</span> b;</div><div class="line">		<span class="keyword">while</span>((b = fis.read()) != -<span class="number">1</span>) &#123;</div><div class="line">			fos.write(b ^ <span class="number">123</span>);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		fis.close();</div><div class="line">		fos.close();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="拷贝文件"><a href="#拷贝文件" class="headerlink" title="拷贝文件"></a>拷贝文件</h3><ul>
+<li>在控制台录入文件的路径,将文件拷贝到当前项目下</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> site.yanhui.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test01</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line"></div><div class="line">      <span class="comment">//在控制台录入文件的路径,将文件拷贝到当前项目下</span></div><div class="line">        File dir = getDir();</div><div class="line">        CopyFile(dir);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">	 * 键盘获取一个文件夹路径</div><div class="line">	 */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> File <span class="title">getDir</span><span class="params">()</span> </span>&#123;</div><div class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        System.out.println(<span class="string">"请输入一个文件路径:"</span>);</div><div class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</div><div class="line">            String line = sc.nextLine();</div><div class="line">            File dir = <span class="keyword">new</span> File(line);</div><div class="line">            <span class="keyword">if</span>(!dir.exists()) &#123;</div><div class="line">                System.out.println(<span class="string">"您录入的路径不存在,请重新输入一个文件路径:"</span>);</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(dir.isDirectory()) &#123;</div><div class="line">                System.out.println(<span class="string">"您录入的是文件夹路径,请重新输入一个文件路径:"</span>);</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> dir;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">CopyFile</span><span class="params">(File dir)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line"></div><div class="line">            File file=  dir;</div><div class="line">        FileInputStream fileInputStream =<span class="keyword">new</span> FileInputStream(dir);</div><div class="line">        FileOutputStream fos= <span class="keyword">new</span> FileOutputStream(file.getName()); <span class="comment">//不管你是什么文件类型，都可以拷贝</span></div><div class="line"></div><div class="line">        <span class="keyword">int</span> len;</div><div class="line">        <span class="keyword">byte</span> [] arr=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>*<span class="number">8</span>];</div><div class="line"></div><div class="line">        <span class="keyword">while</span> ((len=fileInputStream.read(arr))!=-<span class="number">1</span>)&#123;</div><div class="line">            fos.write(arr,<span class="number">0</span>,len);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        fileInputStream.close();</div><div class="line">        fos.close();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="录入数据拷贝到文件"><a href="#录入数据拷贝到文件" class="headerlink" title="录入数据拷贝到文件"></a>录入数据拷贝到文件</h3><ul>
+<li>将键盘录入的数据拷贝到当前项目下的text.txt文件中,键盘录入数据当遇到quit时就退出</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> site.yanhui.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test02</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        FileOutputStream fos= <span class="keyword">new</span> FileOutputStream(<span class="string">"text11111.txt"</span>);</div><div class="line">        Scanner mScanner = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        System.out.println(<span class="string">"请输出一个字符串："</span>);</div><div class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</div><div class="line">        String line = mScanner.nextLine();</div><div class="line">        <span class="keyword">if</span> (line.equals(<span class="string">"quit"</span>))&#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">            <span class="keyword">byte</span>[] bytes = line.getBytes();<span class="comment">//得到二进制码写入</span></div><div class="line">            fos.write(bytes);</div><div class="line">            fos.write(<span class="string">"\r\n"</span>.getBytes());<span class="comment">//换行</span></div><div class="line">        &#125;</div><div class="line">        fos.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="拷贝时应该注意的问题"><a href="#拷贝时应该注意的问题" class="headerlink" title="拷贝时应该注意的问题"></a>拷贝时应该注意的问题</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test5</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">/**</span></div><div class="line">    * <span class="doctag">@param</span> args</div><div class="line">    * <span class="doctag">@throws</span> IOException </div><div class="line">    * </div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">      FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"aaa.txt"</span>);</div><div class="line">      FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"bbb.txt"</span>);</div><div class="line">      <span class="keyword">byte</span>[] arr = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">8192</span>];</div><div class="line">      <span class="keyword">int</span> len;</div><div class="line">      <span class="keyword">while</span>((len = fis.read(arr)) != -<span class="number">1</span>) &#123;<span class="comment">//如果read方法忘记写字节数组了,就会返回的字节的码表值,写出就会比原来的文件大的多</span></div><div class="line">         fos.write(arr, <span class="number">0</span>, len);</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      fis.close();</div><div class="line">      fos.close();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>20.20_day20总结</p>
+<ul>
+<li>把今天的知识点总结一遍。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="野望 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎订阅我的个人微信技术博客。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://ogtmd8elu.bkt.clouddn.com/WechatPay-min.png" alt="野望 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://ogtmd8elu.bkt.clouddn.com/pay-min.jpg" alt="野望 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/J2SE/" rel="tag"># J2SE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/05/Git实用教程/" rel="next" title="Git实用教程">
+                <i class="fa fa-chevron-left"></i> Git实用教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/08/Java学习笔记整理（21）/" rel="prev" title="Java学习笔记整理（21）">
+                Java学习笔记整理（21） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="野望" />
+          <p class="site-author-name" itemprop="name">野望</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuili" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yan-hui-jun" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/5800502ca0bb9f00586674c8" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      掘金
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/6043346/archer" target="_blank" title="StackOverFlow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      StackOverFlow
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/yanhui" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      segmentfault
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.0xaa55.com/" title="技术宅的结界" target="_blank">技术宅的结界</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#IO流概述及其分类"><span class="nav-number">1.</span> <span class="nav-text">IO流概述及其分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FileInputStream"><span class="nav-number">2.</span> <span class="nav-text">FileInputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FileInputStream返回值为什么是int"><span class="nav-number">3.</span> <span class="nav-text">FileInputStream返回值为什么是int</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FileOutputStream"><span class="nav-number">4.</span> <span class="nav-text">FileOutputStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FileOutputStream追加"><span class="nav-number">5.</span> <span class="nav-text">FileOutputStream追加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝图片"><span class="nav-number">6.</span> <span class="nav-text">拷贝图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝音频文件画原理图"><span class="nav-number">7.</span> <span class="nav-text">拷贝音频文件画原理图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字节数组拷贝之available-方法"><span class="nav-number">8.</span> <span class="nav-text">字节数组拷贝之available()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义小数组"><span class="nav-number">9.</span> <span class="nav-text">定义小数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义小数组的标准格式"><span class="nav-number">10.</span> <span class="nav-text">定义小数组的标准格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BufferedInputStream和BufferOutputStream拷贝"><span class="nav-number">11.</span> <span class="nav-text">BufferedInputStream和BufferOutputStream拷贝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小数组的读写和带Buffered的读取哪个更快"><span class="nav-number">12.</span> <span class="nav-text">小数组的读写和带Buffered的读取哪个更快</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flush和close方法的区别"><span class="nav-number">13.</span> <span class="nav-text">flush和close方法的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字节流读写中文"><span class="nav-number">14.</span> <span class="nav-text">字节流读写中文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流的标准处理异常代码1-6版本及其以前"><span class="nav-number">15.</span> <span class="nav-text">流的标准处理异常代码1.6版本及其以前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流的标准处理异常代码1-7版本"><span class="nav-number">16.</span> <span class="nav-text">流的标准处理异常代码1.7版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片加密"><span class="nav-number">17.</span> <span class="nav-text">图片加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝文件"><span class="nav-number">18.</span> <span class="nav-text">拷贝文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#录入数据拷贝到文件"><span class="nav-number">19.</span> <span class="nav-text">录入数据拷贝到文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝时应该注意的问题"><span class="nav-number">20.</span> <span class="nav-text">拷贝时应该注意的问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">野望</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260855711&web_id=1260855711" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ArcherBlog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yanhuili.github.io/2017/08/07/Java学习笔记整理（20）/';
+          this.page.identifier = '2017/08/07/Java学习笔记整理（20）/';
+          this.page.title = 'Java学习笔记整理（20）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ArcherBlog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kzNRGot5tLJKONL4cUBsHljH-gzGzoHsz", "MbcqFd5NNWtLdqES7fSrWn0y");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="逻辑运算符,位运算符,if语句,switch语句,三元运算符," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="1.逻辑运算符和位运算符的具体使用。2.附带了常问的关于Java的异或面试题。3.三元运算符的使用，以及和if语句的互转，及其使用的场合4.顺序结构语句和选择结构语句的使用环境和适用场合。5.if语句的三种形式介绍以及相关使用细节和注意事项。6.if语句的嵌套使用。7.if语句和switch语句的区别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础笔记整理（3）">
+<meta property="og:url" content="http://yanhuili.github.io/2017/07/05/Java基础笔记整理（3）/index.html">
+<meta property="og:site_name" content="野望的小屋">
+<meta property="og:description" content="1.逻辑运算符和位运算符的具体使用。2.附带了常问的关于Java的异或面试题。3.三元运算符的使用，以及和if语句的互转，及其使用的场合4.顺序结构语句和选择结构语句的使用环境和适用场合。5.if语句的三种形式介绍以及相关使用细节和注意事项。6.if语句的嵌套使用。7.if语句和switch语句的区别">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/2017/07/05/3e51f1b984a28c1c0085bdb22ea0fcf0.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/wei-min.png">
+<meta property="og:updated_time" content="2017-08-27T11:42:40.963Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础笔记整理（3）">
+<meta name="twitter:description" content="1.逻辑运算符和位运算符的具体使用。2.附带了常问的关于Java的异或面试题。3.三元运算符的使用，以及和if语句的互转，及其使用的场合4.顺序结构语句和选择结构语句的使用环境和适用场合。5.if语句的三种形式介绍以及相关使用细节和注意事项。6.if语句的嵌套使用。7.if语句和switch语句的区别">
+<meta name="twitter:image" content="http://ogtmd8elu.bkt.clouddn.com/2017/07/05/3e51f1b984a28c1c0085bdb22ea0fcf0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"hide","offset":0,"offset_float":0,"b2t":true,"scrollpercent":true,"onmobile":"flase"},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yanhuili.github.io/2017/07/05/Java基础笔记整理（3）/"/>
+
+
+
+
+
+  <title>Java基础笔记整理（3） | 野望的小屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">野望的小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">永不言弃。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yanhuili.github.io/2017/07/05/Java基础笔记整理（3）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="野望">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="野望的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Java基础笔记整理（3）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T16:41:19+08:00">
+                2017-07-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-08-27T19:42:40+08:00">
+                2017-08-27
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/J2SE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2SE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/05/Java基础笔记整理（3）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/05/Java基础笔记整理（3）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/05/Java基础笔记整理（3）/" class="leancloud_visitors" data-flag-title="Java基础笔记整理（3）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>1.逻辑运算符和位运算符的具体使用。<br>2.附带了常问的关于Java的异或面试题。<br>3.三元运算符的使用，以及和if语句的互转，及其使用的场合<br>4.顺序结构语句和选择结构语句的使用环境和适用场合。<br>5.if语句的三种形式介绍以及相关使用细节和注意事项。<br>6.if语句的嵌套使用。<br>7.if语句和switch语句的区别<br><a id="more"></a></p>
+<h3 id="逻辑运算符的基本用法"><a href="#逻辑运算符的基本用法" class="headerlink" title="逻辑运算符的基本用法"></a>逻辑运算符的基本用法</h3><ul>
+<li>A:逻辑运算符有哪些</li>
+<li>B:案例演示</li>
+<li>逻辑运算符的基本用法</li>
+<li>注意事项：<ul>
+<li>a:逻辑运算符一般用于连接boolean类型的表达式或者值。</li>
+<li>b:表达式：就是用运算符把常量或者变量连接起来的符合java语法的式子。<ul>
+<li>算术表达式：a + b</li>
+<li>比较表达式：a == b(条件表达式)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>C:结论：</li>
+<li>&amp;逻辑与:有false则false。</li>
+<li>|逻辑或:有true则true。</li>
+<li>^逻辑异或:相同为false，不同为true。</li>
+<li><p>!逻辑非:非false则true，非true则false。</p>
+<ul>
+<li>特点：偶数个不改变本身。</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/2017/07/05/3e51f1b984a28c1c0085bdb22ea0fcf0.png" alt="逻辑运算符"></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Operator</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//逻辑与</span></div><div class="line">		<span class="keyword">int</span> x = <span class="number">10</span>;</div><div class="line">		<span class="comment">//x == 5 &amp; x == 15 </span></div><div class="line">		<span class="comment">//true &amp; true = true</span></div><div class="line">		<span class="comment">//false &amp; true = false</span></div><div class="line">		<span class="comment">//true &amp; false = false</span></div><div class="line">		<span class="comment">//false &amp; false = false</span></div><div class="line">		<span class="comment">//左右两边都为真的时候,结果才为真</span></div><div class="line">		</div><div class="line">		<span class="comment">//逻辑或</span></div><div class="line">		<span class="keyword">int</span> y = <span class="number">10</span>;</div><div class="line">		y &gt; <span class="number">10</span> | y == <span class="number">10</span>;</div><div class="line">		<span class="comment">//true | true = true</span></div><div class="line">		<span class="comment">//true | false = true</span></div><div class="line">		<span class="comment">//false | true = true</span></div><div class="line">		<span class="comment">//false | false = false</span></div><div class="line">		<span class="comment">//左右两边只要有一个为真,结果为真</span></div><div class="line"></div><div class="line">		<span class="comment">//逻辑异或</span></div><div class="line">		<span class="comment">//true ^ true = false</span></div><div class="line">		<span class="comment">//true ^ false = true</span></div><div class="line">		<span class="comment">//false ^ true = true</span></div><div class="line">		<span class="comment">//false ^ false = false</span></div><div class="line">		<span class="comment">//左右两边相同,结果为假,左右两边不同结果为真</span></div><div class="line"></div><div class="line">		<span class="comment">//逻辑非!</span></div><div class="line">		!!<span class="keyword">true</span>;</div><div class="line">		!!<span class="keyword">false</span>;</div><div class="line">	        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="逻辑运算符-amp-amp-和-amp-的区别"><a href="#逻辑运算符-amp-amp-和-amp-的区别" class="headerlink" title="逻辑运算符&amp;&amp;和&amp;的区别"></a>逻辑运算符&amp;&amp;和&amp;的区别</h3><ul>
+<li>A:案例演示<ul>
+<li>&amp;&amp;和&amp;的区别?(面试题)<ul>
+<li>a:最终结果一样。</li>
+<li>b:&amp;&amp;具有短路效果。左边是false，右边不执行。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>B:同理||和|的区别?(学生自学)</li>
+<li>C:开发中常用谁?<ul>
+<li>&amp;&amp;,||,!</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo2Operator</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//逻辑与和短路与</span></div><div class="line">		<span class="comment">//true &amp; true = true</span></div><div class="line">		<span class="comment">//false &amp; true = false</span></div><div class="line">		<span class="comment">//true &amp; false = false</span></div><div class="line">		<span class="comment">//false &amp; false = false</span></div><div class="line">		<span class="comment">//左右两边都为真的时候,结果才为真</span></div><div class="line"></div><div class="line">		<span class="comment">//true &amp;&amp; true = true</span></div><div class="line">		<span class="comment">//false &amp;&amp; true = false</span></div><div class="line">		<span class="comment">//true &amp;&amp; false = false</span></div><div class="line">		<span class="comment">//false &amp;&amp; false = false</span></div><div class="line"></div><div class="line">		<span class="comment">/*</span></div><div class="line">		&amp;和&amp;&amp;的区别(面试题)</div><div class="line">		&amp;无论左边是true还是false,右边都参与运算</div><div class="line">		&amp;&amp;左边如果为false,右边不参与运算,左边如果为true,右边参与运算</div><div class="line">		*/</div><div class="line">		</div><div class="line"></div><div class="line"></div><div class="line">		<span class="comment">//逻辑或和短路或</span></div><div class="line">		<span class="comment">//true | true = true</span></div><div class="line">		<span class="comment">//true | false = true</span></div><div class="line">		<span class="comment">//false | true = true</span></div><div class="line">		<span class="comment">//false | false = false</span></div><div class="line">		<span class="comment">//左右两边只要有一个为真,结果为真</span></div><div class="line"></div><div class="line">		<span class="comment">//true || true = true</span></div><div class="line">		<span class="comment">//true || false = true</span></div><div class="line">		<span class="comment">//false || true = true</span></div><div class="line">		<span class="comment">//false || false = false</span></div><div class="line">		<span class="comment">/*</span></div><div class="line">		|和||的区别</div><div class="line">		|无论左边是true还是false,右边都参与运算</div><div class="line">		||左边如果为true,右边不参与运算,左边如果为false,右边参与运算</div><div class="line">		*/</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="位运算符的基本用法1"><a href="#位运算符的基本用法1" class="headerlink" title="位运算符的基本用法1"></a>位运算符的基本用法1</h3><ul>
+<li>A:位运算符有哪些</li>
+<li>B:案例演示<ul>
+<li>位运算符的基本用法1</li>
+<li>&amp;,|,^,~ 的用法</li>
+<li>&amp;:有0则0</li>
+<li>|:有1则1</li>
+<li>^:相同则0，不同则1（异或）</li>
+<li>~:按位取反<br><strong>0假1真</strong><br><img src="http://ogtmd8elu.bkt.clouddn.com/wei-min.png" alt="位运算符"><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Operator</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		System.out.println(~<span class="number">6</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">  110</div><div class="line"> &amp;011</div><div class="line">---------</div><div class="line">  010</div><div class="line"></div><div class="line">  110</div><div class="line"> |011</div><div class="line">---------</div><div class="line">  111</div><div class="line"></div><div class="line">  110</div><div class="line"> ^011</div><div class="line">---------</div><div class="line">  101</div><div class="line"> ^011</div><div class="line">---------</div><div class="line">  110</div><div class="line"></div><div class="line">  一个数被另一个数异或两次,结果是这个数本身</div><div class="line"></div><div class="line">  00000000 00000000 00000000 00000110   +6的原码</div><div class="line">  11111111 11111111 11111111 11111001   -7</div><div class="line"></div><div class="line">  10000000 00000000 00000000 00000111   -7的原码</div><div class="line">  11111111 11111111 11111111 11111000   -7的反码</div><div class="line">  11111111 11111111 11111111 11111001   -7的补码</div><div class="line"></div><div class="line">平时我们使用的手写出来的-6的二进制码称为原码，计算机在操作运算的时候，使用的是补码。</div><div class="line">*/</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="位异或运算符的特点及面试题"><a href="#位异或运算符的特点及面试题" class="headerlink" title="位异或运算符的特点及面试题"></a>位异或运算符的特点及面试题</h3><ul>
+<li><p>A:案例演示</p>
+<ul>
+<li>位异或运算符的特点</li>
+<li>^的特点：一个数据对另一个数据位异或两次，该数本身不变。</li>
+</ul>
+</li>
+<li><p>B:面试题：</p>
+<ul>
+<li>请自己实现两个整数变量的交换</li>
+<li>注意：以后讲课的过程中，我没有明确指定数据的类型，默认int类型。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//一个数被另一个数异或两次得到的就是这个数本身。</span></div><div class="line"></div><div class="line"><span class="comment">//交换两个变量中的值</span></div><div class="line"><span class="comment">//int x = 10; int y = 5;</span></div><div class="line"><span class="comment">//做法1 引入第三方变量</span></div><div class="line"><span class="comment">//做法2 不允许用第三方变量</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestOperator</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> x = <span class="number">10</span>;</div><div class="line">		<span class="keyword">int</span> y = <span class="number">5</span>;</div><div class="line">		<span class="comment">/*int temp;</span></div><div class="line"></div><div class="line">		temp = x;</div><div class="line">		x = y;</div><div class="line">		y = temp;</div><div class="line">		System.out.println("x = " + x + ",y = " + y);</div><div class="line"></div><div class="line">		x = x + y;		//10 + 5 = 15</div><div class="line">		y = x - y;		//15 - 5 = 10</div><div class="line">		x = x - y;		//15 - 10 = 5</div><div class="line">		System.out.println("x = " + x + ",y = " + y);*/</div><div class="line"></div><div class="line">		x = x ^ y;		<span class="comment">// 10 ^ 5</span></div><div class="line">		y = x ^ y;		<span class="comment">// 10 ^ 5 ^ 5 = 10</span></div><div class="line">		x = x ^ y;		<span class="comment">// 10 ^ 5 ^ 10 = 5</span></div><div class="line">		System.out.println(<span class="string">"x = "</span> + x + <span class="string">",y = "</span> + y);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="位运算符的基本用法2及面试题"><a href="#位运算符的基本用法2及面试题" class="headerlink" title="位运算符的基本用法2及面试题"></a>位运算符的基本用法2及面试题</h3><ul>
+<li>A:案例演示 &gt;&gt;,&gt;&gt;&gt;,&lt;&lt;的用法:<ul>
+<li>&lt;&lt;:左移    左边最高位丢弃，右边补齐0<ul>
+<li><blockquote>
+<blockquote>
+<p>:右移最高位是0，左边补齐0;最高为是1，左边补齐1</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><blockquote>
+<blockquote>
+<blockquote>
+<p>:无符号右移 无论最高位是0还是1，左边补齐0</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo2Operator</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		System.out.println(-<span class="number">6</span> &gt;&gt; <span class="number">1</span>);			<span class="comment">//向右移动几次就是除以2的几次幂</span></div><div class="line">		<span class="comment">//System.out.println(6 &lt;&lt; 1);			//向左移动几次就是乘以2的几次幂</span></div><div class="line">	<span class="comment">/*</span></div><div class="line">	&gt;&gt;&gt;无符号右移和&gt;&gt;有符号右移的区别</div><div class="line">	&gt;&gt;&gt;无符号右移无论高位是0还是1,移动后都用0补位</div><div class="line">	&gt;&gt;有符号右移高位是0就补0,高位是1就补1</div><div class="line">	*/</div><div class="line"></div><div class="line">	<span class="comment">//面试题</span></div><div class="line">	<span class="comment">//请用最有效率的方式写出计算2乘以8的结果</span></div><div class="line">		System.out.println(<span class="number">2</span> * <span class="number">8</span>);</div><div class="line">		System.out.println(<span class="number">2</span> &lt;&lt; <span class="number">3</span>);				<span class="comment">//最有效率,直接操作的是二进制</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="三元运算符的基本用法"><a href="#三元运算符的基本用法" class="headerlink" title="三元运算符的基本用法"></a>三元运算符的基本用法</h3><ul>
+<li>A:三元运算符的格式<ul>
+<li>(关系表达式) ? 表达式1 : 表达式2;</li>
+</ul>
+</li>
+<li>B:三元运算符的执行流程 </li>
+<li>C:案例演示<ul>
+<li>获取两个数中的最大值<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Operator</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//格式(关系表达式)?表达式1：表达式2；</span></div><div class="line">		<span class="keyword">int</span> x = <span class="number">10</span>;</div><div class="line">		<span class="keyword">int</span> y = <span class="number">5</span>;</div><div class="line">		<span class="keyword">int</span> z = (x &gt; y) ? x : y;	<span class="comment">//如果条件为真,就把表达式1的值赋值过去,如果条件为假就把表达式2的值赋值过去</span></div><div class="line"></div><div class="line">		System.out.println(z);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="三元运算符的练习"><a href="#三元运算符的练习" class="headerlink" title="三元运算符的练习"></a>三元运算符的练习</h3><ul>
+<li>A:案例演示<ul>
+<li>比较两个整数是否相同</li>
+</ul>
+</li>
+<li>B:案例演示<ul>
+<li>获取三个整数中的最大值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1Operator</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">/*</span></div><div class="line">			A:案例演示</div><div class="line">			比较两个整数是否相同</div><div class="line">			B:案例演示</div><div class="line">			获取三个整数中的最大值</div><div class="line">		</div><div class="line">		</div><div class="line">		int x = 10;</div><div class="line">		int y = 10;</div><div class="line">		boolean b = (x == y)? true : false;</div><div class="line">		boolean b2 = (x == y);</div><div class="line"></div><div class="line">		System.out.println(b);*/</div><div class="line"></div><div class="line">		<span class="keyword">int</span> a = <span class="number">10</span>;</div><div class="line">		<span class="keyword">int</span> b = <span class="number">20</span>;</div><div class="line">		<span class="keyword">int</span> c = <span class="number">30</span>;</div><div class="line"></div><div class="line">		<span class="keyword">int</span> temp = (a &gt; b) ? a : b;</div><div class="line">		<span class="comment">//System.out.println((temp &gt; c) ? temp : c);</span></div><div class="line">		<span class="keyword">int</span> temp2 = (temp &gt; c) ? temp : c;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="键盘录入的基本格式讲解"><a href="#键盘录入的基本格式讲解" class="headerlink" title="键盘录入的基本格式讲解"></a>键盘录入的基本格式讲解</h3><ul>
+<li>A:为什么要使用键盘录入数据<ul>
+<li>a:为了让程序的数据更符合开发的数据</li>
+<li>b:让程序更灵活一下</li>
+</ul>
+</li>
+<li>B:如何实现键盘录入呢<ul>
+<li>先照格式来。</li>
+<li>a:导包<ul>
+<li>格式：<ul>
+<li>import java.util.Scanner; </li>
+</ul>
+</li>
+<li>位置：<ul>
+<li>在class上面。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>b:创建键盘录入对象<ul>
+<li>格式：<ul>
+<li>Scanner sc = new Scanner(System.in);</li>
+</ul>
+</li>
+<li>c:通过对象获取数据</li>
+<li>格式：<ul>
+<li>int x = sc.nextInt();</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>C:案例演示<ul>
+<li>键盘录入1个整数，并输出到控制台。</li>
+<li>键盘录入2个整数，并输出到控制台。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Scanner;							<span class="comment">//导入包</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Scanner</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);		<span class="comment">//创建对象,键盘录入</span></div><div class="line">		System.out.println(<span class="string">"请输入第一个整数"</span>);</div><div class="line">		<span class="keyword">int</span> x = sc.nextInt();						<span class="comment">//录入一个int类型的整数</span></div><div class="line">		System.out.println(x);</div><div class="line">		System.out.println(<span class="string">"请输入第二个整数"</span>);</div><div class="line">		<span class="keyword">int</span> y = sc.nextInt();</div><div class="line">		System.out.println(y);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="键盘录入的练习1"><a href="#键盘录入的练习1" class="headerlink" title="键盘录入的练习1"></a>键盘录入的练习1</h3><ul>
+<li>A:案例演示<ul>
+<li>键盘录入练习：键盘录入两个数据，并对这两个数据求和，输出其结果</li>
+</ul>
+</li>
+<li>B:案例演示<ul>
+<li>键盘录入练习：键盘录入两个数据，获取这两个数据中的最大值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;							<span class="comment">//导入包</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1Scanner</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">/*</span></div><div class="line">		* A:案例演示</div><div class="line">		* 键盘录入练习：键盘录入两个数据，并对这两个数据求和，输出其结果</div><div class="line">		* B:案例演示</div><div class="line">		* 键盘录入练习：键盘录入两个数据，获取这两个数据中的最大值</div><div class="line">		*/</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);		<span class="comment">//创建对象</span></div><div class="line"></div><div class="line">		System.out.println(<span class="string">"请输入第一个整数:"</span>);</div><div class="line">		<span class="keyword">int</span> x = sc.nextInt();</div><div class="line">		System.out.println(<span class="string">"请输入第二个整数:"</span>);</div><div class="line">		<span class="keyword">int</span> y = sc.nextInt();</div><div class="line"></div><div class="line">		<span class="comment">/*System.out.println("两个整数的和是:");</span></div><div class="line">		int temp = x + y;</div><div class="line">		System.out.println(temp);*/</div><div class="line"></div><div class="line">		<span class="keyword">int</span> result = (x &gt; y) ? x : y;</div><div class="line">		System.out.println(<span class="string">"两个整数的最大值是:"</span>);</div><div class="line">		System.out.println(result);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="键盘录入的练习2"><a href="#键盘录入的练习2" class="headerlink" title="键盘录入的练习2"></a>键盘录入的练习2</h3><ul>
+<li>A:案例演示<ul>
+<li>键盘录入练习：键盘录入两个数据，比较这两个数据是否相等</li>
+</ul>
+</li>
+<li>B:案例演示<ul>
+<li>键盘录入练习：键盘录入三个数据，获取这三个数据中的最大值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;							<span class="comment">//导入包</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test2Scanner</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">/*</span></div><div class="line">		* A:案例演示</div><div class="line">		* 键盘录入练习：键盘录入两个数据，比较这两个数据是否相等</div><div class="line">		* B:案例演示</div><div class="line">		* 键盘录入练习：键盘录入三个数据，获取这三个数据中的最大值</div><div class="line">		*/</div><div class="line"></div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);		<span class="comment">//创建对象</span></div><div class="line"></div><div class="line">		System.out.println(<span class="string">"请输入第一个整数:"</span>);</div><div class="line">		<span class="keyword">int</span> x = sc.nextInt();</div><div class="line">		System.out.println(<span class="string">"请输入第二个整数:"</span>);</div><div class="line">		<span class="keyword">int</span> y = sc.nextInt();</div><div class="line"></div><div class="line">		<span class="comment">/*boolean b = (x == y);</span></div><div class="line">		System.out.println(b);*/</div><div class="line">		System.out.println(<span class="string">"请输入第三个整数:"</span>);</div><div class="line">		<span class="keyword">int</span> z = sc.nextInt();</div><div class="line"></div><div class="line">		<span class="keyword">int</span> temp = (x &gt; y) ? x : y;</div><div class="line">		<span class="keyword">int</span> temp2 = (temp &gt; z) ? temp : z;</div><div class="line">		System.out.println(<span class="string">"三个整数的最大值是:"</span> + temp2);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="顺序结构语句"><a href="#顺序结构语句" class="headerlink" title="顺序结构语句"></a>顺序结构语句</h3><ul>
+<li>A:什么是流程控制语句<ul>
+<li>流程控制语句：可以控制程序的执行流程。</li>
+</ul>
+</li>
+<li>B:流程控制语句的分类<ul>
+<li>顺序结构</li>
+<li>选择结构</li>
+<li>循环结构</li>
+</ul>
+</li>
+<li>C:执行流程：<ul>
+<li>从上往下，依次执行。</li>
+</ul>
+</li>
+<li>D:案例演示<ul>
+<li>输出几句话看效果即可<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//顺序结构，依次执行</span></div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"Hello World1111111111111!"</span>);</div><div class="line">		System.out.println(<span class="string">"Hello World222222222!"</span>);</div><div class="line">		System.out.println(<span class="string">"Hello World333333333!"</span>);</div><div class="line">		</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">		<span class="keyword">int</span> x = sc.nextInt();</div><div class="line">		System.out.println(x);</div><div class="line">		System.out.println(<span class="string">"Hello World44444!"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="选择结构if语句格式1及其使用"><a href="#选择结构if语句格式1及其使用" class="headerlink" title="选择结构if语句格式1及其使用"></a>选择结构if语句格式1及其使用</h3><ul>
+<li>A:选择结构的分类<ul>
+<li>if语句</li>
+<li>switch语句</li>
+</ul>
+</li>
+<li>B:if语句有几种格式????<ul>
+<li>格式1</li>
+<li>格式2</li>
+<li>格式3</li>
+</ul>
+</li>
+<li>C:if语句的格式1</li>
+<li> if(比较表达式) {<pre><code>    语句体;
+}
+</code></pre></li>
+<li>D:执行流程：<ul>
+<li>先计算比较表达式的值，看其返回值是true还是false。</li>
+<li>如果是true，就执行语句体；</li>
+<li>如果是false，就不执行语句体；</li>
+</ul>
+</li>
+<li>E:案例演示<ul>
+<li>判断两个数据是否相等<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1If</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">/*</span></div><div class="line">		if语句第一种格式：</div><div class="line">		if(关系表达式) &#123;</div><div class="line">			语句体</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		*/</div><div class="line"></div><div class="line">		<span class="keyword">int</span> age = <span class="number">19</span>;</div><div class="line">		<span class="keyword">if</span>(age &gt;= <span class="number">18</span> &amp;&amp; age &lt;= <span class="number">80</span>)&#123;</div><div class="line">			<span class="comment">//int x = 10;   声明是一句int x; 赋值是一句 x = 10;</span></div><div class="line">			System.out.println(<span class="string">"可以浏览本网站"</span>);</div><div class="line">		</div><div class="line">		&#125;</div><div class="line">		System.out.println(<span class="string">"完了"</span>);</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="选择结构if语句注意事项"><a href="#选择结构if语句注意事项" class="headerlink" title="选择结构if语句注意事项"></a>选择结构if语句注意事项</h3><ul>
+<li>A:案例演示<ul>
+<li>a:比较表达式无论简单还是复杂，结果必须是boolean类型</li>
+<li>b:if语句控制的语句体如果是一条语句，大括号可以省略；<ul>
+<li>如果是多条语句，就不能省略。建议永远不要省略。</li>
+</ul>
+</li>
+<li>c:一般来说：有左大括号就没有分号，有分号就没有左大括号</li>
+</ul>
+</li>
+</ul>
+<h3 id="选择结构if语句格式2及其使用"><a href="#选择结构if语句格式2及其使用" class="headerlink" title="选择结构if语句格式2及其使用"></a>选择结构if语句格式2及其使用</h3><ul>
+<li>A:if语句的格式2</li>
+<li> if(比较表达式) {<pre><code>    语句体1;
+}else {
+    语句体2;
+}
+</code></pre></li>
+<li>B:执行流程：<ul>
+<li>首先计算比较表达式的值，看其返回值是true还是false。</li>
+<li>如果是true，就执行语句体1；</li>
+<li>如果是false，就执行语句体2；</li>
+</ul>
+</li>
+<li>C:案例演示<ul>
+<li>a:获取两个数据中较大的值</li>
+<li>b:判断一个数据是奇数还是偶数,并输出是奇数还是偶数</li>
+<li>注意事项：else后面是没有比较表达式的，只有if后面有。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1If</span> </span>&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">		a:获取两个数据中较大的值</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);		<span class="comment">//创建对象</span></div><div class="line">		System.out.println(<span class="string">"请输入第一个整数:"</span>);</div><div class="line">		<span class="keyword">int</span> x = sc.nextInt();						<span class="comment">//将键盘录入的整数存储在x中</span></div><div class="line">		System.out.println(<span class="string">"请输入第二个整数:"</span>);</div><div class="line">		<span class="keyword">int</span> y = sc.nextInt();						<span class="comment">//将键盘录入的整数存储在y中</span></div><div class="line"></div><div class="line">		<span class="keyword">int</span> z;</div><div class="line">		<span class="keyword">if</span>(x &gt; y) &#123;</div><div class="line">			<span class="comment">//System.out.println(x);</span></div><div class="line">			z = x;</div><div class="line">		&#125;<span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">//System.out.println(y);</span></div><div class="line">			z = y;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">int</span> z = (x &gt; y) ? x : y;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/*</span></div><div class="line">	if else 和三元运算符号的区别</div><div class="line">	如果仅仅是赋值,他俩没区别,建议用三元运算符</div><div class="line">	如果想有输出语句或其他更复杂的语句,只能用if else</div><div class="line">	*/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test2If</span> </span>&#123;</div><div class="line">	<span class="comment">//判断一个数据是奇数还是偶数,并输出是奇数还是偶数</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> x = <span class="number">10</span>;</div><div class="line">		</div><div class="line">		<span class="keyword">if</span>(x % <span class="number">2</span> == <span class="number">0</span>) &#123;</div><div class="line">			System.out.println(x + <span class="string">"是一个偶数"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> &#123;</div><div class="line">			System.out.println(x + <span class="string">"是一个奇数"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="if语句的格式2和三元的相互转换问题"><a href="#if语句的格式2和三元的相互转换问题" class="headerlink" title="if语句的格式2和三元的相互转换问题"></a>if语句的格式2和三元的相互转换问题</h3><ul>
+<li>A:案例演示<ul>
+<li>if语句和三元运算符完成同一个效果</li>
+</ul>
+</li>
+<li><p>B:案例演示</p>
+<ul>
+<li><p>if语句和三元运算符的区别</p>
+</li>
+<li><p>三元运算符实现的，都可以采用if语句实现。反之不成立。</p>
+</li>
+<li><p>什么时候if语句实现不能用三元改进呢?</p>
+<ul>
+<li>当if语句控制的操作是一个输出语句的时候就不能。</li>
+<li>为什么呢?因为三元运算符是一个运算符，运算符操作完毕就应该有一个结果，而不是一个输出。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="if-else-和三元运算符号的区别"><a href="#if-else-和三元运算符号的区别" class="headerlink" title="if else 和三元运算符号的区别"></a>if else 和三元运算符号的区别</h4><p>如果仅仅是赋值,他俩没区别,建议用三元运算符.<br>如果想有输出语句或其他更复杂的语句,只能用if else</p>
+<p>​        </p>
+<h3 id="选择结构if语句格式3及其使用"><a href="#选择结构if语句格式3及其使用" class="headerlink" title="选择结构if语句格式3及其使用"></a>选择结构if语句格式3及其使用</h3><ul>
+<li>A:if语句的格式3：</li>
+<li> if(比较表达式1) {<pre><code>    语句体1;
+}else if(比较表达式2) {
+    语句体2;
+}else if(比较表达式3) {
+    语句体3;
+}
+...
+else {
+    语句体n+1;
+}
+</code></pre></li>
+<li><p>B:执行流程：</p>
+<ul>
+<li>首先计算比较表达式1看其返回值是true还是false，</li>
+<li>如果是true，就执行语句体1，if语句结束。</li>
+<li><p>如果是false，接着计算比较表达式2看其返回值是true还是false，</p>
+</li>
+<li><p>如果是true，就执行语句体2，if语句结束。</p>
+</li>
+<li><p>如果是false，接着计算比较表达式3看其返回值是true还是false，</p>
+</li>
+<li><p>如果都是false，就执行语句体n+1。</p>
+</li>
+</ul>
+</li>
+<li>C:案例演示</li>
+<li> 需求：键盘录入一个成绩，判断并输出成绩的等级。<pre><code>90-100 优
+80-89  良
+70-79  中
+60-69  及
+0-59   差
+</code></pre></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test3If</span> </span>&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	需求：键盘录入一个成绩，判断并输出成绩的等级。</div><div class="line">		90-100 优</div><div class="line">		80-89  良</div><div class="line">		70-79  中</div><div class="line">		60-69  及</div><div class="line">		0-59   差</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);		<span class="comment">//创建对象</span></div><div class="line">		</div><div class="line">		System.out.println(<span class="string">"请输入一个成绩,范围是0到100之间:"</span>);</div><div class="line">		<span class="keyword">int</span> x = sc.nextInt();</div><div class="line">		<span class="keyword">if</span>(x &gt;=<span class="number">90</span> &amp;&amp; x &lt;= <span class="number">100</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"优"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(x &gt;= <span class="number">80</span> &amp;&amp; x &lt; <span class="number">90</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"良"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(x &gt;= <span class="number">70</span> &amp;&amp; x &lt; <span class="number">80</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"中"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(x &gt;= <span class="number">60</span> &amp;&amp; x &lt; <span class="number">70</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"及"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; <span class="number">60</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"差"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> &#123;</div><div class="line">			System.out.println(<span class="string">"输入错误"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>D:学生练习</p>
+<ul>
+<li><p>需求：</p>
+<ul>
+<li><p>键盘录入x的值，计算出y的并输出。</p>
+<ul>
+<li>x&gt;=3y = 2 * x + 1;</li>
+<li>-1&lt;x&lt;3y = 2 * x;</li>
+<li>x&lt;=-1y = 2 * x – 1;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test4If</span> </span>&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	* 需求：</div><div class="line">		* 键盘录入x的值，计算出y的并输出。</div><div class="line">		</div><div class="line">		* x&gt;=3	y = 2 * x + 1;</div><div class="line">		* -1&lt;x&lt;3	y = 2 * x;</div><div class="line">		* x&lt;=-1	y = 2 * x – 1;</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">		System.out.println(<span class="string">"请输入一个整数"</span>);</div><div class="line">		<span class="keyword">int</span> x = sc.nextInt();</div><div class="line">		<span class="keyword">int</span> y;</div><div class="line">		<span class="keyword">if</span>(x &gt;= <span class="number">3</span>) &#123;</div><div class="line">			y = <span class="number">2</span> * x + <span class="number">1</span>;</div><div class="line">			System.out.println(y);</div><div class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(x &gt; -<span class="number">1</span> &amp;&amp; x &lt; <span class="number">3</span>) &#123;</div><div class="line">			y = <span class="number">2</span> * x;</div><div class="line">			System.out.println(y);</div><div class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(x &lt;= -<span class="number">1</span>) &#123;</div><div class="line">			y = <span class="number">2</span> * x - <span class="number">1</span>;</div><div class="line">			System.out.println(y);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="选择结构if语句的嵌套使用"><a href="#选择结构if语句的嵌套使用" class="headerlink" title="选择结构if语句的嵌套使用"></a>选择结构if语句的嵌套使用</h3><ul>
+<li>A:案例演示<ul>
+<li>需求：获取三个数据中的最大值</li>
+<li>if语句的嵌套使用。</li>
+<li>可以三元实现，也可以if嵌套实现。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo4If</span> </span>&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	* A:案例演示</div><div class="line">	* 需求：获取三个数据中的最大值</div><div class="line">	* if语句的嵌套使用。</div><div class="line">	* 可以三元实现，也可以if嵌套实现。</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> x = <span class="number">30</span>;</div><div class="line">		<span class="keyword">int</span> y = <span class="number">20</span>;</div><div class="line">		<span class="keyword">int</span> z = <span class="number">10</span>;</div><div class="line"></div><div class="line">		<span class="comment">/*if(x &gt; y) &#123;</span></div><div class="line">			if(x &gt; z) &#123;</div><div class="line">				System.out.println(x);</div><div class="line">			&#125;else &#123;</div><div class="line">				System.out.println(z);</div><div class="line">			&#125;</div><div class="line">		&#125;else &#123;</div><div class="line">			if(y &gt; z) &#123;</div><div class="line">				System.out.println(y);</div><div class="line">			&#125;else &#123;</div><div class="line">				System.out.println(z);</div><div class="line">			&#125;</div><div class="line">		&#125;*/</div><div class="line"></div><div class="line">		<span class="comment">//int temp = (x &gt; y) ? x : y  &gt; z ? ((x &gt; y) ? x : y) : z;三元运算符号可以嵌套,但是强烈不建议</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>​    </p>
+<h3 id="选择结构switch语句的格式及其解释"><a href="#选择结构switch语句的格式及其解释" class="headerlink" title="选择结构switch语句的格式及其解释"></a>选择结构switch语句的格式及其解释</h3><ul>
+<li>A:switch语句的格式</li>
+<li>B:switch语句的格式解释</li>
+<li>C:面试题<ul>
+<li>byte可以作为switch的表达式吗? </li>
+<li>long可以作为switch的表达式吗?</li>
+<li>String可以作为switch的表达式吗?</li>
+</ul>
+</li>
+<li>C:执行流程<ul>
+<li>先计算表达式的值</li>
+<li>然后和case后面的匹配，如果有就执行对应的语句，否则执行default控制的语句<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Switch</span> </span>&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	switch(表达式) &#123;		表达式可以是byte,short,char,int,只要能自动类型提升为int类型的都可以</div><div class="line">	      case 值1：		//jdk1.5版本可以接收枚举</div><div class="line">			语句体1;		//jdk1.7版本可以接收字符串String</div><div class="line">			break;</div><div class="line">		    case 值2：</div><div class="line">			语句体2;</div><div class="line">			break;</div><div class="line">		    …</div><div class="line">		    default：	</div><div class="line">			语句体n+1;</div><div class="line">			break;</div><div class="line">    &#125;</div><div class="line">		switch语句结束有两种</div><div class="line">		1,遇到break</div><div class="line">		2,程序执行到switch的末尾</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		String name = <span class="string">"张三"</span>;</div><div class="line">		String gender = <span class="string">"妖"</span>; <span class="comment">//比如选择题答案</span></div><div class="line"></div><div class="line">		<span class="keyword">switch</span>(gender) &#123;</div><div class="line">			<span class="keyword">case</span> <span class="string">"男"</span>:</div><div class="line">				System.out.println(name + <span class="string">"是一位"</span> + gender + <span class="string">"士,喜欢吃饭睡觉打lol"</span>);</div><div class="line">			<span class="keyword">break</span>;										<span class="comment">//跳出switch语句</span></div><div class="line">			<span class="keyword">case</span> <span class="string">"女"</span>:</div><div class="line">				System.out.println(name + <span class="string">"是一位"</span> + gender + <span class="string">"士,喜欢逛街购物美容"</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">			<span class="keyword">default</span>: <span class="comment">//前面都不对，默认的</span></div><div class="line">				System.out.println(name + <span class="string">"是一位"</span> + gender + <span class="string">",喜欢打雌性激素,维持美貌容颜"</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		&#125;<span class="comment">//遇到break就跳出，或者是遇到右大括号</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="选择结构switch语句的基本使用"><a href="#选择结构switch语句的基本使用" class="headerlink" title="选择结构switch语句的基本使用"></a>选择结构switch语句的基本使用</h3><ul>
+<li>定义固定值</li>
+<li>A:整数(给定一个值,输出对应星期几)</li>
+<li>B:字符串(根据给定串输出对应值)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1Switch</span> </span>&#123;</div><div class="line">	<span class="comment">//A:整数(给定一个值,输出对应星期几)</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> x = <span class="number">0</span>;<span class="comment">//给定一个int值</span></div><div class="line">		<span class="keyword">switch</span>(x) &#123;</div><div class="line">			<span class="keyword">default</span> :</div><div class="line">				System.out.println(<span class="string">"输入有误"</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">			<span class="keyword">case</span> <span class="number">1</span> :</div><div class="line">				System.out.println(<span class="string">"星期一"</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">			<span class="keyword">case</span> <span class="number">2</span> :</div><div class="line">				System.out.println(<span class="string">"星期二"</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">			<span class="keyword">case</span> <span class="number">3</span> :</div><div class="line">				System.out.println(<span class="string">"星期三"</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">			<span class="keyword">case</span> <span class="number">4</span> :</div><div class="line">				System.out.println(<span class="string">"星期四"</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">			<span class="keyword">case</span> <span class="number">5</span> :</div><div class="line">				System.out.println(<span class="string">"星期五"</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">			<span class="keyword">case</span> <span class="number">6</span> :</div><div class="line">				System.out.println(<span class="string">"星期六"</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">			<span class="keyword">case</span> <span class="number">7</span> :</div><div class="line">				System.out.println(<span class="string">"星期日"</span>);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">			</div><div class="line">			<span class="comment">//break;</span></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="选择结构switch语句的注意事项"><a href="#选择结构switch语句的注意事项" class="headerlink" title="选择结构switch语句的注意事项"></a>选择结构switch语句的注意事项</h3><ul>
+<li>A:案例演示<ul>
+<li>a:case后面只能是常量，不能是变量，而且，多个case后面的值不能出现相同的</li>
+<li>b:default可以省略吗?<ul>
+<li>可以省略，但是不建议，因为它的作用是对不正确的情况给出提示。</li>
+<li>特殊情况：<ul>
+<li>case就可以把值固定。</li>
+<li>A,B,C,D</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>c:break可以省略吗?<ul>
+<li>最后一个可以省略,其他最好不要省略</li>
+<li>会出现一个现象：case穿透。</li>
+<li>最终我们建议不要省略</li>
+</ul>
+</li>
+<li>d:default一定要在最后吗?<ul>
+<li>不是，可以在任意位置。但是建议在最后。</li>
+</ul>
+</li>
+<li>e:switch语句的结束条件<ul>
+<li>a:遇到break就结束了</li>
+<li>b:执行到末尾就结束了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="选择结构switch语句练习"><a href="#选择结构switch语句练习" class="headerlink" title="选择结构switch语句练习"></a>选择结构switch语句练习</h3><ul>
+<li>A:看程序写结果：4 先找case，不匹配的话，执行default，遇到break跳出</li>
+<li> int x = 2;<pre><code>int y = 3;
+switch(x){
+    default:
+        y++;
+        break;
+    case 3:
+        y++;
+    case 4:
+        y++;
+}
+System.out.println(&quot;y=&quot;+y);
+</code></pre></li>
+<li>B:看程序写结果： 6 case穿透 执行了三个 y++</li>
+<li> int x = 2;<pre><code>int y = 3;
+switch(x){
+    default:
+        y++;
+    case 3:
+        y++;
+    case 4:
+        y++;
+}
+System.out.println(&quot;y=&quot;+y);
+</code></pre></li>
+</ul>
+<h3 id="选择结构if语句和switch语句的区别"><a href="#选择结构if语句和switch语句的区别" class="headerlink" title="选择结构if语句和switch语句的区别"></a>选择结构if语句和switch语句的区别</h3><ul>
+<li>A:总结switch语句和if语句的各自使用场景<ul>
+<li>switch建议判断固定值的时候用</li>
+<li>if建议判断区间或范围的时候用</li>
+</ul>
+</li>
+<li>B:案例演示<ul>
+<li>分别用switch语句和if语句实现下列需求：<ul>
+<li>键盘录入月份，输出对应的季节</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test3Switch</span> </span>&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	分别用switch语句和if语句实现下列需求：</div><div class="line">	* 键盘录入月份，输出对应的季节</div><div class="line">	3,4,5是春季,6,7,8是夏季,9,10,11是秋季,12,1,2是冬季</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">		System.out.println(<span class="string">"请输入月份:"</span>);</div><div class="line">		<span class="keyword">int</span> month = sc.nextInt();</div><div class="line">		<span class="comment">/*switch (month) &#123;</span></div><div class="line">		case 3:</div><div class="line">		case 4:</div><div class="line">		case 5:</div><div class="line">			System.out.println(month +"月是春季");</div><div class="line">		break;</div><div class="line">		case 6:</div><div class="line">		case 7:</div><div class="line">		case 8:</div><div class="line">			System.out.println(month +"月是夏季");</div><div class="line">		break;</div><div class="line">		case 9:</div><div class="line">		case 10:</div><div class="line">		case 11:</div><div class="line">			System.out.println(month +"月是秋季");</div><div class="line">		break;</div><div class="line">		case 12:</div><div class="line">		case 1:</div><div class="line">		case 2:</div><div class="line">			System.out.println(month +"月是冬季");</div><div class="line">		break;</div><div class="line">		default:</div><div class="line">			System.out.println("输入有误");</div><div class="line">		&#125;*/</div><div class="line">		<span class="keyword">if</span>(month &gt; <span class="number">12</span> || month &lt; <span class="number">1</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"输入有误"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(month &gt;= <span class="number">3</span> &amp;&amp; month &lt;= <span class="number">5</span>) &#123;</div><div class="line">			System.out.println(month +<span class="string">"月是春季"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span> (month &gt;= <span class="number">6</span> &amp;&amp; month &lt;= <span class="number">8</span>) &#123;</div><div class="line">			System.out.println(month +<span class="string">"月是夏季"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span> (month &gt;= <span class="number">9</span> &amp;&amp; month &lt;= <span class="number">11</span>) &#123;</div><div class="line">			System.out.println(month +<span class="string">"月是秋季"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> &#123;</div><div class="line">			System.out.println(month +<span class="string">"月是冬季"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="野望 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎订阅我的个人微信技术博客。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://ogtmd8elu.bkt.clouddn.com/WechatPay-min.png" alt="野望 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://ogtmd8elu.bkt.clouddn.com/pay-min.jpg" alt="野望 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/逻辑运算符/" rel="tag"># 逻辑运算符</a>
+          
+            <a href="/tags/位运算符/" rel="tag"># 位运算符</a>
+          
+            <a href="/tags/if语句/" rel="tag"># if语句</a>
+          
+            <a href="/tags/switch语句/" rel="tag"># switch语句</a>
+          
+            <a href="/tags/三元运算符/" rel="tag"># 三元运算符</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/04/Java基础笔记整理（2）/" rel="next" title="Java基础笔记整理（2）">
+                <i class="fa fa-chevron-left"></i> Java基础笔记整理（2）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/11/Java学习笔记整理（4）/" rel="prev" title="Java学习笔记整理（4）">
+                Java学习笔记整理（4） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="野望" />
+          <p class="site-author-name" itemprop="name">野望</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuili" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yan-hui-jun" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/5800502ca0bb9f00586674c8" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      掘金
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/6043346/archer" target="_blank" title="StackOverFlow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      StackOverFlow
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/yanhui" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      segmentfault
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.0xaa55.com/" title="技术宅的结界" target="_blank">技术宅的结界</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑运算符的基本用法"><span class="nav-number">1.</span> <span class="nav-text">逻辑运算符的基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑运算符-amp-amp-和-amp-的区别"><span class="nav-number">2.</span> <span class="nav-text">逻辑运算符&&和&的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位运算符的基本用法1"><span class="nav-number">3.</span> <span class="nav-text">位运算符的基本用法1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位异或运算符的特点及面试题"><span class="nav-number">4.</span> <span class="nav-text">位异或运算符的特点及面试题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位运算符的基本用法2及面试题"><span class="nav-number">5.</span> <span class="nav-text">位运算符的基本用法2及面试题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三元运算符的基本用法"><span class="nav-number">6.</span> <span class="nav-text">三元运算符的基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三元运算符的练习"><span class="nav-number">7.</span> <span class="nav-text">三元运算符的练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键盘录入的基本格式讲解"><span class="nav-number">8.</span> <span class="nav-text">键盘录入的基本格式讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键盘录入的练习1"><span class="nav-number">9.</span> <span class="nav-text">键盘录入的练习1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键盘录入的练习2"><span class="nav-number">10.</span> <span class="nav-text">键盘录入的练习2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序结构语句"><span class="nav-number">11.</span> <span class="nav-text">顺序结构语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择结构if语句格式1及其使用"><span class="nav-number">12.</span> <span class="nav-text">选择结构if语句格式1及其使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择结构if语句注意事项"><span class="nav-number">13.</span> <span class="nav-text">选择结构if语句注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择结构if语句格式2及其使用"><span class="nav-number">14.</span> <span class="nav-text">选择结构if语句格式2及其使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if语句的格式2和三元的相互转换问题"><span class="nav-number">15.</span> <span class="nav-text">if语句的格式2和三元的相互转换问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#if-else-和三元运算符号的区别"><span class="nav-number">15.1.</span> <span class="nav-text">if else 和三元运算符号的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择结构if语句格式3及其使用"><span class="nav-number">16.</span> <span class="nav-text">选择结构if语句格式3及其使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择结构if语句的嵌套使用"><span class="nav-number">17.</span> <span class="nav-text">选择结构if语句的嵌套使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择结构switch语句的格式及其解释"><span class="nav-number">18.</span> <span class="nav-text">选择结构switch语句的格式及其解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择结构switch语句的基本使用"><span class="nav-number">19.</span> <span class="nav-text">选择结构switch语句的基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择结构switch语句的注意事项"><span class="nav-number">20.</span> <span class="nav-text">选择结构switch语句的注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择结构switch语句练习"><span class="nav-number">21.</span> <span class="nav-text">选择结构switch语句练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择结构if语句和switch语句的区别"><span class="nav-number">22.</span> <span class="nav-text">选择结构if语句和switch语句的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">野望</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260855711&web_id=1260855711" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ArcherBlog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yanhuili.github.io/2017/07/05/Java基础笔记整理（3）/';
+          this.page.identifier = '2017/07/05/Java基础笔记整理（3）/';
+          this.page.title = 'Java基础笔记整理（3）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ArcherBlog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kzNRGot5tLJKONL4cUBsHljH-gzGzoHsz", "MbcqFd5NNWtLdqES7fSrWn0y");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

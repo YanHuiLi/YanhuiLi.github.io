@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="J2SE," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java学习笔记整理（12）">
+<meta property="og:url" content="http://yanhuili.github.io/2017/07/21/Java学习笔记整理（12）/index.html">
+<meta property="og:site_name" content="野望的小屋">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707211010_604.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707211013_56.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707211023_401.png">
+<meta property="og:updated_time" content="2017-08-08T04:04:50.996Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java学习笔记整理（12）">
+<meta name="twitter:image" content="http://ogtmd8elu.bkt.clouddn.com/201707211010_604.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"hide","offset":0,"offset_float":0,"b2t":true,"scrollpercent":true,"onmobile":"flase"},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yanhuili.github.io/2017/07/21/Java学习笔记整理（12）/"/>
+
+
+
+
+
+  <title>Java学习笔记整理（12） | 野望的小屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">野望的小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">永不言弃。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yanhuili.github.io/2017/07/21/Java学习笔记整理（12）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="野望">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="野望的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Java学习笔记整理（12）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-21T08:00:45+08:00">
+                2017-07-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-08-08T12:04:50+08:00">
+                2017-08-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/J2SE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2SE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/21/Java学习笔记整理（12）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/21/Java学习笔记整理（12）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/21/Java学习笔记整理（12）/" class="leancloud_visitors" data-flag-title="Java学习笔记整理（12）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h3 id="Scanner的概述和方法介绍"><a href="#Scanner的概述和方法介绍" class="headerlink" title="Scanner的概述和方法介绍"></a>Scanner的概述和方法介绍</h3><ul>
+<li>A:Scanner的概述</li>
+<li>B:Scanner的构造方法原理<ul>
+<li>Scanner(InputStream source)</li>
+<li>System类下有一个静态的字段：<ul>
+<li>public static final InputStream in; 标准的输入流，对应着键盘录入。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>C:一般方法<ul>
+<li>hasNextXxx()  判断是否还有下一个输入项,其中Xxx可以是Int,Double等。如果需要判断是否包含下一个字符串，则可以省略Xxx</li>
+<li>nextXxx()  获取下一个输入项。Xxx的含义和上个方法中的Xxx相同,默认情况下，Scanner使用空格，回车等作为分隔符</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.scanner;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo1Scanner</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * 当录入的结果的数据类型与接收的数据类型不匹配报出InputMismatchException</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);		<span class="comment">//System.in是标准键盘输入流</span></div><div class="line">		System.out.println(<span class="string">"请输入一个整数:"</span>);</div><div class="line">		<span class="keyword">if</span>(sc.hasNextInt()) &#123;						<span class="comment">//判断是否是int数</span></div><div class="line">			<span class="keyword">int</span> x = sc.nextInt();					<span class="comment">//将录入的结果存储在x中</span></div><div class="line">			System.out.println(x);</div><div class="line">		&#125;<span class="keyword">else</span> &#123;</div><div class="line">			System.out.println(<span class="string">"输入错误"</span>);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Scanner获取数据出现的小问题及解决方案"><a href="#Scanner获取数据出现的小问题及解决方案" class="headerlink" title="Scanner获取数据出现的小问题及解决方案"></a>Scanner获取数据出现的小问题及解决方案</h3><ul>
+<li>A:两个常用的方法：<ul>
+<li>public int nextInt():获取一个int类型的值</li>
+<li>public String nextLine():获取一个String类型的值</li>
+</ul>
+</li>
+<li>B:案例演示<ul>
+<li>a:先演示获取多个int值，多个String值的情况</li>
+<li>b:再演示先获取int值，然后获取String值出现问题</li>
+<li>c:问题解决方案<ul>
+<li>第一种：先获取一个数值后，在创建一个新的键盘录入对象获取字符串。</li>
+<li>第二种：把所有的数据都先按照字符串获取，然后要什么，你就对应的转换为什么。(后面讲)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.scanner;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo2Scanner</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * Scanner</div><div class="line">	 * nextInt()返回int数</div><div class="line">	 * nextLine()返回String字符串</div><div class="line">	 * 10 "10"</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">		<span class="comment">//键盘录入两个int数</span></div><div class="line">		<span class="comment">/*System.out.println("请输入第一个int数");</span></div><div class="line">		int x = sc.nextInt();</div><div class="line">		System.out.println("请输入第二个int数");</div><div class="line">		int y = sc.nextInt();</div><div class="line">		</div><div class="line">		System.out.println("x =" + x + ",y = " + y);*/</div><div class="line">		</div><div class="line">		<span class="comment">//键盘录入两个字符串</span></div><div class="line">	<span class="comment">/*	System.out.println("请输入第一个字符串");</span></div><div class="line">		String line1 = sc.nextLine();</div><div class="line">		System.out.println("请输入第二个字符串");</div><div class="line">		String line2 = sc.nextLine();</div><div class="line">		System.out.println("line1 =" + line1 + ",line2 = " + line2);*/</div><div class="line">		</div><div class="line">		<span class="comment">//键盘录入一个整数一个字符串</span></div><div class="line">		<span class="comment">/*System.out.println("请输入第一个int数");</span></div><div class="line">		int x = sc.nextInt();</div><div class="line">		System.out.println("请输入第二个字符串");</div><div class="line">		String line2 = sc.nextLine();</div><div class="line">		System.out.println("x =" + x + ",line2 = " + line2);*/</div><div class="line">		</div><div class="line">		<span class="comment">//键盘录入一个字符串一个整数</span></div><div class="line">	<span class="comment">/*	System.out.println("请输入第一个字符串");</span></div><div class="line">		String line1 = sc.nextLine();</div><div class="line">		System.out.println("请输入第二个int数");</div><div class="line">		int y = sc.nextInt();</div><div class="line">		System.out.println("line1 =" + line1 + ",y = " + y);*/</div><div class="line">		</div><div class="line">		<span class="comment">//next()和nextLine()</span></div><div class="line">		</div><div class="line"><span class="comment">//		String str1 = sc.next();				//next方法遇到空格就会结束 后续内容没有了</span></div><div class="line"><span class="comment">//		System.out.println(str1);</span></div><div class="line">		</div><div class="line">		String str2 = sc.nextLine();			<span class="comment">//nextLine方法只有遇到回车才结束，空格后加内容不影响。</span></div><div class="line">		System.out.println(str2);</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="String类的概述"><a href="#String类的概述" class="headerlink" title="String类的概述"></a>String类的概述</h3><ul>
+<li>A:什么是字符串<ul>
+<li>B:String类的概述</li>
+<li>通过JDK提供的API，查看String类的说明</li>
+<li>可以看到这样的两句话。<ul>
+<li>a:字符串字面值”abc”也可以看成是一个字符串对象。</li>
+<li>b:字符串是常量，一旦被赋值，就不能被改变。</li>
+<li>String s = “abcdef”;</li>
+<li>s.subString(2,4);</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.string;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.itcast.bean.Person;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01String</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">/*</span></div><div class="line">		相当于，重新开辟了另一个空间。（一旦被修改不可以在被修改，除非把它变成垃圾）</div><div class="line">		 */</div><div class="line">		String s = <span class="string">"abc"</span>;<span class="comment">//变成了垃圾</span></div><div class="line">		s = <span class="string">"a1b2c5"</span>;</div><div class="line"></div><div class="line">		<span class="comment">/*</span></div><div class="line">		substring()的用法,先用4-2（endIndex-beginIndex）得到截取的位数为两位</div><div class="line">		再从beginIndex的游标2开始，实际字符串的第三位开始截串，所以结果为b2</div><div class="line">		多看源码注解。</div><div class="line">		 */</div><div class="line"></div><div class="line">		System.out.println(s.substring(<span class="number">2</span>,<span class="number">4</span>));			<span class="comment">//String类重写了toString方法,返回是该对象本身</span></div><div class="line"></div><div class="line">		<span class="comment">/*</span></div><div class="line">		类似创建P句柄，但是句柄可以通过set,get方法进行修改数据。</div><div class="line">		string类型不可以。</div><div class="line">		 */</div><div class="line"></div><div class="line">		Person p = <span class="keyword">new</span> Person(<span class="string">"张三"</span>, <span class="number">23</span>);</div><div class="line">		p = <span class="keyword">new</span> Person(<span class="string">"李四"</span>, <span class="number">24</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="String类的构造方法"><a href="#String类的构造方法" class="headerlink" title="String类的构造方法"></a>String类的构造方法</h3><ul>
+<li>A:常见构造方法<ul>
+<li>public String():空构造</li>
+<li>public String(byte[] bytes):把字节数组转成字符串</li>
+<li>public String(byte[] bytes,int index,int length):把字节数组的一部分转成字符串</li>
+<li>public String(char[] value):把字符数组转成字符串</li>
+<li>public String(char[] value,int index,int count):把字符数组的一部分转成字符串</li>
+<li>public String(String original):把字符串常量值转成字符串</li>
+<li>B:案例演示</li>
+<li>演示String类的常见构造方法</li>
+<li>public int length()：返回此字符串的长度。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.string;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02String</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * 字符串的构造方法</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		demo1();</div><div class="line">		<span class="comment">//demo2();</span></div><div class="line">		<span class="comment">//demo3();</span></div><div class="line">		String s = <span class="keyword">new</span> String(<span class="string">"abc"</span>);				<span class="comment">//返回和参数一模一样的字符串</span></div><div class="line">		System.out.println(s);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo3</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">char</span>[] arr = &#123;<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>&#125;;</div><div class="line">		String s1 = <span class="keyword">new</span> String(arr);				<span class="comment">//将字符数组转换为字符串</span></div><div class="line">		System.out.println(s1);</div><div class="line">		<span class="comment">//String(char[] value, int offset, int count)将char数组转换为String字符串,从offset开始,转换count个</span></div><div class="line">		<span class="keyword">char</span>[] arr2 = &#123;<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>,<span class="string">'f'</span>,<span class="string">'g'</span>,<span class="string">'h'</span>,<span class="string">'i'</span>&#125;;</div><div class="line">		String s2 = <span class="keyword">new</span> String(arr2, <span class="number">3</span>, <span class="number">3</span>);</div><div class="line">		System.out.println(s2); <span class="comment">// def</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">byte</span>[] arr = &#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>&#125;;</div><div class="line">		String s1 = <span class="keyword">new</span> String(arr);				<span class="comment">//解码,将计算机能看懂的变成我们能看懂的</span></div><div class="line">		System.out.println(s1);</div><div class="line">		</div><div class="line">		<span class="keyword">byte</span>[] arr2 = &#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>,<span class="number">100</span>,<span class="number">101</span>,<span class="number">102</span>&#125;;</div><div class="line">		<span class="comment">// public String(byte[] bytes,int index,int length)将byte数组解码,从index开始,解码length个</span></div><div class="line">		String s2 = <span class="keyword">new</span> String(arr2, <span class="number">2</span>, <span class="number">3</span>);			</div><div class="line">		System.out.println(s2); <span class="comment">// out : cde</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s1 = <span class="keyword">new</span> String();					<span class="comment">//创建一个空的字符串</span></div><div class="line">		System.out.println(s1);</div><div class="line">		</div><div class="line">		System.out.println(<span class="string">"------------------"</span>);</div><div class="line">		String s2 = <span class="string">""</span>;								<span class="comment">//空的字符串</span></div><div class="line">		System.out.println(s2);</div><div class="line">		</div><div class="line">		String s3 = <span class="keyword">null</span>;</div><div class="line">		System.out.println(s3); 					<span class="comment">//打印对象的引用如果是null就返回null</span></div><div class="line">		<span class="comment">/*											//如果不是null就返回对象的toString方法</span></div><div class="line">		 * null 和""的区别</div><div class="line">		 * ""是一个String类的对象,可以调用String类中所有方法</div><div class="line">		 * null是一个空值,不能调用任何方法,因为调用就会报空指针异常</div><div class="line">		 */</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="String类的常见面试题"><a href="#String类的常见面试题" class="headerlink" title="String类的常见面试题"></a>String类的常见面试题</h3><ul>
+<li>1.判断定义为String类型的s1和s2是否相等<ul>
+<li>String s1 = “abc”;</li>
+<li>String s2 = “abc”;<ul>
+<li>System.out.println(s1 == s2);                 <ul>
+<li>System.out.println(s1.equals(s2)); </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707211010_604.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">   String s1 = <span class="string">"abc"</span>;						<span class="comment">//String s1 = "abc"会进常量池</span></div><div class="line">String s2 = <span class="string">"abc"</span>;						<span class="comment">//先看常量池是否有"abc"对象,如果没有创建,如果有直接记录住</span></div><div class="line">System.out.println(s1 == s2); 			<span class="comment">//已有对象"abc"的地址值		 true</span></div><div class="line">System.out.println(s1.equals(s2)); 		<span class="comment">//s1和s2指向的是同一个对象</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>2.下面这句话在内存中创建了几个对象?</p>
+<ul>
+<li><p>String s1 = new String(“abc”);    </p>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707211013_56.png" alt=""></p>
+<p>​</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String s1 = <span class="keyword">new</span> String(<span class="string">"abc"</span>);			<span class="comment">//这句话在内存中创建几个对象</span></div><div class="line">		<span class="comment">//创建了两个对象,一个在常量池里,一个在堆里(是常量池的副本)</span></div></pre></td></tr></table></figure>
+<p>​        </p>
+</li>
+</ul>
+</li>
+<li><p>3.判断定义为String类型的s1和s2是否相等</p>
+<ul>
+<li>String s1 = new String(“abc”);            </li>
+<li>String s2 = “abc”;<ul>
+<li>System.out.println(s1 == s2); ?     false</li>
+<li>System.out.println(s1.equals(s2)); ?  true</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">      String s1 = <span class="keyword">new</span> String(<span class="string">"abc"</span>) ;			<span class="comment">//s1记录的是堆内存的对象地址值			</span></div><div class="line">String s2 = <span class="string">"abc"</span>;						<span class="comment">//s2记录的是常量池的对象地址值</span></div><div class="line">System.out.println(s1 == s2);	  <span class="comment">//false</span></div><div class="line">System.out.println(s1.equals(s2)); <span class="comment">//true</span></div></pre></td></tr></table></figure>
+<p>​    </p>
+<ul>
+<li>4.判断定义为String类型的s1和s2是否相等<ul>
+<li>String s1 = “a” + “b” + “c”;</li>
+<li>String s2 = “abc”;<ul>
+<li>System.out.println(s1 == s2);       </li>
+<li>System.out.println(s1.equals(s2)); ?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">String s1 = <span class="string">"a"</span> + <span class="string">"b"</span> + <span class="string">"c"</span>;    <span class="comment">//java有常量优化机制,在编译时已经是"abc"字符串了</span></div><div class="line">String s2 = <span class="string">"abc"</span>;</div><div class="line">System.out.println(s1 == s2);   <span class="comment">//true</span></div><div class="line">System.out.println(s1.equals(s2));	<span class="comment">//true</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>5.判断定义为String类型的s1和s2是否相等</p>
+<ul>
+<li>String s1 = “ab”;</li>
+<li>String s2 = “abc”;</li>
+<li>String s3 = s1 + “c”;</li>
+<li>System.out.println(s3 == s2);</li>
+<li>System.out.println(s3.equals(s2)); </li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707211023_401.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">String s1 = <span class="string">"ab"</span>;						<span class="comment">//在常量池中创建"ab"</span></div><div class="line">String s2 = <span class="string">"abc"</span>;						<span class="comment">//在常量池中创建"abc"</span></div><div class="line">String s3 = s1 + <span class="string">"c"</span>;					<span class="comment">//当字符串与对象用+连接的时候,底层会调用StringBuffer的append方法</span></div><div class="line">System.out.println(s2 == s3);			<span class="comment">//对字符串进行添加,然后将StringBuffer对象转换为String对象  flase</span></div><div class="line">System.out.println(s3.equals(s2)); 		<span class="comment">//并赋值给s3,s3记录的是堆内存对象的地址值                  true</span></div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
+<h3 id="String类的判断功能"><a href="#String类的判断功能" class="headerlink" title="String类的判断功能"></a>String类的判断功能</h3><ul>
+<li>A:String类的判断功能<ul>
+<li>boolean equals(Object obj):比较字符串的内容是否相同,区分大小写</li>
+<li>boolean equalsIgnoreCase(String str):比较字符串的内容是否相同,忽略大小写</li>
+<li>boolean contains(String str):判断是否包含传入的字符串</li>
+<li>boolean startsWith(String str):判断字符串是否以某个指定的字符串开头</li>
+<li>boolean endsWith(String str):判断字符串是否以某个指定的字符串结尾</li>
+<li>boolean isEmpty():判断字符串是否为空。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">      String s1 = <span class="string">"abc"</span>;</div><div class="line">String s2 = <span class="string">"abc"</span>;</div><div class="line">String s3 = <span class="string">"AbC"</span>;</div><div class="line">System.out.println(s1.equals(s3));	 		<span class="comment">//相同字符序列返回true</span></div><div class="line">System.out.println(s1.equalsIgnoreCase(s3));<span class="comment">//比较字符串的内容是否相同,忽略大小写</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">      String s1 = <span class="string">"javaitcastjava"</span>;</div><div class="line">String s2 = <span class="string">"itcast"</span>;</div><div class="line">String s3 = <span class="string">"heima"</span>;</div><div class="line"></div><div class="line">System.out.println(s1.contains(s2));		<span class="comment">//包含传入的字符串返回true</span></div><div class="line">System.out.println(s1.contains(s3));		<span class="comment">//不包含返回false</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">   String s1 = <span class="string">"aaaitcastbbbitcastccc"</span>;</div><div class="line">String s2 = <span class="string">"aaa"</span>;</div><div class="line">String s3 = <span class="string">"ccc"</span>;</div><div class="line"></div><div class="line">System.out.println(s1.startsWith(s2));		<span class="comment">//判断字符串是否以某个指定的字符串开头 true</span></div><div class="line">System.out.println(s1.startsWith(s3));                                    <span class="comment">//    flase</span></div><div class="line">System.out.println(<span class="string">"-------------------------"</span>);</div><div class="line">System.out.println(s1.endsWith(s2));		<span class="comment">//判断字符串是否以某个指定的字符串结尾 flase</span></div><div class="line">System.out.println(s1.endsWith(s3));                                       <span class="comment">//true</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">      String s1 = <span class="string">""</span>;</div><div class="line">String s2 = <span class="string">"itcast"</span>;</div><div class="line">String s3 = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">System.out.println(s1.isEmpty()); <span class="comment">//true</span></div><div class="line">System.out.println(s2.isEmpty());  <span class="comment">//false</span></div><div class="line"><span class="comment">//System.out.println(s3.isEmpty());			//空指针异常</span></div></pre></td></tr></table></figure>
+<h3 id="模拟用户登录"><a href="#模拟用户登录" class="headerlink" title="模拟用户登录"></a>模拟用户登录</h3><ul>
+<li>A:案例演示<ul>
+<li>需求：模拟登录,给三次机会,并提示还有几次。</li>
+<li>用户名和密码都是admin</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1String</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * 需求：模拟登录,给三次机会,并提示还有几次。</div><div class="line">	 * 1,键盘录入用户名和密码(需要Scanner中nextLine()方法)</div><div class="line">	 * 2,需要录入三次(需要for循环语句)</div><div class="line">	 * 3,需要判断用户密码是否正确(需要if,else语句如果正确跳出循环,如果不正确提示有几次)</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);			<span class="comment">//创建键盘录入对象</span></div><div class="line">		</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;					<span class="comment">//需要三次机会</span></div><div class="line">			System.out.println(<span class="string">"请输入用户名:"</span>);</div><div class="line">			String user = sc.nextLine();					<span class="comment">//将键盘录入的字符串用户名存储在user里</span></div><div class="line">			System.out.println(<span class="string">"请输入密码:"</span>);</div><div class="line">			String password = sc.nextLine();				<span class="comment">//将键盘录入的字符串密码存储在password里</span></div><div class="line">			<span class="keyword">if</span>(<span class="string">"admin"</span>.equals(user) &amp;&amp; <span class="string">"admin"</span>.equals(password)) &#123;<span class="comment">//如果用户名和密码都正确</span></div><div class="line">				System.out.println(<span class="string">"欢迎"</span> + user + <span class="string">"登录"</span>);</div><div class="line">				<span class="keyword">break</span>;									<span class="comment">//跳出循环</span></div><div class="line">			&#125;<span class="keyword">else</span> &#123;</div><div class="line">				<span class="keyword">if</span>(i == <span class="number">2</span>) &#123;</div><div class="line">					System.out.println(<span class="string">"你的错误次数已到,请明天再来"</span>);</div><div class="line">				&#125;<span class="keyword">else</span> &#123;</div><div class="line">					System.out.println(<span class="string">"您的用户名或密码错误,还有"</span> + (<span class="number">2</span> - i) + <span class="string">"次机会"</span>);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="String类的获取功能"><a href="#String类的获取功能" class="headerlink" title="String类的获取功能"></a>String类的获取功能</h3><ul>
+<li>A:String类的获取功能<ul>
+<li>int length():获取字符串的长度。</li>
+<li>char charAt(int index):获取指定索引位置的字符</li>
+<li>int indexOf(int ch):返回指定字符在此字符串中第一次出现处的索引。</li>
+<li>int indexOf(String str):返回指定字符串在此字符串中第一次出现处的索引。</li>
+<li>int indexOf(int ch,int fromIndex):返回指定字符在此字符串中从指定位置后第一次出现处的索引。</li>
+<li>int indexOf(String str,int fromIndex):返回指定字符串在此字符串中从指定位置后第一次出现处的索引。</li>
+<li>lastIndexOf</li>
+<li>String substring(int start):从指定位置开始截取字符串,默认到末尾。</li>
+<li>String substring(int start,int end):从指定位置开始到指定位置结束截取字符串。（包含头不包含尾）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.string;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05_Method2</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * String类的获取功能</div><div class="line">	* int length():获取字符串的长度。</div><div class="line">	* char charAt(int index):获取指定索引位置的字符</div><div class="line">	* int indexOf(int ch):返回指定字符在此字符串中第一次出现处的索引。</div><div class="line">	* int indexOf(String str):返回指定字符串在此字符串中第一次出现处的索引。</div><div class="line">	* int indexOf(int ch,int fromIndex):返回指定字符在此字符串中从指定位置后第一次出现处的索引。</div><div class="line">	* int indexOf(String str,int fromIndex):返回指定字符串在此字符串中从指定位置后第一次出现处的索引。</div><div class="line">	* lastIndexOf</div><div class="line">	* String substring(int start):从指定位置开始截取字符串,默认到末尾。</div><div class="line">	* String substring(int start,int end):从指定位置开始到指定位置结束截取字符串。</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line">		<span class="comment">//demo2();</span></div><div class="line">		<span class="comment">//demo3();</span></div><div class="line">		<span class="comment">//demo4();</span></div><div class="line">		String s1 = <span class="string">"abcitcastabc"</span>;</div><div class="line">		<span class="comment">//String s2 = s1.substring(3);		//从指定位置开始截取字符串,默认到末尾。产生新的字符串</span></div><div class="line">		</div><div class="line">		<span class="comment">//System.out.println(s2);</span></div><div class="line">		String s3 = s1.substring(<span class="number">3</span>, s1.length());<span class="comment">//包含头,不包含尾(左闭右开)</span></div><div class="line">		System.out.println(s3);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo4</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s1 = <span class="string">"abcitcastabc"</span>;</div><div class="line">		<span class="keyword">int</span> index1 = s1.lastIndexOf(<span class="string">'a'</span>);<span class="comment">//从后向前找,将字符对应的索引返回</span></div><div class="line">		<span class="comment">//System.out.println(index1);</span></div><div class="line">		</div><div class="line">		<span class="keyword">int</span> index2 = s1.lastIndexOf(<span class="string">"ab"</span>);</div><div class="line">		<span class="comment">//System.out.println(index2);</span></div><div class="line">		</div><div class="line">		<span class="keyword">int</span> index3 = s1.lastIndexOf(<span class="string">'a'</span>, <span class="number">8</span>);	<span class="comment">//从指定的位置向前找,第一次字符出现的索引</span></div><div class="line">		System.out.println(index3);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo3</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s1 = <span class="string">"abcabcitcast"</span>;</div><div class="line">		<span class="keyword">int</span> index1 = s1.indexOf(<span class="string">'c'</span>, <span class="number">3</span>);<span class="comment">//返回指定字符在此字符串中从指定位置后第一次出现处的索引。</span></div><div class="line">		<span class="comment">//System.out.println(index1);</span></div><div class="line">		</div><div class="line">		<span class="keyword">int</span> index2 = s1.indexOf(<span class="string">"ca"</span>, <span class="number">4</span>);</div><div class="line">		System.out.println(index2);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s1 = <span class="string">"abcdefc"</span>;</div><div class="line">		<span class="keyword">int</span> index1 = s1.indexOf(<span class="string">'c'</span>);	<span class="comment">//返回指定字符在此字符串中第一次出现处的索引。</span></div><div class="line">		<span class="comment">//System.out.println(index1);</span></div><div class="line">		</div><div class="line">		<span class="keyword">int</span> index2 = s1.indexOf(<span class="string">"ce"</span>);	<span class="comment">//如果查找的字符串没有,返回-1</span></div><div class="line">		System.out.println(index2);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s1 = <span class="string">"abc"</span>;</div><div class="line">		String s2 = <span class="string">"我是中国人"</span>;</div><div class="line">		</div><div class="line">		System.out.println(s1.length());			<span class="comment">//获取字符串中字符的个数</span></div><div class="line">		System.out.println(s2.length());       <span class="comment">//长度是5 空格也算一个字符</span></div><div class="line">		</div><div class="line">		<span class="keyword">char</span> c1 = s1.charAt(<span class="number">1</span>);						<span class="comment">//通过索引获取字符</span></div><div class="line">		System.out.println(c1);</div><div class="line">		<span class="keyword">char</span> c2 = s2.charAt(<span class="number">3</span>);</div><div class="line">		System.out.println(c2);</div><div class="line">		</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="字符串的遍历"><a href="#字符串的遍历" class="headerlink" title="字符串的遍历"></a>字符串的遍历</h3><ul>
+<li>A:案例演示<ul>
+<li>需求：遍历字符串</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s2.length(); i++) &#123;		<span class="comment">//字符串的遍历方式</span></div><div class="line">			System.out.println(s2.charAt(i));</div><div class="line">		&#125;</div></pre></td></tr></table></figure>
+<h3 id="统计不同类型字符个数"><a href="#统计不同类型字符个数" class="headerlink" title="统计不同类型字符个数"></a>统计不同类型字符个数</h3><ul>
+<li>A:案例演示<ul>
+<li>需求：统计一个字符串中大写字母字符，小写字母字符，数字字符出现的次数,其他字符出现的次数。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2String</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * 需求：统计一个字符串中大写字母字符，小写字母字符，数字字符出现的次数,其他字符出现的次数。</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		String s = <span class="string">"Aabc4deBCD123567!@#$%^"</span>;</div><div class="line">		<span class="keyword">int</span> big = <span class="number">0</span>;						<span class="comment">//记录大小字母字符的个数</span></div><div class="line">		<span class="keyword">int</span> small = <span class="number">0</span>;						<span class="comment">//记录小写字母字符的个数</span></div><div class="line">		<span class="keyword">int</span> num = <span class="number">0</span>;						<span class="comment">//记录数字字符的个数</span></div><div class="line">		<span class="keyword">int</span> other = <span class="number">0</span>;						<span class="comment">//记录其他字符的个数</span></div><div class="line">		</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;<span class="comment">//对字符串中所有的字符遍历</span></div><div class="line">			<span class="keyword">char</span> temp = s.charAt(i);		<span class="comment">//记录住字符串中的每一个字符</span></div><div class="line">			<span class="keyword">if</span>(temp &gt;= <span class="string">'A'</span> &amp;&amp; temp &lt;= <span class="string">'Z'</span>) &#123;</div><div class="line">				big++;</div><div class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(temp &gt;= <span class="string">'a'</span> &amp;&amp; temp &lt;= <span class="string">'z'</span>) &#123;</div><div class="line">				small++;</div><div class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(temp &gt;= <span class="string">'0'</span> &amp;&amp; temp &lt;= <span class="string">'9'</span>) &#123;</div><div class="line">				num++;</div><div class="line">			&#125;<span class="keyword">else</span> &#123;</div><div class="line">				other++;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		System.out.println(<span class="string">"字符s中有大写字母"</span> + big + <span class="string">"个,有小写字母"</span> + small + <span class="string">"个,有数字"</span> + </div><div class="line">				num + <span class="string">"个,其他字符"</span> + other + <span class="string">"个"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="String类的转换功能"><a href="#String类的转换功能" class="headerlink" title="String类的转换功能"></a>String类的转换功能</h3><ul>
+<li>A:String的转换功能：<ul>
+<li>byte[] getBytes():把字符串转换为字节数组。</li>
+<li>char[] toCharArray():把字符串转换为字符数组。</li>
+<li>static String valueOf(char[] chs):把字符数组转成字符串。</li>
+<li>static String valueOf(int i):把int类型的数据转成字符串。<ul>
+<li>注意：String类的valueOf方法可以把任意类型的数据转成字符串。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">* <span class="function">String <span class="title">toLowerCase</span><span class="params">()</span>:把字符串转成小写。</span></div><div class="line">* String <span class="title">toUpperCase</span><span class="params">()</span>:把字符串转成大写。</div><div class="line">* String <span class="title">concat</span><span class="params">(String str)</span>:把字符串拼接。</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.string;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo06_Method3</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * A:String的转换功能：</div><div class="line">	* byte[] getBytes():把字符串转换为字节数组。</div><div class="line">	* char[] toCharArray():把字符串转换为字符数组。</div><div class="line">	* static String valueOf(char[] chs):把字符数组转成字符串。</div><div class="line">	* static String valueOf(int i):把int类型的数据转成字符串。</div><div class="line">		* 注意：String类的valueOf方法可以把任意类型的数据转成字符串。</div><div class="line">	* String toLowerCase():把字符串转成小写。</div><div class="line">	* String toUpperCase():把字符串转成大写。</div><div class="line">	* String concat(String str):把字符串拼接。</div><div class="line">	 * <span class="doctag">@throws</span> UnsupportedEncodingException </div><div class="line">	</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</div><div class="line"><span class="comment">//		demo1();</span></div><div class="line"><span class="comment">//		demo2();</span></div><div class="line"><span class="comment">//		demo3();</span></div><div class="line">		demo4(); <span class="comment">// 抽取方法的快捷键 ctrl + alt + M</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo4</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s1 = <span class="string">"abcDEFgh"</span>;</div><div class="line">		System.out.println(s1.toLowerCase());		<span class="comment">//将所有的字符转换成小写</span></div><div class="line">		System.out.println(s1.toUpperCase());		<span class="comment">//将所有的字符转换成大写</span></div><div class="line">		System.out.println(s1);</div><div class="line"></div><div class="line">		String s2 = <span class="string">"abc"</span>;</div><div class="line">		String s3 = <span class="string">"def"</span>;</div><div class="line">		String s4 = s2.concat(s3);					<span class="comment">//将两个字符串连接</span></div><div class="line">		System.out.println(s4);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo3</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">char</span>[] arr = &#123;<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>&#125;;</div><div class="line">		String s1 = String.valueOf(arr);			<span class="comment">//将字符数组转换成对应的字符串</span></div><div class="line">		System.out.println(s1);</div><div class="line">		</div><div class="line">		String s2 = String.valueOf(<span class="number">10</span>);</div><div class="line">		System.out.println(s2);</div><div class="line">		</div><div class="line">		System.out.println(<span class="number">10</span> + <span class="string">""</span>);	 			<span class="comment">//也可以将10转换成对应的字符串</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s = <span class="string">"itcast加油"</span>;</div><div class="line">		<span class="keyword">char</span>[] arr = s.toCharArray();				<span class="comment">//将字符串转换为字符数组</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">char</span> anArr : arr) &#123;</div><div class="line">			System.out.print(anArr + <span class="string">" "</span>);</div><div class="line">		&#125;</div><div class="line"></div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</div><div class="line">		String s1 = <span class="string">"abc"</span>;</div><div class="line">		<span class="comment">/*byte[] arr = s1.getBytes();					//编码,将我们看的懂的,变成计算机看的懂的</span></div><div class="line">		for (int i = 0; i &lt; arr.length; i++) &#123;</div><div class="line">			System.out.print(arr[i] + " ");</div><div class="line">		&#125;*/</div><div class="line">		</div><div class="line">		String s2 = <span class="string">"你好你好"</span>; <span class="comment">// GBK 一个中文占两个字节 4个占八个字节，</span></div><div class="line"><span class="comment">//		byte[] arr2 = s2.getBytes("uTf-8");</span></div><div class="line">		<span class="keyword">byte</span>[] arr2 = s2.getBytes(<span class="string">"GBK"</span>);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">byte</span> anArr2 : arr2) &#123;</div><div class="line">			System.out.print(anArr2 + <span class="string">" "</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="comment">//用什么码表编就用什么码表解</span></div><div class="line">		<span class="comment">//-60 -29 -70 -61 -60 -29 -70 -61 通过String的构造函数解码</span></div><div class="line">		<span class="comment">//-28 -67 -96 -27 -91 -67 -28 -67 -96 -27 -91 -67 utf-8编码</span></div><div class="line">		<span class="keyword">byte</span>[] arr3 = &#123;-<span class="number">28</span>,-<span class="number">67</span>,-<span class="number">96</span>,-<span class="number">27</span>,-<span class="number">91</span>,-<span class="number">67</span>,-<span class="number">28</span>,-<span class="number">67</span>,-<span class="number">96</span>,-<span class="number">27</span>,-<span class="number">91</span>,-<span class="number">67</span>&#125;;</div><div class="line">		String s3 = <span class="keyword">new</span> String(arr3,<span class="string">"uTF-8"</span>);<span class="comment">//Utf-8 一个中文占三个字节。</span></div><div class="line"></div><div class="line"></div><div class="line">		<span class="keyword">byte</span>[] arr4 = &#123;-<span class="number">60</span> ,-<span class="number">29</span> ,-<span class="number">70</span> ,-<span class="number">61</span>, -<span class="number">60</span>, -<span class="number">29</span> ,-<span class="number">70</span> ,-<span class="number">61</span>&#125;;</div><div class="line">		String s4 = <span class="keyword">new</span> String(arr4,<span class="string">"GBK"</span>);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">		System.out.println(s3);</div><div class="line">		System.out.println(s4);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="按要求转换字符"><a href="#按要求转换字符" class="headerlink" title="按要求转换字符"></a>按要求转换字符</h3><ul>
+<li>A:案例演示<ul>
+<li>需求：把一个字符串的首字母转成大写，其余为小写。(只考虑英文大小写字母字符)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test3String</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * 需求：把一个字符串的首字母转成大写，其余为小写。(只考虑英文大小写字母字符)</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		String s = <span class="string">"abcItcastHeima"</span>;</div><div class="line">		System.out.println(s.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase().concat(s.substring(<span class="number">1</span>).toLowerCase()));	<span class="comment">//链式编程</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="把数组转成字符串"><a href="#把数组转成字符串" class="headerlink" title="把数组转成字符串"></a>把数组转成字符串</h3><ul>
+<li><p>A:案例演示</p>
+<ul>
+<li>需求：把数组中的数据按照指定的格式拼接成一个字符串<ul>
+<li>举例：<ul>
+<li>int[] arr = {1,2,3};    </li>
+</ul>
+</li>
+<li>输出结果：<ul>
+<li>“[1, 2, 3]”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test4String</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 需求：把数组中的数据按照指定个格式拼接成一个字符串</div><div class="line">		* 举例：</div><div class="line">			* int[] arr = &#123;1,2,3&#125;;	</div><div class="line">		* 输出结果：</div><div class="line">			* "[1, 2, 3]"</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</div><div class="line">		</div><div class="line">		String temp = <span class="string">"["</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;		<span class="comment">//遍历数组,获取每一个元素</span></div><div class="line">			<span class="comment">//temp = temp + arr[i] + ", ";			//[1, 2, 3]</span></div><div class="line">			<span class="comment">/*if(i == arr.length -1) &#123;</span></div><div class="line">				temp = temp + arr[i] + "]";			//[1, 2, 3]</div><div class="line">			&#125;else &#123;</div><div class="line">				temp = temp + arr[i] + ", ";		//[1, 2, </div><div class="line">			&#125;*/</div><div class="line">			temp = temp + ((i == arr.length -<span class="number">1</span>) ?  arr[i] + <span class="string">"]"</span> : arr[i] + <span class="string">", "</span>);</div><div class="line">			</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		System.out.println(temp);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
+<h3 id="String类的其他功能"><a href="#String类的其他功能" class="headerlink" title="String类的其他功能"></a>String类的其他功能</h3><ul>
+<li>A:String的替换功能及案例演示<ul>
+<li>String replace(char old,char new)</li>
+<li>String replace(String old,String new)</li>
+</ul>
+</li>
+<li>B:String的去除字符串两空格及案例演示<ul>
+<li>String trim()</li>
+</ul>
+</li>
+<li>C:String的按字典顺序比较两个字符串及案例演示<ul>
+<li>int compareTo(String str)(暂时不用掌握)</li>
+<li>int compareToIgnoreCase(String str)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.string;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo07_Method4</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * * A:String的替换功能及案例演示</div><div class="line">	* String replace(char old,char new)</div><div class="line">	* String replace(String old,String new)</div><div class="line">	* B:String的去除字符串两空格及案例演示</div><div class="line">		* String trim()</div><div class="line">	* C:String的按字典顺序比较两个字符串及案例演示</div><div class="line">		* int compareTo(String str)</div><div class="line">	* int compareToIgnoreCase(String str)</div><div class="line">	* </div><div class="line">	* itcast </div><div class="line">	* itcast</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//demo1();</span></div><div class="line"><span class="comment">//		demo2();</span></div><div class="line">		<span class="comment">//demo3();</span></div><div class="line"><span class="comment">//		demo4();</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo4</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s1 = <span class="string">"A"</span>;</div><div class="line">		String s2 = <span class="string">"a"</span>;</div><div class="line">		System.out.println(s1.compareToIgnoreCase(s2));	<span class="comment">//比较的时候不区分大小写</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo3</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s1 = <span class="string">"a"</span>;</div><div class="line">		String s2 = <span class="string">"aaaa"</span>;					<span class="comment">//如果两个字符串中的字符一样,个数不一样比较长度</span></div><div class="line">		<span class="keyword">int</span> x = s1.compareTo(s2);			<span class="comment">//按照码表值比较两个字符串的大小</span></div><div class="line">		System.out.println(x);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo2</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s = <span class="string">"    itcast    "</span>;</div><div class="line">		String s2 = s.trim();					<span class="comment">//去除前后空格</span></div><div class="line">		System.out.println(s2);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo1</span><span class="params">()</span> </span>&#123;</div><div class="line">		String s = <span class="string">"itcast"</span>;</div><div class="line">		String s2 = s.replace(<span class="string">'z'</span>, <span class="string">'o'</span>);		<span class="comment">//替换,将已有字符替换,如果没有被替换的字符,打印原字符串</span></div><div class="line">		System.out.println(s2);</div><div class="line">		</div><div class="line">		String s3 = s.replace(<span class="string">"cas"</span>, <span class="string">"ooo"</span>);</div><div class="line">		System.out.println(s3);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="字符串反转"><a href="#字符串反转" class="headerlink" title="字符串反转"></a>字符串反转</h3><ul>
+<li>A:案例演示<ul>
+<li>需求：把字符串反转<ul>
+<li>举例：键盘录入”abc”        </li>
+<li>输出结果：”cba”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> cn.itcast.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test5String</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 * * A:案例演示</div><div class="line">	* 需求：把字符串反转</div><div class="line">		* 举例：键盘录入"abc"		</div><div class="line">		* 输出结果："cba"</div><div class="line">		* 1,键盘录入字符串(Scanner)</div><div class="line">		* 2,将字符串转换成字符串数组(String toCharArray())</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">		System.out.println(<span class="string">"请数一个字符串:"</span>);</div><div class="line">		String line = sc.nextLine();			<span class="comment">//将键盘录入的字符串存储在line中</span></div><div class="line">		<span class="keyword">char</span>[] arr = line.toCharArray();		<span class="comment">//将字符串转换成字符数组</span></div><div class="line">		<span class="comment">//line = abc</span></div><div class="line">		<span class="comment">//"" + cba</span></div><div class="line">		String temp = <span class="string">""</span>;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = arr.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;<span class="comment">//倒着遍历字符数组</span></div><div class="line">			temp = temp + arr[i];				<span class="comment">//将每一个字符与字符串连接</span></div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		System.out.println(temp);</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="在大串中查找小串出现的次数思路图解"><a href="#在大串中查找小串出现的次数思路图解" class="headerlink" title="在大串中查找小串出现的次数思路图解"></a>在大串中查找小串出现的次数思路图解</h3><ul>
+<li>A:画图演示<ul>
+<li>需求：统计大串中小串出现的次数</li>
+<li>这里的大串和小串可以自己根据情况给出</li>
+</ul>
+</li>
+</ul>
+<h3 id="在大串中查找小串出现的次数代码实现"><a href="#在大串中查找小串出现的次数代码实现" class="headerlink" title="在大串中查找小串出现的次数代码实现"></a>在大串中查找小串出现的次数代码实现</h3><ul>
+<li>A:案例演示    <ul>
+<li>统计大串中小串出现的次数</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>​</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="野望 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎订阅我的个人微信技术博客。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://ogtmd8elu.bkt.clouddn.com/WechatPay-min.png" alt="野望 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://ogtmd8elu.bkt.clouddn.com/pay-min.jpg" alt="野望 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/J2SE/" rel="tag"># J2SE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/20/Java学习笔记整理（11）/" rel="next" title="Java学习笔记整理（11）">
+                <i class="fa fa-chevron-left"></i> Java学习笔记整理（11）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/21/快捷键记录/" rel="prev" title="快捷键记录">
+                快捷键记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="野望" />
+          <p class="site-author-name" itemprop="name">野望</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuili" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yan-hui-jun" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/5800502ca0bb9f00586674c8" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      掘金
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/6043346/archer" target="_blank" title="StackOverFlow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      StackOverFlow
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/yanhui" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      segmentfault
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.0xaa55.com/" title="技术宅的结界" target="_blank">技术宅的结界</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scanner的概述和方法介绍"><span class="nav-number">1.</span> <span class="nav-text">Scanner的概述和方法介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scanner获取数据出现的小问题及解决方案"><span class="nav-number">2.</span> <span class="nav-text">Scanner获取数据出现的小问题及解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">3.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String类的概述"><span class="nav-number">4.</span> <span class="nav-text">String类的概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String类的构造方法"><span class="nav-number">5.</span> <span class="nav-text">String类的构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String类的常见面试题"><span class="nav-number">6.</span> <span class="nav-text">String类的常见面试题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String类的判断功能"><span class="nav-number">7.</span> <span class="nav-text">String类的判断功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟用户登录"><span class="nav-number">8.</span> <span class="nav-text">模拟用户登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String类的获取功能"><span class="nav-number">9.</span> <span class="nav-text">String类的获取功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串的遍历"><span class="nav-number">10.</span> <span class="nav-text">字符串的遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计不同类型字符个数"><span class="nav-number">11.</span> <span class="nav-text">统计不同类型字符个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String类的转换功能"><span class="nav-number">12.</span> <span class="nav-text">String类的转换功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按要求转换字符"><span class="nav-number">13.</span> <span class="nav-text">按要求转换字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把数组转成字符串"><span class="nav-number">14.</span> <span class="nav-text">把数组转成字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String类的其他功能"><span class="nav-number">15.</span> <span class="nav-text">String类的其他功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串反转"><span class="nav-number">16.</span> <span class="nav-text">字符串反转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在大串中查找小串出现的次数思路图解"><span class="nav-number">17.</span> <span class="nav-text">在大串中查找小串出现的次数思路图解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在大串中查找小串出现的次数代码实现"><span class="nav-number">18.</span> <span class="nav-text">在大串中查找小串出现的次数代码实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">野望</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260855711&web_id=1260855711" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ArcherBlog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yanhuili.github.io/2017/07/21/Java学习笔记整理（12）/';
+          this.page.identifier = '2017/07/21/Java学习笔记整理（12）/';
+          this.page.title = 'Java学习笔记整理（12）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ArcherBlog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kzNRGot5tLJKONL4cUBsHljH-gzGzoHsz", "MbcqFd5NNWtLdqES7fSrWn0y");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

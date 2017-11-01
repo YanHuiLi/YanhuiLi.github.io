@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android项目,手机卫士," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="手把手教你实现一款手机卫士。在今天的项目里面，你会实现一下几个小目标。
+
+热门开源库的使用，xUtils3（下载文件），okHttp3（发送网络请求），Gson（处理Gson数据），permissionsdispatcher（动态权限的适配）的使用。
+handler的使用。
+打包的流程
+实现了一个本地端向服务器检查应用版本是否有更新并且下载，自动跳转安装的功能。兼容到8.0版本
+以及综合考虑了用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手把手系列————手机卫士（1）">
+<meta property="og:url" content="http://yanhuili.github.io/2017/09/17/手把手系列————手机卫士（1）/index.html">
+<meta property="og:site_name" content="野望的小屋">
+<meta property="og:description" content="手把手教你实现一款手机卫士。在今天的项目里面，你会实现一下几个小目标。
+
+热门开源库的使用，xUtils3（下载文件），okHttp3（发送网络请求），Gson（处理Gson数据），permissionsdispatcher（动态权限的适配）的使用。
+handler的使用。
+打包的流程
+实现了一个本地端向服务器检查应用版本是否有更新并且下载，自动跳转安装的功能。兼容到8.0版本
+以及综合考虑了用">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201709171547_361.gif">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201709171607_143.jpg">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201709180953_933.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201709181011_221.png">
+<meta property="og:updated_time" content="2017-09-18T03:20:56.428Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手把手系列————手机卫士（1）">
+<meta name="twitter:description" content="手把手教你实现一款手机卫士。在今天的项目里面，你会实现一下几个小目标。
+
+热门开源库的使用，xUtils3（下载文件），okHttp3（发送网络请求），Gson（处理Gson数据），permissionsdispatcher（动态权限的适配）的使用。
+handler的使用。
+打包的流程
+实现了一个本地端向服务器检查应用版本是否有更新并且下载，自动跳转安装的功能。兼容到8.0版本
+以及综合考虑了用">
+<meta name="twitter:image" content="http://ogtmd8elu.bkt.clouddn.com/201709171547_361.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"hide","offset":0,"offset_float":0,"b2t":true,"scrollpercent":true,"onmobile":"flase"},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yanhuili.github.io/2017/09/17/手把手系列————手机卫士（1）/"/>
+
+
+
+
+
+  <title>手把手系列————手机卫士（1） | 野望的小屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">野望的小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">永不言弃。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yanhuili.github.io/2017/09/17/手把手系列————手机卫士（1）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="野望">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="野望的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">手把手系列————手机卫士（1）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-17T11:57:51+08:00">
+                2017-09-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-09-18T11:20:56+08:00">
+                2017-09-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BestPractice/" itemprop="url" rel="index">
+                    <span itemprop="name">实战项目</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/17/手把手系列————手机卫士（1）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/17/手把手系列————手机卫士（1）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/09/17/手把手系列————手机卫士（1）/" class="leancloud_visitors" data-flag-title="手把手系列————手机卫士（1）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>手把手教你实现一款手机卫士。在今天的项目里面，你会实现一下几个小目标。</p>
+<ol>
+<li>热门开源库的使用，xUtils3（下载文件），okHttp3（发送网络请求），Gson（处理Gson数据），permissionsdispatcher（动态权限的适配）的使用。</li>
+<li>handler的使用。</li>
+<li>打包的流程</li>
+<li>实现了一个本地端向服务器检查应用版本是否有更新并且下载，自动跳转安装的功能。兼容到8.0版本</li>
+<li>以及综合考虑了用户的各种奇葩操作的相应的处理。</li>
+</ol>
+<a id="more"></a>
+<h3 id="Splash页面功能"><a href="#Splash页面功能" class="headerlink" title="Splash页面功能"></a>Splash页面功能</h3><p>顾名思义，SplashActivity页面的含义就是启动时候的界面，一般来说， 用于广告位，或者检测应用是否在服务器上有更新，如果有的话就直接下载下来，并且安装。这样用户就可以获得最新版本的应用。接下来我们就要实现这个具体的功能。</p>
+<h3 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h3><p><img src="http://ogtmd8elu.bkt.clouddn.com/201709171547_361.gif" alt=""></p>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><p>下面的流程图就很好的展示我们即将要做的事情。</p>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201709171607_143.jpg" alt=""></p>
+<h3 id="添加用到的第三方库"><a href="#添加用到的第三方库" class="headerlink" title="添加用到的第三方库"></a>添加用到的第三方库</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">compile <span class="string">'com.squareup.okhttp3:okhttp:3.4.1'</span></div><div class="line">compile <span class="string">'com.google.code.gson:gson:2.7'</span></div><div class="line">compile <span class="string">'org.xutils:xutils:3.5.0'</span></div><div class="line">  </div><div class="line">compile(<span class="string">'com.github.hotchemi:permissionsdispatcher:2.4.0'</span>)</div><div class="line">annotationProcessor <span class="string">'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'</span></div></pre></td></tr></table></figure>
+<p>在这里需要值得一提的是permissionsdispatcher三方库的也就是最后两行代码的引入，并不是直接粘贴，而是通过插架加载的，ctrl+ shift+s 打开控制面板，输入Plugins，然后点击中间的按钮，输入permissionsdispatcher，就会看到这个插件了，点击安装即可（可能需要重启studio，我忘了）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加permissionsdispatcher依赖，重新构建一下项目就行了。</span></div><div class="line">Code——&gt;Generat....-&gt;addPermissionDispatcherdependence</div></pre></td></tr></table></figure>
+<p>这样的话，我们就添加完毕了。</p>
+<h3 id="activity-splash-xml"><a href="#activity-splash-xml" class="headerlink" title="activity_splash.xml"></a>activity_splash.xml</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;TextView</div><div class="line">    android:id=<span class="string">"@+id/version_name"</span></div><div class="line">    android:layout_width=<span class="string">"wrap_content"</span></div><div class="line">    android:layout_height=<span class="string">"wrap_content"</span></div><div class="line">    android:layout_centerInParent=<span class="string">"true"</span></div><div class="line">    android:shadowColor=<span class="string">"#ff0"</span></div><div class="line">    android:shadowDx=<span class="string">"1"</span>     </div><div class="line">    android:shadowDy=<span class="string">"1"</span></div><div class="line">    android:shadowRadius=<span class="string">"10"</span></div><div class="line">    android:text=<span class="string">"版本名称"</span></div><div class="line">    android:textColor=<span class="string">"#fff"</span></div><div class="line">    android:textSize=<span class="string">"20sp"</span>/&gt;</div><div class="line"></div><div class="line">&lt;TextView</div><div class="line">    android:layout_width=<span class="string">"wrap_content"</span></div><div class="line">    android:layout_height=<span class="string">"wrap_content"</span></div><div class="line">    android:layout_above=<span class="string">"@id/version_name"</span></div><div class="line">    android:id=<span class="string">"@+id/app_name"</span></div><div class="line">    android:layout_centerHorizontal=<span class="string">"true"</span></div><div class="line">    android:text=<span class="string">"手机卫士"</span></div><div class="line">    android:textColor=<span class="string">"#fff"</span></div><div class="line">    android:textSize=<span class="string">"30sp"</span>/&gt;</div><div class="line"></div><div class="line">&lt;ProgressBar</div><div class="line">    style=<span class="string">"?android:attr/progressDrawable"</span></div><div class="line">    android:layout_width=<span class="string">"wrap_content"</span></div><div class="line">    android:layout_height=<span class="string">"wrap_content"</span></div><div class="line">    android:layout_below=<span class="string">"@id/version_name"</span></div><div class="line">    android:layout_centerHorizontal=<span class="string">"true"</span></div><div class="line">    /&gt;</div></pre></td></tr></table></figure>
+<p> 布局使用的RelativeLayout，为什么代码要贴出来呢，是因为有一个非常重要的点，叫做版本名称的这个textview，必须放在最前面，因为在编译的时候，一旦<code>@id/version_name</code>这个值没有被先编译的话，就会报错。找不到该值。</p>
+<pre><code>android:shadowDx=&quot;1&quot;    
+android:shadowDy=&quot;1&quot;
+android:shadowRadius=&quot;10&quot;
+</code></pre><p>这三个属性决定了版本名称的阴影效果。</p>
+<h3 id="Activity去头操作-amp-保留高版本主题"><a href="#Activity去头操作-amp-保留高版本主题" class="headerlink" title="Activity去头操作&amp;保留高版本主题"></a>Activity去头操作&amp;保留高版本主题</h3><h4 id="第一种方式"><a href="#第一种方式" class="headerlink" title="第一种方式"></a>第一种方式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span></div><div class="line">android.support.v7.app.ActionBar actionBar = getSupportActionBar();</div><div class="line"><span class="keyword">if</span>(actionBar!=<span class="keyword">null</span>)&#123;</div><div class="line">    actionBar.hide();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>得到getSupportActionBar的实例，然后进行判断，如果存在就隐藏。</p>
+<h4 id="第二种方式"><a href="#第二种方式" class="headerlink" title="第二种方式"></a>第二种方式</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--</span></div><div class="line">    在manifest清单中修改theme</div><div class="line">    去掉头的第一种方法</div><div class="line">    android:theme="@style/Theme.AppCompat.NoActionBar" 追踪进去看实现</div><div class="line">    &lt;item name="windowNoTitle"&gt;true&lt;/item&gt;</div><div class="line">    然后添加进我们自己的appTheme中</div><div class="line">    android:theme="@style/AppTheme"</div><div class="line">    在AppTheme里面去掉ActionBar又保留样式</div><div class="line">    &lt;item name="windowNoTitle"&gt;true&lt;/item&gt;</div><div class="line">    --&gt;</div><div class="line">android:theme="@style/AppTheme"</div></pre></td></tr></table></figure>
+<h4 id="二者的区别"><a href="#二者的区别" class="headerlink" title="二者的区别"></a>二者的区别</h4><p>区别：</p>
+<ul>
+<li>在oncreate里面隐藏的话，下一个Activity里，同样存在</li>
+<li>在manifest中隐藏的话，所有的anctivity中都不可见，因为是在根节点隐藏</li>
+</ul>
+<h3 id="getVersionName"><a href="#getVersionName" class="headerlink" title="getVersionName()"></a>getVersionName()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="number">2</span></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 获取版本名称</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span> 应用版本名称 返回null 代表有异常</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getVersionName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//1.得到包管理者对象PackageManager</span></div><div class="line">        PackageManager manager = getPackageManager();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="comment">//2.传入app的包名和flag（值为0），得到当前包的基本信息</span></div><div class="line">            PackageInfo packageInfo = manager.getPackageInfo(<span class="keyword">this</span>.getPackageName(), <span class="number">0</span>);</div><div class="line">            <span class="comment">//返回包的versionName，即是Module:app里面的versionName</span></div><div class="line">            <span class="keyword">return</span> packageInfo.versionName;</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>注意返回值和传入的参数的含义</p>
+<h3 id="getVersionCode"><a href="#getVersionCode" class="headerlink" title="getVersionCode()"></a>getVersionCode()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> <span class="number">3</span>   </div><div class="line">   <span class="comment">/**</span></div><div class="line">     * 获取版本号</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span> 应用版本名称 返回0 代表有异常</div><div class="line">     */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getVersionCode</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">//1.包管理者对象PackageManager</span></div><div class="line">    PackageManager manager = getPackageManager();</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        PackageInfo packageInfo = manager.getPackageInfo(<span class="keyword">this</span>.getPackageName(), <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> packageInfo.versionCode;</div><div class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意返回值和传入的参数的含义。</p>
+<h3 id="initData"><a href="#initData" class="headerlink" title="initData()"></a>initData()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="number">4</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initData</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//1.应用名称</span></div><div class="line">        String versionName = getVersionName();</div><div class="line">        <span class="comment">//2.给textView赋值</span></div><div class="line">        tv_versionName.setText(<span class="string">"版本名称："</span> + versionName);</div><div class="line">        <span class="comment">//3.检测本地版本号和服务器版本号是否相同,不相同说明有新版本，后台更新</span></div><div class="line">        mVersionCode = getVersionCode();</div><div class="line"><span class="comment">//        4.获得服务端的版本号</span></div><div class="line"><span class="comment">//        http://ogtmd8elu.bkt.clouddn.com/update_mobilesafe.json</span></div><div class="line"><span class="comment">//        包含更新版本的名称</span></div><div class="line"><span class="comment">//        新版本的描述信息</span></div><div class="line"><span class="comment">//        获得版本号</span></div><div class="line"><span class="comment">//        下载地址</span></div><div class="line"><span class="comment">//         "versionName":"2.0",</span></div><div class="line"><span class="comment">//        "versionCode":"2"</span></div><div class="line"><span class="comment">//        "versionDes":"2.0版本发布了，狂拽酷炫吊炸天"</span></div><div class="line"><span class="comment">//        "downloadUrl":"http://yanhui.site"（替换成下载地址）</span></div><div class="line">        checkVersion();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p> 这里的话，我们就已经拿到了，本地包下的版本号和版本名字。接下来要分析的 checkVersion()就是splash代码的重点。</p>
+<h3 id="checkVersion"><a href="#checkVersion" class="headerlink" title="checkVersion();"></a>checkVersion();</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="number">5</span> </div><div class="line"><span class="comment">//进行耗时操作必须开启一个新的子线程，不然会造成ANR异常</span></div><div class="line"><span class="keyword">final</span> <span class="keyword">long</span> startTime = System.currentTimeMillis(); <span class="comment">//开始的时间戳</span></div><div class="line"><span class="keyword">final</span> Message message = Message.obtain(); <span class="comment">//初始化message对象</span></div><div class="line">String address = <span class="string">"http://ogtmd8elu.bkt.clouddn.com/MobilesafeUpdate.json"</span>;<span class="comment">//版本更新的json数据</span></div><div class="line">HttpUtils.sendOkHttpRequest(address, <span class="keyword">new</span> Callback() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call call, IOException e)</span> </span>&#123;</div><div class="line">        runOnUiThread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="comment">//切换回主线程弹出toast</span></div><div class="line">                ToastUtils.showShort(SplashActivity.<span class="keyword">this</span>, <span class="string">"更新数据失败，请检查网络"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        message.what = ENTER_HOME;<span class="comment">//赋值给message.what</span></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">2000</span>);<span class="comment">//睡两秒再发送消息体验好很多</span></div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e1) &#123;</div><div class="line">            e1.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        mHandler.sendMessage(message);<span class="comment">//发送消息</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>看上述代码，我使用了<code>HttpUtils.sendOkHttpRequest()</code>方法，发起网络的请求，以上是<code>onFailure</code>方法要走的逻辑。</p>
+<ol>
+<li>首先切换到主线程，然后弹出一个土司告诉用户，是否是网络了出了问题。</li>
+<li>把常量ENTER_HOME赋值给<code>message.what</code></li>
+<li>延时2s后，发送message。</li>
+</ol>
+<p>这么可虑，既然走到了<code>onFailure</code>方法，说明请求失败了，那么我们就应该进入到程序的<code>HomeActivity</code>因此我们使用handler发送消息。</p>
+<h4 id="ToastUtils"><a href="#ToastUtils" class="headerlink" title="ToastUtils"></a>ToastUtils</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="number">7</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by Archer on 2017/9/16.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * 功能描述：</div><div class="line"> * 一个弹出土司的工具类</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ToastUtils</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showShort</span><span class="params">(Context context,String text)</span></span>&#123;</div><div class="line">        Toast.makeText(context,text,Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showLong</span><span class="params">(Context context,String text)</span></span>&#123;</div><div class="line">        Toast.makeText(context,text,Toast.LENGTH_LONG).show();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这就是一个很简单的封装，就不赘述了。</p>
+<h4 id="HttpUtils"><a href="#HttpUtils" class="headerlink" title="HttpUtils"></a>HttpUtils</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="number">6</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by Archer on 2017/9/16.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * 功能描述：封装一个发起网络请求的一个工具类，</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpUtils</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">void</span> <span class="title">sendOkHttpRequest</span><span class="params">(String address,okhttp3.Callback callback)</span></span>&#123;</div><div class="line">        OkHttpClient client= <span class="keyword">new</span> OkHttpClient();</div><div class="line">        Request request= <span class="keyword">new</span> Request.Builder().url(address).build();</div><div class="line">        client.newCall(request).enqueue(callback);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>这就是现在最流行的网络请求开源库okhttp3的基本用法，第一个参数传入一个url，第二个传入一个callback回调函数，</p>
+<ol>
+<li>得到OkHttpClient的实例</li>
+<li>根据address得到一个请求Request</li>
+<li>通过 OkHttpClient的实例，调用newCall方法，加入队列中。</li>
+</ol>
+<p>现在再回来头上面的代码就是很清晰的吧，这个callBack里面实现了onFailure和onResponse方法，相信onFailure方法你已经明白是怎么回事了，接下来当然是要分析onResponse方法了。</p>
+<h3 id="服务器的Json数据"><a href="#服务器的Json数据" class="headerlink" title="服务器的Json数据"></a>服务器的Json数据</h3><p>这是我放在服务器上的json数据，通过下面的这个网址就能访问到。</p>
+<p><a href="http://ogtmd8elu.bkt.clouddn.com/MobilesafeUpdate.json" target="_blank" rel="external">http://ogtmd8elu.bkt.clouddn.com/MobilesafeUpdate.json</a></p>
+<p>我们模拟了app与服务器的交互。请求成功的话，就返回如下json数据。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"> <span class="attr">"versionName"</span>:<span class="string">"2.0"</span>,</div><div class="line"> <span class="attr">"versionCode"</span>:<span class="string">"2"</span>,</div><div class="line"> <span class="attr">"versionDes"</span>:<span class="string">"2.0版本发布了，狂拽酷炫吊炸天"</span>,</div><div class="line"> <span class="attr">"downloadUrl"</span>:<span class="string">"http://ogtmd8elu.bkt.clouddn.com/mobilesafe2.0.apk"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以打开浏览器，输入adress地址，得到以上数据，很清楚了吧，意思是我们的服务器告诉我们，出现了新的版本，是2.0的版本，并且给我们了一个下载的最新版本的地址。</p>
+<h3 id="onResponse"><a href="#onResponse" class="headerlink" title="onResponse()"></a>onResponse()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="number">8</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    String jsonResponseText = response.body().string();<span class="comment">//将返回的response对象转化成String</span></div><div class="line">    Log.d(TAG, <span class="string">"onResponse: "</span> + jsonResponseText);</div><div class="line">    <span class="keyword">int</span> versionCloudCode = parseJsonObject(jsonResponseText);<span class="comment">//解析json返回服务器上最新版本值</span></div><div class="line">    <span class="keyword">if</span> (mVersionCode &lt; versionCloudCode) &#123;<span class="comment">//本地的小于服务器的</span></div><div class="line">        message.what = UPDATE_VERSION;  <span class="comment">//给message一个消息，更新版本</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        message.what = ENTER_HOME;  <span class="comment">//进入主页面</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">long</span> endtime = System.currentTimeMillis();</div><div class="line">    <span class="keyword">if</span> (endtime - startTime &lt; <span class="number">4000</span>) &#123; <span class="comment">//保证执行4s，体验好</span></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">4000</span> - (endtime - startTime));</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    mHandler.sendMessage(message);<span class="comment">//发送消息</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述代码非常容易理解，请求数据呈贡以后，callback给我回调的onResponse方法，reponse对象就是回调成功的返回对象类型，因此我们需要拿到它的body的string。这里注意，是string不是toString。这样的话，我们拿到了String类型的json数据jsonResponseText，因此，我们下一步调用的<code>parseJsonObject(jsonResponseText)</code>方法，就是把这个jsonResponseText进行解析得到服务器的版本号，然后与我们本地的版本号进行比较，如果本地版本号小于服务器的，那么给 message.what赋值一个UPDATE_VERSION的常量，由handler进行更新。否则的话（不需要更新，本地的已经是新版本了），ENTER_HOME赋值给message.what，进入程序的主界面。最终都是通过Handler发送message，通过handleMessage()进行操作。</p>
+<h3 id="parseJsonObject"><a href="#parseJsonObject" class="headerlink" title="parseJsonObject()"></a>parseJsonObject()</h3><p>下面我们就要对服务器回调回来的json进行解析。</p>
+<h4 id="Update类"><a href="#Update类" class="headerlink" title="Update类"></a>Update类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="number">9</span></div><div class="line"><span class="keyword">package</span> site.yanhui.mobilesafe.gson;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by Archer on 2017/9/16.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * 功能描述：</div><div class="line"> * GsonBean，用来传入更新的基本信息。Json实体类</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Update</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * versionName : 2.0</div><div class="line">     * versionCode : 2</div><div class="line">     * versionDes : 2.0版本发布了，狂拽酷炫吊炸天</div><div class="line">     * downloadUrl : http://yanhui.site</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> String versionName;</div><div class="line">    <span class="keyword">private</span> String versionCode;</div><div class="line">    <span class="keyword">private</span> String versionDes;</div><div class="line">    <span class="keyword">private</span> String downloadUrl;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getVersionName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> versionName;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setVersionName</span><span class="params">(String versionName)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.versionName = versionName;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getVersionCode</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> versionCode;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setVersionCode</span><span class="params">(String versionCode)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.versionCode = versionCode;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getVersionDes</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> versionDes;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setVersionDes</span><span class="params">(String versionDes)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.versionDes = versionDes;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDownloadUrl</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> downloadUrl;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDownloadUrl</span><span class="params">(String downloadUrl)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.downloadUrl = downloadUrl;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>google 开源的Gson库，最牛的一点就是能过能够在返回的jsonString和jsonObject，jsonArray中建立起上述这种映射关系，并且非常容易使用。实体类准备好了。接下来开始解析</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="number">10</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 解析拿到的jsonObject对象</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> jsonData 传入json返回的String</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">parseJsonObject</span><span class="params">(String jsonData)</span> </span>&#123;</div><div class="line">    Gson gson = <span class="keyword">new</span> Gson();</div><div class="line">    Update update = gson.fromJson(jsonData, Update.class);</div><div class="line">    Log.d(TAG, <span class="string">"parseJsonObject: "</span> + update.getVersionDes());</div><div class="line">    Log.d(TAG, <span class="string">"parseJsonObject: "</span> + update.getVersionName());</div><div class="line">    Log.d(TAG, <span class="string">"parseJsonObject: "</span> + update.getVersionCode());</div><div class="line">    Log.d(TAG, <span class="string">"parseJsonObject: "</span> + update.getDownloadUrl());</div><div class="line">    des = update.getVersionDes();</div><div class="line">    updateDownloadUrl = update.getDownloadUrl();</div><div class="line"></div><div class="line">    <span class="keyword">return</span> Integer.parseInt(update.getVersionCode());</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先得到一个Gson对象，然后调用fromJson方法，传入到处理的json String和我们刚刚新建的实体类的class，只需要一行代码，你就可以通过调用update的get系列的方法，得到数据，这种感觉很爽吧。你也许可能会觉得，这有什么稀奇的，服务器返回的不过是一个简单jsonObject而已。使用jsonObject的解析方式也很简单，你说的没错，但是如果我们返回的是一个非常复杂的json数据的话，使用Gson就会变得非常方便和不容易出错了。这是下一个项目要介绍的内容了。先搞定这个吧，万里长征才开始了第一步。</p>
+<p>可以打个log看一看，数据拿到没有，同时我们被得到的这个描述复制给了des，新版本apk下载地址赋值给了updateDownloadUrl ，最终把得到的服务器的版本号return了过去。样子我们就拿到了，可以进行比较了。</p>
+<h3 id="为什么需要handler"><a href="#为什么需要handler" class="headerlink" title="为什么需要handler"></a>为什么需要handler</h3><p>先简单解释一下，这个handler到底是什么情况。考虑以下的情况，现在我们的app需要更新UI界面，但是在更新UI界面时所需要的数据，却是要经过耗时操作，这该怎么处理呢。</p>
+<h4 id="主线程直接处理："><a href="#主线程直接处理：" class="headerlink" title="主线程直接处理："></a>主线程直接处理：</h4><p>最直接的处理就在主线程中写耗时操作，但是很快就会发现问题，就是一旦耗时操作的时间超过（4s，还是5s）就会出现一个ARN（Application Not Responding）异常，应用没有响应，就会弹出一个对话框要求用户选择，可以选择等待或者是结束应用。这样子的话，用户的体验就太糟糕了。</p>
+<h4 id="子线程中处理："><a href="#子线程中处理：" class="headerlink" title="子线程中处理："></a>子线程中处理：</h4><p>显然第一种方式的处理非常糟糕，那么我们想，是否可以开启这个子线程专门处理UI更细呢？但是很快你就会发现，在子线程中是无法更新UI的（报异常），换句话中，就是当我们在更新UI的时候，必须在主线程里面，但是又不能有耗时操作（会造成ANR异常），那么最终的处理方式就是一种折中的机制。开启一个子线程，完成相关耗时操作，得到数据（数据就算准备好了），然后通知主线程去更新UI，这样就可以实现了嘛，因为数据都准备好了，就能马上更新了。</p>
+<p>你会问，如何通知。这就是handler的作用了，Android我们提供了完整的一套上述情况的解决方式，handler就是其中的重要方式之一，实际上其他的几种方式都是对handler机制的一种封装。所以学好handler是非常重要的，在这里我就不讲handler的原理了，我会单开一篇专门研究handler。这里先讲handler在此项目中的具体使用。</p>
+<h3 id="handleMessage-Message-msg"><a href="#handleMessage-Message-msg" class="headerlink" title="handleMessage(Message msg)"></a>handleMessage(Message msg)</h3><p>相信在之前的方法中，你会先看到一个Message.obtain的Message初始化，然后无论是onFailure还是onResponse的方法中，我们把常量值如果在onResponse方法中，就把UPDATE_VERSION赋值给message.what,如果是onFailure方法中，就把ENTER_HOME赋值给message.what，这两个都市一个int的常量值，最后都使用了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mHandler.sendMessage(message);<span class="comment">//发送消息</span></div></pre></td></tr></table></figure>
+<p>发送出去，接下来再又handler处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="number">11</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"SplashActivity"</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UPDATE_VERSION = <span class="number">100</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ENTER_HOME = <span class="number">101</span>;</div><div class="line"><span class="keyword">private</span> TextView tv_versionName;</div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> mVersionCode;</div><div class="line"></div><div class="line"><span class="keyword">private</span> Handler mHandler = <span class="keyword">new</span> Handler() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (msg.what) &#123;</div><div class="line">            <span class="keyword">case</span> UPDATE_VERSION:</div><div class="line">                showUpdateDialog();<span class="comment">//启动更新的对话框</span></div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> ENTER_HOME:</div><div class="line">                enterHome(); <span class="comment">//进入主界面</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">private</span> String des; <span class="comment">//服务器得到的新版本描述</span></div><div class="line"><span class="keyword">private</span> String updateDownloadUrl; <span class="comment">//新版本apk的下载地址</span></div></pre></td></tr></table></figure>
+<p>所以之前我们使用的mHandler的sendMessage方法，最终就是在这里得到了处理。因为我们是用switch语句判断赋值给massage.what携带的值，然后进行相应的操作。这就非常清楚了。</p>
+<h3 id="handler使用小结"><a href="#handler使用小结" class="headerlink" title="handler使用小结"></a>handler使用小结</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> Message message = Message.obtain(); <span class="comment">//初始化message对象</span></div><div class="line">message.what  赋值</div><div class="line">handler.sendMessage(message)</div></pre></td></tr></table></figure>
+<p>第一步调用Message.obtain()，这个方法在内部执行的就是不断的从线程池里面查询是否有message.what被赋值，如果有就捕捉到，然后最后使用handler发送出去。</p>
+<h3 id="enterHome"><a href="#enterHome" class="headerlink" title="enterHome()"></a>enterHome()</h3><p>我们先看enterHome方法.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="number">12</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 进入Home界面</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">enterHome</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    Intent intent = <span class="keyword">new</span> Intent(SplashActivity.<span class="keyword">this</span>, HomeActivity.class);</div><div class="line">    startActivity(intent);</div><div class="line">    finish();<span class="comment">//结束当前app</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>非常简单，从启动界面，跳转到主界面，并结束当前的activity。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="number">13</span></div><div class="line">     <span class="comment">/**</span></div><div class="line">     * 弹出对话框更新界面</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showUpdateDialog</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//弹出对话框，是依赖于activity存在的</span></div><div class="line">        <span class="keyword">final</span> AlertDialog.Builder alertDialog = <span class="keyword">new</span> AlertDialog.Builder(<span class="keyword">this</span>);</div><div class="line">        alertDialog.setIcon(R.drawable.ic_launcher); <span class="comment">//设置左上角图标</span></div><div class="line">        alertDialog.setTitle(<span class="string">"版本更新"</span>);</div><div class="line">        alertDialog.setMessage(des); <span class="comment">//设置从服务器拿到的新版本描述</span></div><div class="line">        alertDialog.setPositiveButton(<span class="string">"立即更新"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</div><div class="line">                <span class="comment">//申请权限</span></div><div class="line">                SplashActivityPermissionsDispatcher.downNewApkWithCheck(SplashActivity.<span class="keyword">this</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        alertDialog.setNegativeButton(<span class="string">"取消更新"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</div><div class="line">                enterHome();</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"><span class="comment">//        alertDialog.setCancelable(false);//不能被取消</span></div><div class="line"></div><div class="line">        <span class="comment">//弹出软件升级界面 点击back按钮同样能进入主界面</span></div><div class="line">        alertDialog.setOnCancelListener(<span class="keyword">new</span> DialogInterface.OnCancelListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCancel</span><span class="params">(DialogInterface dialog)</span> </span>&#123;</div><div class="line">                enterHome();    <span class="comment">//进入主界面</span></div><div class="line">                dialog.dismiss();<span class="comment">//使得dialog消失</span></div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        alertDialog.show();<span class="comment">//展现出dialog</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>首先我们先使用了AlertDialog.Builder构造，构造出了一个dialog实例，然后对其进行赋值，设置图标，标题，从服务器上拿到的版本描述（这里走的是成功拿到服务器数据的回调）。点击取消的时候，我们就认为是用户取消了更新，那么当然是要进入主界面了。在这里值得一提的是<code>setOnCancelListener</code>方法，这个方法的含义是，比如说弹出更新对话框了，用户既没有点击立即更新，也没有点击取消更新，而是直接点击了返回键，如果没有这个方法的话，就会卡在splash界面，体验非常差，所以要设置一下这个方法，让程序能正常运行起来，进入主界面，并让dialog消失。</p>
+<h3 id="动态权限适配（PermissionDispatcher）"><a href="#动态权限适配（PermissionDispatcher）" class="headerlink" title="动态权限适配（PermissionDispatcher）"></a>动态权限适配（PermissionDispatcher）</h3><p>Android提升了安全性以后，比如一些敏感权限，在这里用到的写入sd卡的权限，就必须得由用户授予权限，才可以调用。因此我们用到一个三方库PermissionDispatcher，之前的依赖相信你已经完成了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//主菜单</span></div><div class="line">Code-&gt;generate..-&gt;Generate Runtime Permission</div></pre></td></tr></table></figure>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201709180953_933.png" alt=""></p>
+<p>填写需要到权限的方法，需要的理由，权限拒绝以后的方法，点击不再询问的方法。</p>
+<h3 id="初始化xUtils3"><a href="#初始化xUtils3" class="headerlink" title="初始化xUtils3"></a>初始化xUtils3</h3><p>添加完依赖以后，还需要对其进行初始化</p>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201709181011_221.png" alt=""></p>
+<h3 id="下载新的apk文件（xUtils3）"><a href="#下载新的apk文件（xUtils3）" class="headerlink" title="下载新的apk文件（xUtils3）"></a>下载新的apk文件（xUtils3）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@NeedsPermission</span>(Manifest.permission.WRITE_EXTERNAL_STORAGE)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">downNewApk</span><span class="params">()</span> </span>&#123;</div><div class="line">        ToastUtils.showShort(SplashActivity.<span class="keyword">this</span>, <span class="string">"正在下载....."</span>);</div><div class="line">        <span class="comment">//1.判断sd卡是否挂载</span></div><div class="line">        <span class="keyword">if</span> (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) &#123;</div><div class="line">            <span class="comment">//获得sd路径</span></div><div class="line">            <span class="keyword">final</span> String path = Environment.getExternalStorageDirectory().getAbsolutePath()</div><div class="line">                    + File.separator + <span class="string">"mobilesafe1.apk"</span>;<span class="comment">//指定存储路径（sd存储绝对路径）和存储的名称</span></div><div class="line">            String url = updateDownloadUrl; <span class="comment">//将服务器上获得下载新apk的url赋值给url进行发起请求</span></div><div class="line">            RequestParams params = <span class="keyword">new</span> RequestParams(url);<span class="comment">//封装成param</span></div><div class="line">            params.setSaveFilePath(path);<span class="comment">//设置存储下载文件的位置</span></div><div class="line"><span class="comment">//            params.setAutoRename(true);//自动把名字改成服务器上的app名称，会覆盖，但是一旦重复下载就会多出来。</span></div><div class="line">            x.http().post(params, <span class="keyword">new</span> org.xutils.common.Callback.CommonCallback&lt;File&gt;() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(File result)</span> </span>&#123;</div><div class="line">                    Log.i(TAG, <span class="string">"onSuccess: "</span>);</div><div class="line">                    <span class="comment">//获得的result就是下载获得的文件</span></div><div class="line">                    <span class="comment">//提升权限</span></div><div class="line">                    String path1 = result.getAbsolutePath();</div><div class="line">                    Log.d(TAG, <span class="string">"onSuccess: "</span>+path1);</div><div class="line">                    setPermission(path1);</div><div class="line">                    installApk(SplashActivity.<span class="keyword">this</span>, result);</div><div class="line">                &#125;</div></pre></td></tr></table></figure>
+<p>我们已经获得权限了，接下来就是要下载新的apk文件，注释的参数已经写的非常清楚了</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="野望 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎订阅我的个人微信技术博客。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://ogtmd8elu.bkt.clouddn.com/WechatPay-min.png" alt="野望 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://ogtmd8elu.bkt.clouddn.com/pay-min.jpg" alt="野望 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android项目/" rel="tag"># Android项目</a>
+          
+            <a href="/tags/手机卫士/" rel="tag"># 手机卫士</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/16/编程小贴士/" rel="next" title="编程小贴士">
+                <i class="fa fa-chevron-left"></i> 编程小贴士
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/03/Android事件分发原理分析（案例和源码）之View篇/" rel="prev" title="事件分发机制原理分析(案例和源码)-View篇">
+                事件分发机制原理分析(案例和源码)-View篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="野望" />
+          <p class="site-author-name" itemprop="name">野望</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuili" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yan-hui-jun" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/5800502ca0bb9f00586674c8" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      掘金
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/6043346/archer" target="_blank" title="StackOverFlow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      StackOverFlow
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/yanhui" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      segmentfault
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.0xaa55.com/" title="技术宅的结界" target="_blank">技术宅的结界</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Splash页面功能"><span class="nav-number">1.</span> <span class="nav-text">Splash页面功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果展示"><span class="nav-number">2.</span> <span class="nav-text">效果展示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程图"><span class="nav-number">3.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加用到的第三方库"><span class="nav-number">4.</span> <span class="nav-text">添加用到的第三方库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#activity-splash-xml"><span class="nav-number">5.</span> <span class="nav-text">activity_splash.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity去头操作-amp-保留高版本主题"><span class="nav-number">6.</span> <span class="nav-text">Activity去头操作&保留高版本主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一种方式"><span class="nav-number">6.1.</span> <span class="nav-text">第一种方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种方式"><span class="nav-number">6.2.</span> <span class="nav-text">第二种方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二者的区别"><span class="nav-number">6.3.</span> <span class="nav-text">二者的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getVersionName"><span class="nav-number">7.</span> <span class="nav-text">getVersionName()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getVersionCode"><span class="nav-number">8.</span> <span class="nav-text">getVersionCode()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#initData"><span class="nav-number">9.</span> <span class="nav-text">initData()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checkVersion"><span class="nav-number">10.</span> <span class="nav-text">checkVersion();</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ToastUtils"><span class="nav-number">10.1.</span> <span class="nav-text">ToastUtils</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpUtils"><span class="nav-number">10.2.</span> <span class="nav-text">HttpUtils</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器的Json数据"><span class="nav-number">11.</span> <span class="nav-text">服务器的Json数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onResponse"><span class="nav-number">12.</span> <span class="nav-text">onResponse()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parseJsonObject"><span class="nav-number">13.</span> <span class="nav-text">parseJsonObject()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Update类"><span class="nav-number">13.1.</span> <span class="nav-text">Update类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要handler"><span class="nav-number">14.</span> <span class="nav-text">为什么需要handler</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主线程直接处理："><span class="nav-number">14.1.</span> <span class="nav-text">主线程直接处理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子线程中处理："><span class="nav-number">14.2.</span> <span class="nav-text">子线程中处理：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#handleMessage-Message-msg"><span class="nav-number">15.</span> <span class="nav-text">handleMessage(Message msg)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#handler使用小结"><span class="nav-number">16.</span> <span class="nav-text">handler使用小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#enterHome"><span class="nav-number">17.</span> <span class="nav-text">enterHome()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态权限适配（PermissionDispatcher）"><span class="nav-number">18.</span> <span class="nav-text">动态权限适配（PermissionDispatcher）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化xUtils3"><span class="nav-number">19.</span> <span class="nav-text">初始化xUtils3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载新的apk文件（xUtils3）"><span class="nav-number">20.</span> <span class="nav-text">下载新的apk文件（xUtils3）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">野望</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260855711&web_id=1260855711" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ArcherBlog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yanhuili.github.io/2017/09/17/手把手系列————手机卫士（1）/';
+          this.page.identifier = '2017/09/17/手把手系列————手机卫士（1）/';
+          this.page.title = '手把手系列————手机卫士（1）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ArcherBlog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kzNRGot5tLJKONL4cUBsHljH-gzGzoHsz", "MbcqFd5NNWtLdqES7fSrWn0y");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

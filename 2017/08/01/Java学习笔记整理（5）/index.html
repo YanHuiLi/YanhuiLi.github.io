@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="J2SE," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java学习笔记整理（5）">
+<meta property="og:url" content="http://yanhuili.github.io/2017/08/01/Java学习笔记整理（5）/index.html">
+<meta property="og:site_name" content="野望的小屋">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707071636_7.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707071657_309.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707311851_41.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707311854_241.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707311907_157.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707311940_10.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707312021_285.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707312051_209.png">
+<meta property="og:image" content="http://ogtmd8elu.bkt.clouddn.com/201707312321_980.png">
+<meta property="og:updated_time" content="2017-08-08T04:22:04.470Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java学习笔记整理（5）">
+<meta name="twitter:image" content="http://ogtmd8elu.bkt.clouddn.com/201707071636_7.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"hide","offset":0,"offset_float":0,"b2t":true,"scrollpercent":true,"onmobile":"flase"},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yanhuili.github.io/2017/08/01/Java学习笔记整理（5）/"/>
+
+
+
+
+
+  <title>Java学习笔记整理（5） | 野望的小屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">野望的小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">永不言弃。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yanhuili.github.io/2017/08/01/Java学习笔记整理（5）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="野望">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="野望的小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Java学习笔记整理（5）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-01T08:32:47+08:00">
+                2017-08-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-08-08T12:22:04+08:00">
+                2017-08-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/J2SE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2SE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/01/Java学习笔记整理（5）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/01/Java学习笔记整理（5）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/01/Java学习笔记整理（5）/" class="leancloud_visitors" data-flag-title="Java学习笔记整理（5）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<a id="more"></a>
+<h3 id="数组概述和定义格式说明"><a href="#数组概述和定义格式说明" class="headerlink" title="数组概述和定义格式说明"></a>数组概述和定义格式说明</h3><ul>
+<li>A:为什么要有数组(容器)</li>
+<li>B:数组概念</li>
+<li>C:数组定义格式<br>数据类型[] 数组名 = new 数据类型[数组的长度];</li>
+</ul>
+<p>数组本质上是一种容器，用于装一些数据类型一致的数据 。既可以存一下基本数据类型（8种），也可以存一些引用数据类型。</p>
+<h3 id="数组的初始化动态初始化"><a href="#数组的初始化动态初始化" class="headerlink" title="数组的初始化动态初始化"></a>数组的初始化动态初始化</h3><ul>
+<li>A:什么是数组的初始化</li>
+<li>B:如何对数组进行初始化<ul>
+<li>a:动态初始化 只指定长度，系统为赋值<ul>
+<li>int[] arr = new int[5]; //未赋值    </li>
+<li>b:静态初始化 给出初始化值，由系统决定长度</li>
+<li>int[] arr = new int[]{1,2,3,4,5}; </li>
+<li>int[] arr = {1,2,3,4,5};</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>C:动态初始化的格式：<ul>
+<li>数据类型[] 数组名 = new 数据类型[数组长度];</li>
+</ul>
+</li>
+<li>D:案例演示<ul>
+<li>对数组的解释</li>
+<li>输出数组名称和数组元素</li>
+</ul>
+</li>
+</ul>
+<p>数组的初始化就是要为数组中的数组元素分配内存空间，并为每个元素赋值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Array</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//声明数组</span></div><div class="line">		<span class="comment">//int[] arr1;							//数据类型[] 数组名; 推荐</span></div><div class="line">		<span class="comment">//int arr2[];							//数据类型 数组名[];</span></div><div class="line"></div><div class="line">		<span class="comment">//动态初始化,没有给数组赋具体的值</span></div><div class="line">		<span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];					<span class="comment">//new是一个关键字,用来创建实体对象</span></div><div class="line">												<span class="comment">//5代表数组的长度</span></div><div class="line"></div><div class="line">		arr[<span class="number">0</span>] = <span class="number">5</span>;</div><div class="line"></div><div class="line">		arr[<span class="number">4</span>] = <span class="number">10</span>;</div><div class="line">		</div><div class="line">		<span class="comment">//静态初始化</span></div><div class="line">		<span class="keyword">int</span>[] arr2 = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;			<span class="comment">//静态初始化,不用知道数组长度,长度根据元素个数</span></div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Java中的内存分配以及栈和堆的区别"><a href="#Java中的内存分配以及栈和堆的区别" class="headerlink" title="Java中的内存分配以及栈和堆的区别"></a>Java中的内存分配以及栈和堆的区别</h3><ul>
+<li>A:栈</li>
+<li>B:堆</li>
+<li>C:方法区</li>
+<li>D:本地方法区</li>
+<li>E:寄存器</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707071636_7.png" alt=""></p>
+<h3 id="数组的内存图解1一个数组"><a href="#数组的内存图解1一个数组" class="headerlink" title="数组的内存图解1一个数组"></a>数组的内存图解1一个数组</h3><ul>
+<li>A:画图演示<ul>
+<li>一个数组<br><img src="http://ogtmd8elu.bkt.clouddn.com/201707071657_309.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<p>main方法是第一个入栈的，因为它是程序最先执行的方法并且有权力去调用其它的方法，new出来的对象，数据，放在堆里面，堆会开辟出内存的空间并初始化值char类型初始化的0x0000，是因为一个char占两个字节，16位，全部初始化成了0.0x0011是地址的编号，根据地址编号找到数据。</p>
+<p>栈内存里面存储的变量必须赋值（否则报错），堆里面的不是必须赋值，因为系统在划分内存空间的时候已经赋了初始值。<br>​    </p>
+<h3 id="数组的内存图解2二个数组"><a href="#数组的内存图解2二个数组" class="headerlink" title="数组的内存图解2二个数组"></a>数组的内存图解2二个数组</h3><ul>
+<li>A:画图演示<ul>
+<li>二个不同的数组</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707311851_41.png" alt=""></p>
+<h3 id="数组的内存图解3三个数组"><a href="#数组的内存图解3三个数组" class="headerlink" title="数组的内存图解3三个数组"></a>数组的内存图解3三个数组</h3><ul>
+<li>A:画图演示<ul>
+<li>三个数组，有两个数组的引用指向同一个地址</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707311854_241.png" alt=""></p>
+<p>new了几次就是在堆上创建了几个内存空间。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> [] arr3 =arr2; <span class="comment">//实际上是句柄（arr3），指向了arr2存储空间，通过赋给同一个地址来找到数据</span></div><div class="line">arr3=<span class="keyword">null</span>;</div><div class="line">arr2=<span class="keyword">null</span>;</div><div class="line"><span class="comment">//当都执行arr2,arr3=null的时候，没有任何句柄（引用）指向堆内存的对象的时候，堆里面的对象就会变成垃圾被被回收。</span></div><div class="line"><span class="comment">//当程序执行完以后，主方法弹栈，不存在回收的说法，用完就结束，等待下一个程序的main方法入栈。</span></div></pre></td></tr></table></figure>
+<h3 id="数组的初始化静态初始化及内存图"><a href="#数组的初始化静态初始化及内存图" class="headerlink" title="数组的初始化静态初始化及内存图"></a>数组的初始化静态初始化及内存图</h3><ul>
+<li>A:静态初始化的格式：<ul>
+<li>格式：数据类型[] 数组名 = new 数据类型[]{元素1,元素2,…};</li>
+<li>简化格式：<ul>
+<li>数据类型[] 数组名 = {元素1,元素2,…};</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>B:案例演示<ul>
+<li>对数组的解释</li>
+<li>输出数组名称和数组元素</li>
+</ul>
+</li>
+<li>C:画图演示<ul>
+<li>一个数组</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo3Array</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//int[] arr1 = new int[]&#123;1,2,3,4,5&#125;;		//静态初始化,一初始化就赋值,根据值的个数决定长度</span></div><div class="line">		<span class="comment">//int[] arr2 = &#123;1,2,3,4,5&#125;;					//静态初始化的简写形式,只能在一行定义</span></div><div class="line"></div><div class="line">		<span class="keyword">int</span>[] arr1;</div><div class="line">		arr1 = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</div><div class="line"></div><div class="line">		<span class="comment">/*</span></div><div class="line">		int[] arr2;									//这种静态初始化不允许先声明后赋值</div><div class="line">		arr2 = &#123;1,2,3,4,5&#125;;                         //非法的</div><div class="line">		</div><div class="line">		*/</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707311907_157.png" alt=""></p>
+<p>静态数组初始化的时候，会给一个默认值，int的就默认为0，String 默认为null，然后再进行赋值。</p>
+<h3 id="数组操作的两个常见小问题越界和空指针"><a href="#数组操作的两个常见小问题越界和空指针" class="headerlink" title="数组操作的两个常见小问题越界和空指针"></a>数组操作的两个常见小问题越界和空指针</h3><ul>
+<li>A:案例演示<ul>
+<li>a:ArrayIndexOutOfBoundsException:数组索引越界异常<ul>
+<li>原因：你访问了不存在的索引。</li>
+</ul>
+</li>
+<li>b:NullPointerException:空指针异常<ul>
+<li>原因：数组已经不在指向堆内存了。而你还用数组名去访问元素。</li>
+<li>int[] arr = {1,2,3};</li>
+<li>arr = null;</li>
+<li>System.out.println(arr[0]);</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo4Array</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span>[] arr1 = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</div><div class="line">		<span class="comment">//System.out.println(arr1[-1]);			//ArrayIndexOutOfBoundsException:数组索引越界异常。</span></div><div class="line">                                                <span class="comment">//定义的组数里面不存在这个索引</span></div><div class="line">		System.out.println(arr1);				<span class="comment">//[I@1afb7ac7 [代表以一维数组，I代表int地址，1afb7ac7代表一个地址值</span></div><div class="line">		arr1 = <span class="keyword">null</span>;							<span class="comment">//将数组赋值为null</span></div><div class="line">		System.out.println(arr1[<span class="number">0</span>]);			<span class="comment">//NullPointerException:空指针异常</span></div><div class="line">      <span class="comment">//句柄和实体之间的地址值被赋为了null，但又调用了数组，就会出现空指针异常。</span></div><div class="line">      <span class="comment">//System.out.println(arr1[]); 输出为null</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="数组的操作1遍历"><a href="#数组的操作1遍历" class="headerlink" title="数组的操作1遍历"></a>数组的操作1遍历</h3><ul>
+<li>A:案例演示<ul>
+<li>数组遍历：就是依次输出数组中的每一个元素。</li>
+<li>数组的属性:arr.length数组的长度</li>
+<li>数组的最大索引:arr.length - 1;</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo5Array</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</div><div class="line"></div><div class="line">		System.out.println(arr.length);			<span class="comment">//数组名.length代表数组的长度</span></div><div class="line">		<span class="comment">/*for (int x = 0;x &lt; 5 ;x++ ) &#123;</span></div><div class="line">			System.out.print(arr[x] + " ");</div><div class="line">		&#125;*/</div><div class="line"></div><div class="line">		<span class="comment">//arr.length;</span></div><div class="line"></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>;x &lt; arr.length ;x++ ) &#123;	<span class="comment">//一维数组的遍历操作</span></div><div class="line">			System.out.print(arr[x] + <span class="string">" "</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="数组的操作2获取最值"><a href="#数组的操作2获取最值" class="headerlink" title="数组的操作2获取最值"></a>数组的操作2获取最值</h3><ul>
+<li>A:案例演示<ul>
+<li>数组获取最值(获取数组中的最大值最小值)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo6Array</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span>[] arr = &#123;<span class="number">44</span>,<span class="number">55</span>,<span class="number">66</span>,<span class="number">33</span>,<span class="number">77</span>,<span class="number">11</span>&#125;;</div><div class="line">		<span class="keyword">int</span> max = getMax(arr);</div><div class="line">		System.out.println(max);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/*</span></div><div class="line">	获取数组中的最大值</div><div class="line">	1,明确返回值类型,int</div><div class="line">	2,明确参数列表,int[] arr</div><div class="line">	*/</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getMax</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> max = arr[<span class="number">0</span>];								<span class="comment">//定义变量记录住第一个位置的值</span></div><div class="line"></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>;x &lt; arr.length ;x++ ) &#123;			<span class="comment">//遍历数组,从第二个位置</span></div><div class="line">			<span class="keyword">if</span> (arr[x] &gt; max) &#123;							<span class="comment">//与max中的值比较,如果比max值大</span></div><div class="line">				max = arr[x];							<span class="comment">//将max中的值替换掉</span></div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> max;										<span class="comment">//将最大值返回</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="数组的操作3反转"><a href="#数组的操作3反转" class="headerlink" title="数组的操作3反转"></a>数组的操作3反转</h3><ul>
+<li>A:案例演示<ul>
+<li>数组元素反转(就是把元素对调)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo7Array</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span>[] arr = &#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>,<span class="number">55</span>&#125;;					<span class="comment">//0x0088</span></div><div class="line"></div><div class="line">		<span class="comment">/*for (int x = 0;x &lt; arr.length ;x++ ) &#123;			//正序遍历</span></div><div class="line">			System.out.println(arr[x]);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		for (int x = arr.length - 1;x &gt;= 0 ;x-- ) &#123;		//倒序遍历</div><div class="line">			System.out.println(arr[x]);</div><div class="line">		&#125;*/</div><div class="line"></div><div class="line">		revArray(arr);									<span class="comment">//对数组反转操作</span></div><div class="line">		print(arr);										<span class="comment">//遍历打印数组</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/*</span></div><div class="line">	将数组反转</div><div class="line">	1,返回值类型void</div><div class="line">	2,参数列表,int[] arr</div><div class="line">	*/</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">revArray</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;			<span class="comment">//arr = 0x0088</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>;x &lt; arr.length / <span class="number">2</span> ; x++) &#123;</div><div class="line">			<span class="keyword">int</span> temp = arr[x];</div><div class="line">			arr[x] = arr[arr.length-<span class="number">1</span>-x];</div><div class="line">			arr[arr.length-<span class="number">1</span>-x] = temp;</div><div class="line">		&#125;</div><div class="line">	&#125;													<span class="comment">//55,44,33,22,11</span></div><div class="line"></div><div class="line">	<span class="comment">/*</span></div><div class="line">	将数组打印</div><div class="line">	1,返回值类型void</div><div class="line">	2,参数列表,int[] arr</div><div class="line">	*/</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>;x &lt; arr.length ;x++ ) &#123;</div><div class="line">			System.out.print(arr[x] + <span class="string">" "</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707311940_10.png" alt=""></p>
+<h3 id="数组的操作4查表法"><a href="#数组的操作4查表法" class="headerlink" title="数组的操作4查表法"></a>数组的操作4查表法</h3><ul>
+<li>A:案例演示<ul>
+<li>数组查表法(根据键盘录入索引,查找对应星期)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo8Array</span> </span>&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	数组查表法(根据键盘录入索引,查找对应星期)</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);				<span class="comment">//创建键盘录入对象</span></div><div class="line">		System.out.println(<span class="string">"请输入对应的星期,输入的数值在1-7之间:"</span>);</div><div class="line">		<span class="keyword">int</span> week = sc.nextInt();</div><div class="line">		<span class="keyword">char</span> c = getWeek(week);</div><div class="line">		System.out.println(<span class="string">"今天是星期"</span> + c);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/*</span></div><div class="line">	获取星期对应的值</div><div class="line">	1,明确返回值类型char</div><div class="line">	2,明确参数列表int week</div><div class="line">	*/</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span> <span class="title">getWeek</span><span class="params">(<span class="keyword">int</span> week)</span> </span>&#123;					<span class="comment">//传入想要获取的星期</span></div><div class="line">		<span class="keyword">char</span>[] arr = &#123;<span class="string">' '</span>,<span class="string">'一'</span>,<span class="string">'二'</span>,<span class="string">'三'</span>,<span class="string">'四'</span>,<span class="string">'五'</span>,<span class="string">'六'</span>,<span class="string">'日'</span>&#125;;<span class="comment">//定义表</span></div><div class="line">		<span class="keyword">return</span> arr[week];									<span class="comment">//返回对应的星期</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="数组的操作5基本查找"><a href="#数组的操作5基本查找" class="headerlink" title="数组的操作5基本查找"></a>数组的操作5基本查找</h3><ul>
+<li>A:案例演示<ul>
+<li>数组元素查找(查找指定元素第一次在数组中出现的索引)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo9Array</span> </span>&#123;</div><div class="line">	<span class="comment">// 数组元素查找(查找指定元素第一次在数组中出现的索引)</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span>[] arr = &#123;<span class="number">44</span>,<span class="number">33</span>,<span class="number">55</span>,<span class="number">22</span>,<span class="number">11</span>,<span class="number">66</span>&#125;;</div><div class="line">		<span class="keyword">int</span> index = getIndex(<span class="number">22</span>,arr);</div><div class="line">		System.out.println(index);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/*</span></div><div class="line">	根据数组元素获取数组元素的索引</div><div class="line">	1,明确返回值类型int</div><div class="line">	2,明确参数列表,int key,int[] arr</div><div class="line">	*/</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getIndex</span><span class="params">(<span class="keyword">int</span> key,<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>;x &lt; arr.length ;x++ ) &#123;</div><div class="line">			<span class="keyword">if</span> (key == arr[x]) &#123;</div><div class="line">				<span class="keyword">return</span> x;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="二维数组概述和格式1的讲解"><a href="#二维数组概述和格式1的讲解" class="headerlink" title="二维数组概述和格式1的讲解"></a>二维数组概述和格式1的讲解</h3><ul>
+<li>A:二维数组概述</li>
+<li>B:二维数组格式1<ul>
+<li>int[][] arr = new int[3][2]; </li>
+</ul>
+</li>
+<li>C:二维数组格式1的解释</li>
+<li>D:注意事项<ul>
+<li>a:以下格式也可以表示二维数组<ul>
+<li>1:数据类型 数组名[][] = new 数据类型[m][n];</li>
+<li>2:数据类型[] 数组名[] = new 数据类型[m][n];</li>
+</ul>
+</li>
+<li>B:注意下面定义的区别</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">int</span> x;</div><div class="line"><span class="keyword">int</span> y;</div><div class="line"><span class="keyword">int</span> x,y;</div><div class="line"></div><div class="line"><span class="keyword">int</span>[] x; <span class="comment">//一维数组</span></div><div class="line"><span class="keyword">int</span>[] y[]; <span class="comment">//二维数组</span></div><div class="line"></div><div class="line"><span class="keyword">int</span>[] x,y[];	<span class="comment">//x是一维数组,y是二维数组</span></div></pre></td></tr></table></figure>
+<ul>
+<li>E:案例演示<ul>
+<li>定义二维数组，输出二维数组名称，一维数组名称，一个元素</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo1Array</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> x = <span class="number">10</span>;</div><div class="line">		<span class="keyword">int</span>[] arr1 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];			<span class="comment">//一维数组</span></div><div class="line">		<span class="keyword">int</span>[][] arr2 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>][<span class="number">3</span>];		<span class="comment">//二维数组</span></div><div class="line">		<span class="comment">/*</span></div><div class="line">		二维数组</div><div class="line">		这是一个二维数组</div><div class="line">		这个二维数组中有五个一维数组</div><div class="line">		每个一维数组中有三个元素</div><div class="line">		*/</div><div class="line">		<span class="keyword">int</span>[][][] arr3 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>][<span class="number">4</span>][<span class="number">5</span>];</div><div class="line">		<span class="comment">/*</span></div><div class="line">		这是一个三维数组</div><div class="line">		这个三维数组中有3个二维数组</div><div class="line">		每个二维数组中有4个一维数组</div><div class="line">		每个一维数组中有5个元素</div><div class="line">		*/</div><div class="line"></div><div class="line">		<span class="comment">/*</span></div><div class="line">		* 1:数据类型 数组名[][] = new 数据类型[m][n];</div><div class="line">		* 2:数据类型[] 数组名[] = new 数据类型[m][n];</div><div class="line">		*/</div><div class="line"></div><div class="line">		<span class="keyword">int</span> arr4 [][] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>][<span class="number">4</span>];</div><div class="line">		<span class="keyword">int</span>[] arr5 [] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>][<span class="number">6</span>];</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo2Array</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span>[][] arr1 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>][<span class="number">2</span>];</div><div class="line"></div><div class="line">		System.out.println(arr1);				<span class="comment">//代表二维数组 //存了一个地址值</span></div><div class="line">		System.out.println(arr1[<span class="number">0</span>]);			<span class="comment">//代表二维数组中第一个一维数组 /存了一个地址</span></div><div class="line">		System.out.println(arr1[<span class="number">0</span>][<span class="number">0</span>]);			<span class="comment">//代表二维数组中第一个一维数组中的第一个元素</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">a00</th>
+<th style="text-align:center">a01</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">a10</td>
+<td style="text-align:center">a11</td>
+</tr>
+<tr>
+<td style="text-align:center">a20</td>
+<td style="text-align:center">a21</td>
+</tr>
+</tbody>
+</table>
+<h3 id="二维数组格式1的内存图解"><a href="#二维数组格式1的内存图解" class="headerlink" title="二维数组格式1的内存图解"></a>二维数组格式1的内存图解</h3><ul>
+<li>A:画图演示<ul>
+<li>画图讲解上面的二维数组名称，一维数组名称，一个元素的值的问题</li>
+</ul>
+</li>
+</ul>
+<p>一维数组，是引用数组类型。</p>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707312021_285.png" alt=""></p>
+<p><strong>注意：</strong></p>
+<p>一维数组本身就是一种引用类型。</p>
+<p>二维数组int [3][2]的形式，相当于创建了三个元素为2的一维数组。</p>
+<p>通过给地址的方法，给句柄赋值0x0011 找到三个一维数组的存储位置，再通过三个以为数组里面存储的地址找到定位到每个元素的值。</p>
+<h3 id="二维数组格式2的讲解及其内存图解"><a href="#二维数组格式2的讲解及其内存图解" class="headerlink" title="二维数组格式2的讲解及其内存图解"></a>二维数组格式2的讲解及其内存图解</h3><ul>
+<li>A:二维数组格式2<ul>
+<li>int[][] arr = new int[3][];没指定一维数组长度</li>
+</ul>
+</li>
+<li>B:二维数组格式2的解释</li>
+<li>C:案例演示<ul>
+<li>讲解格式，输出数据，并画内存图</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo3Array</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//int[][] arr = new int[3][2];				//第一种格式</span></div><div class="line">		<span class="keyword">int</span>[][] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>][];					<span class="comment">//第二种格式</span></div><div class="line">		arr[<span class="number">0</span>] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>]; <span class="comment">//初始化一维数组的长度，更加灵活</span></div><div class="line">		arr[<span class="number">1</span>] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">6</span>];</div><div class="line">		arr[<span class="number">2</span>] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">7</span>];</div><div class="line">		System.out.println(arr[<span class="number">0</span>]);<span class="comment">//打印出地址值</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707312051_209.png" alt=""></p>
+<h3 id="二维数组格式3的讲解及其内存图解"><a href="#二维数组格式3的讲解及其内存图解" class="headerlink" title="二维数组格式3的讲解及其内存图解"></a>二维数组格式3的讲解及其内存图解</h3><ul>
+<li><p>A:二维数组格式3;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int arr =&#123;&#123;1,2,3&#125;,&#123;4,5&#125;,&#123;6,7,8,9&#125;&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>B:二维数组格式3的解释</p>
+</li>
+<li><p>C:案例演示</p>
+<ul>
+<li>讲解格式，输出数据，并画内存图</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://ogtmd8elu.bkt.clouddn.com/201707312321_980.png" alt=""></p>
+<h3 id="二维数组练习1遍历"><a href="#二维数组练习1遍历" class="headerlink" title="二维数组练习1遍历"></a>二维数组练习1遍历</h3><ul>
+<li>A:案例演示<ul>
+<li>需求：二维数组遍历</li>
+<li>外循环控制的是二维数组的长度，其实就是一维数组的个数。</li>
+<li>内循环控制的是一维数组的长度。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo4Array</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span>[][] arr = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">4</span>,<span class="number">5</span>&#125;,&#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;&#125;;		<span class="comment">//二维数组的第三种格式</span></div><div class="line"></div><div class="line">		<span class="comment">//System.out.println(arr.length);				//代表一维数组的个数</span></div><div class="line">		<span class="comment">//二维数组的遍历</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>;x &lt; arr.length ;x++ ) &#123;			<span class="comment">//外层循环获取到每一个一维数组</span></div><div class="line">			<span class="comment">//arr[x]  arr[0] arr[1] arr[2]</span></div><div class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>;y &lt; arr[x].length ;y++ ) &#123;</div><div class="line">				System.out.print(arr[x][y] + <span class="string">" "</span>);</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			System.out.println();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="二维数组练习2求和"><a href="#二维数组练习2求和" class="headerlink" title="二维数组练习2求和"></a>二维数组练习2求和</h3><ul>
+<li>A:案例演示</li>
+<li> 需求：公司年销售额求和<pre><code>某公司按照季度和月份统计的数据如下：单位(万元)
+第一季度：22,66,44
+第二季度：77,33,88
+第三季度：25,45,65
+第四季度：11,66,99
+</code></pre></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1Array</span> </span>&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	需求：公司年销售额求和</div><div class="line">		某公司按照季度和月份统计的数据如下：单位(万元)</div><div class="line">		第一季度：22,66,44</div><div class="line">		第二季度：77,33,88</div><div class="line">		第三季度：25,45,65</div><div class="line">		第四季度：11,66,99</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span>[][] arr = &#123;&#123;<span class="number">22</span>,<span class="number">66</span>,<span class="number">44</span>&#125;,&#123;<span class="number">77</span>,<span class="number">33</span>,<span class="number">88</span>&#125;,&#123;<span class="number">25</span>,<span class="number">45</span>,<span class="number">65</span>&#125;,&#123;<span class="number">11</span>,<span class="number">66</span>,<span class="number">99</span>&#125;&#125;;</div><div class="line">		</div><div class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;									<span class="comment">//声明一个变量,进行累加操作</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>;x &lt; arr.length ;x++ ) &#123;</div><div class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>;y &lt; arr[x].length ;y++ ) &#123;</div><div class="line">				sum = sum + arr[x][y];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		System.out.println(sum);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="思考题Java中的参数传递问题及图解"><a href="#思考题Java中的参数传递问题及图解" class="headerlink" title="思考题Java中的参数传递问题及图解"></a>思考题Java中的参数传递问题及图解</h3><ul>
+<li>A:案例演示</li>
+<li> 看程序写结果，并画内存图解释 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">	<span class="keyword">int</span> a = <span class="number">10</span>;</div><div class="line">	<span class="keyword">int</span> b = <span class="number">20</span>;</div><div class="line">	System.out.println(<span class="string">"a:"</span>+a+<span class="string">",b:"</span>+b);</div><div class="line">	change(a,b);</div><div class="line">	System.out.println(<span class="string">"a:"</span>+a+<span class="string">",b:"</span>+b);</div><div class="line"></div><div class="line">	<span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</div><div class="line">	change(arr);</div><div class="line">	System.out.println(arr[<span class="number">1</span>]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">	System.out.println(<span class="string">"a:"</span>+a+<span class="string">",b:"</span>+b);</div><div class="line">	a = b;</div><div class="line">	b = a + b;</div><div class="line">	System.out.println(<span class="string">"a:"</span>+a+<span class="string">",b:"</span>+b);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> x=<span class="number">0</span>; x&lt;arr.length; x++) &#123;</div><div class="line">		<span class="keyword">if</span>(arr[x]%<span class="number">2</span>==<span class="number">0</span>) &#123;</div><div class="line">			arr[x]*=<span class="number">2</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="野望 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎订阅我的个人微信技术博客。</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://ogtmd8elu.bkt.clouddn.com/WechatPay-min.png" alt="野望 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://ogtmd8elu.bkt.clouddn.com/pay-min.jpg" alt="野望 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/J2SE/" rel="tag"># J2SE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/27/Java学习笔记整理（16）/" rel="next" title="Java学习笔记整理（16）">
+                <i class="fa fa-chevron-left"></i> Java学习笔记整理（16）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/01/Java学习笔记整理（17）/" rel="prev" title="Java学习笔记整理（17）">
+                Java学习笔记整理（17） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="野望" />
+          <p class="site-author-name" itemprop="name">野望</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuili" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yan-hui-jun" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      知乎
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/5800502ca0bb9f00586674c8" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      掘金
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/6043346/archer" target="_blank" title="StackOverFlow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      StackOverFlow
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/yanhui" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      segmentfault
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.0xaa55.com/" title="技术宅的结界" target="_blank">技术宅的结界</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组概述和定义格式说明"><span class="nav-number">1.</span> <span class="nav-text">数组概述和定义格式说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的初始化动态初始化"><span class="nav-number">2.</span> <span class="nav-text">数组的初始化动态初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java中的内存分配以及栈和堆的区别"><span class="nav-number">3.</span> <span class="nav-text">Java中的内存分配以及栈和堆的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的内存图解1一个数组"><span class="nav-number">4.</span> <span class="nav-text">数组的内存图解1一个数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的内存图解2二个数组"><span class="nav-number">5.</span> <span class="nav-text">数组的内存图解2二个数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的内存图解3三个数组"><span class="nav-number">6.</span> <span class="nav-text">数组的内存图解3三个数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的初始化静态初始化及内存图"><span class="nav-number">7.</span> <span class="nav-text">数组的初始化静态初始化及内存图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组操作的两个常见小问题越界和空指针"><span class="nav-number">8.</span> <span class="nav-text">数组操作的两个常见小问题越界和空指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的操作1遍历"><span class="nav-number">9.</span> <span class="nav-text">数组的操作1遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的操作2获取最值"><span class="nav-number">10.</span> <span class="nav-text">数组的操作2获取最值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的操作3反转"><span class="nav-number">11.</span> <span class="nav-text">数组的操作3反转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的操作4查表法"><span class="nav-number">12.</span> <span class="nav-text">数组的操作4查表法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的操作5基本查找"><span class="nav-number">13.</span> <span class="nav-text">数组的操作5基本查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二维数组概述和格式1的讲解"><span class="nav-number">14.</span> <span class="nav-text">二维数组概述和格式1的讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二维数组格式1的内存图解"><span class="nav-number">15.</span> <span class="nav-text">二维数组格式1的内存图解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二维数组格式2的讲解及其内存图解"><span class="nav-number">16.</span> <span class="nav-text">二维数组格式2的讲解及其内存图解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二维数组格式3的讲解及其内存图解"><span class="nav-number">17.</span> <span class="nav-text">二维数组格式3的讲解及其内存图解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二维数组练习1遍历"><span class="nav-number">18.</span> <span class="nav-text">二维数组练习1遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二维数组练习2求和"><span class="nav-number">19.</span> <span class="nav-text">二维数组练习2求和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考题Java中的参数传递问题及图解"><span class="nav-number">20.</span> <span class="nav-text">思考题Java中的参数传递问题及图解</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">野望</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260855711&web_id=1260855711" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://ArcherBlog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yanhuili.github.io/2017/08/01/Java学习笔记整理（5）/';
+          this.page.identifier = '2017/08/01/Java学习笔记整理（5）/';
+          this.page.title = 'Java学习笔记整理（5）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ArcherBlog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("kzNRGot5tLJKONL4cUBsHljH-gzGzoHsz", "MbcqFd5NNWtLdqES7fSrWn0y");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
