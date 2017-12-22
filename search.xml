@@ -9,7 +9,7 @@
       <content type="html"><![CDATA[<hr>
 <p>老妈病情相关记录。</p>
 <a id="more"></a>
-<h3 id="12月21日"><a href="#12月21日" class="headerlink" title="12月21日"></a>12月21日</h3><table>
+<h3 id="12月23日"><a href="#12月23日" class="headerlink" title="12月23日"></a>12月23日</h3><table>
 <thead>
 <tr>
 <th style="text-align:center">12月19日</th>
@@ -91,6 +91,183 @@
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="12月22日"><a href="#12月22日" class="headerlink" title="12月22日"></a>12月22日</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">12月19日</th>
+<th style="text-align:center">胰岛素</th>
+<th style="text-align:center">就餐时间</th>
+<th style="text-align:center">2h血糖</th>
+<th style="text-align:center">氧保</th>
+<th>心率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">早</td>
+<td style="text-align:center">门14</td>
+<td style="text-align:center">09：34</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">70</td>
+<td>130</td>
+</tr>
+<tr>
+<td style="text-align:center">中</td>
+<td style="text-align:center">门14</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">晚</td>
+<td style="text-align:center">门14</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">睡前</td>
+<td style="text-align:center">甘16</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">70</td>
+<td>123</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">抗结核药物</th>
+<th style="text-align:center">激素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">吃</td>
+<td style="text-align:center">六颗（第一天）</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">体温</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">38.0-38.6℃（可能是有感冒，有待观察） 37.1℃（22：15 服用感冒清）</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">空腹血糖</th>
+<th style="text-align:center">睡前血糖</th>
+<th style="text-align:center">肚皮针</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">14.8mol</td>
+<td style="text-align:center">16.5</td>
+<td style="text-align:center">早，晚</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="12月21日"><a href="#12月21日" class="headerlink" title="12月21日"></a>12月21日</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">12月19日</th>
+<th style="text-align:center">胰岛素</th>
+<th style="text-align:center">就餐时间</th>
+<th style="text-align:center">2h血糖</th>
+<th style="text-align:center">氧保</th>
+<th>心率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">早</td>
+<td style="text-align:center">门14</td>
+<td style="text-align:center">09：15</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">80</td>
+<td>120</td>
+</tr>
+<tr>
+<td style="text-align:center">中</td>
+<td style="text-align:center">门14</td>
+<td style="text-align:center">12：00</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">85</td>
+<td>120</td>
+</tr>
+<tr>
+<td style="text-align:center">晚</td>
+<td style="text-align:center">门14</td>
+<td style="text-align:center">18：00</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">睡前</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">抗结核药物</th>
+<th style="text-align:center">激素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">服用</td>
+<td style="text-align:center">七颗（第五天）</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">体温</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">6.6℃(09:30)   37.1℃（14：30） 37.6℃（17:30）</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">空腹血糖</th>
+<th style="text-align:center">睡前血糖</th>
+<th style="text-align:center">肚皮针</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">15.9mol</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">早，</td>
 </tr>
 </tbody>
 </table>
@@ -269,6 +446,92 @@
 <tr>
 <td style="text-align:center">16.8mol</td>
 <td style="text-align:center">16.0mol</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="12月23日-1"><a href="#12月23日-1" class="headerlink" title="12月23日"></a>12月23日</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">12月19日</th>
+<th style="text-align:center">胰岛素</th>
+<th style="text-align:center">就餐时间</th>
+<th style="text-align:center">2h血糖</th>
+<th style="text-align:center">氧保</th>
+<th>心率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">早</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">中</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">晚</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">睡前</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">抗结核药物</th>
+<th style="text-align:center">激素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">体温</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">空腹血糖</th>
+<th style="text-align:center">睡前血糖</th>
+<th style="text-align:center">肚皮针</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
 </tr>
 </tbody>
 </table>
